@@ -27,12 +27,14 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
   body {
     font-family: 'Jost', sans-serif;
     background: var(--cream);
     color: var(--text-body);
     overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
   }
 
   /* ── NAV ── */
@@ -71,6 +73,7 @@
     display: flex; align-items: center;
     padding: 140px 60px 80px;
     overflow: hidden;
+    width: 100%;
   }
   .hero-bg {
     position: absolute; inset: 0; z-index: 0;
@@ -572,10 +575,12 @@
     .nav-links { display: none !important; }
     .hamburger { display: flex !important; }
     .mobile-menu { display: block !important; }
-    section { padding: 72px 24px; }
-    .hero { padding: 120px 24px 60px; }
-    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    section { padding: 72px 24px; width: 100%; }
+    .hero { padding: 120px 24px 60px; width: 100%; min-height: 100svh; }
+    .hero-grid { grid-template-columns: 1fr; gap: 0; width: 100%; }
     .hero-right { display: none; }
+    .hero-headline { font-size: clamp(40px, 10vw, 60px); }
+    .container { width: 100%; padding: 0; }
     .pain-grid { grid-template-columns: 1fr; }
     .truth-inner { grid-template-columns: 1fr; gap: 48px; }
     .free-grid { grid-template-columns: 1fr 1fr; }
@@ -590,13 +595,17 @@
     .founder-section { padding: 72px 24px; }
     .founder-grid { grid-template-columns: 1fr; gap: 48px; }
     .founder-right { position: static; }
-    .founder-portrait-wrap { height: 340px; }
-    .vbreak { height: 320px; }
-    .vbreak-left { height: 280px; padding-left: 24px; }
-    .vbreak-closing { height: 420px; }
+    .founder-portrait-wrap { height: 320px; }
+    .vbreak { height: 300px; }
+    .vbreak-left { height: 260px; padding-left: 24px; }
+    .vbreak-closing { height: 380px; }
+    .vbreak-closing-text { font-size: clamp(32px, 8vw, 52px); }
+    .vbreak-left-text { font-size: clamp(32px, 8vw, 52px); }
     footer { flex-direction: column; padding: 40px 24px; text-align: center; }
     .footer-links { justify-content: center; }
     .cta-section { padding: 80px 24px; }
+    /* Fix Elevation Day promo on mobile */
+    .elevation-promo-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
   }
 </style>
 </head>
@@ -1083,7 +1092,7 @@
 
 <!-- ELEVATION DAY PROMO BANNER -->
 <section style="background:var(--dark); padding:80px 60px;">
-  <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;">
+  <div class="elevation-promo-grid" style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;">
     <div>
       <div style="display:inline-block; background:rgba(234,246,165,0.1); border:1px solid rgba(234,246,165,0.3); font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--lime); padding:6px 18px; margin-bottom:24px;">New · Limited Spots</div>
       <h2 style="font-family:'Cormorant Garamond',serif; font-size:clamp(36px,4vw,52px); font-weight:500; color:var(--white); line-height:1.15; margin-bottom:20px;">The <em style="color:var(--lime); font-style:italic;">Elevation Day™</em></h2>
