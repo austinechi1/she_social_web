@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Elevation Day™ — S.H.E. Social</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --lime:        #EAF6A5;
+    --lime-hover:  #d6ee70;
+    --lime-pale:   #f5fdd8;
+    --lav:         #9E94F5;
+    --lav-end:     #BD9DF0;
+    --lav-soft:    #D4C2FF;
+    --lav-faint:   #EEEAFF;
+    --purple:      #8E50BF;
+    --cream:       #F9F5F1;
+    --white:       #FFFFFF;
+    --grad:        linear-gradient(180deg, #9E94F5 0%, #BD9DF0 100%);
+    --grad-h:      linear-gradient(135deg, #9E94F5 0%, #BD9DF0 100%);
+    --text-dark:   #2A1550;
+    --text-body:   #4B3270;
+    --text-soft:   #7A63A0;
+    --text-pale:   #B09FCA;
+    --dark:        #2A1550;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--text-body); overflow-x: hidden; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 0 60px; height: 76px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--purple);
+    border-bottom: 1px solid rgba(234,246,165,0.2);
+    box-shadow: 0 2px 24px rgba(42,21,80,0.2);
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--white); text-decoration: none; letter-spacing: 0.04em; }
+  .nav-logo span { color: var(--lime); font-style: italic; }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a { color: var(--lav-faint); font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--lime); }
+  .nav-cta { background: transparent; border: 1px solid var(--lime); color: var(--lime) !important; padding: 10px 24px; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: all 0.3s !important; }
+  .nav-cta:hover { background: var(--lime) !important; color: var(--dark) !important; }
+
+  /* ── HAMBURGER ── */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--lime); transition: all 0.3s; transform-origin: center; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu { display: none; position: fixed; top: 76px; left: 0; right: 0; z-index: 99; background: var(--dark); border-bottom: 1px solid rgba(234,246,165,0.15); padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; }
+  .mobile-menu.open { max-height: 500px; padding: 16px 0 24px; }
+  .mobile-menu a { display: block; padding: 14px 28px; color: var(--lav-faint); font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.05); transition: color 0.3s, background 0.3s; }
+  .mobile-menu a:hover { color: var(--lime); background: rgba(234,246,165,0.04); }
+  .mobile-menu .mobile-cta { margin: 16px 28px 0; display: block; text-align: center; background: transparent; border: 1px solid var(--lime); color: var(--lime) !important; padding: 13px 24px; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; border-bottom: 1px solid var(--lime) !important; }
+  .mobile-menu .mobile-cta:hover { background: var(--lime) !important; color: var(--dark) !important; }
+
+  /* ── BUTTONS ── */
+  .btn-primary { background: var(--lime); color: var(--dark); padding: 16px 36px; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s; display: inline-block; }
+  .btn-primary:hover { background: var(--lime-hover); transform: translateY(-2px); }
+  .btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.3); padding: 16px 36px; font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: all 0.3s; display: inline-block; }
+  .btn-outline:hover { border-color: var(--lime); color: var(--lime); }
+
+  /* ── HERO ── */
+  .hero { min-height: 100vh; position: relative; display: flex; align-items: center; padding: 140px 60px 100px; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; z-index: 0; }
+  .hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+  .hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(42,21,80,0.92) 0%, rgba(142,80,191,0.75) 100%); }
+  .hero-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; width: 100%; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .hero-eyebrow-line { width: 40px; height: 1px; background: var(--lime); }
+  .hero-eyebrow-text { font-size: 11px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lime); }
+  .hero-tag { display: inline-block; background: rgba(234,246,165,0.12); border: 1px solid rgba(234,246,165,0.35); border-radius: 2px; font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); padding: 6px 18px; margin-bottom: 20px; }
+  .hero-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(52px, 5.5vw, 78px); font-weight: 500; line-height: 1.06; color: var(--white); margin-bottom: 28px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+  .hero-headline em { font-style: italic; color: var(--lime); }
+  .hero-subhead { font-size: 16px; font-weight: 300; line-height: 1.85; color: var(--lav-faint); margin-bottom: 16px; max-width: 500px; }
+  .hero-subhead strong { color: var(--white); font-weight: 500; }
+  .hero-divider { width: 48px; height: 1px; background: var(--lime); margin: 28px 0; }
+  .hero-details { display: flex; gap: 32px; margin-bottom: 44px; }
+  .hero-detail { display: flex; flex-direction: column; gap: 4px; }
+  .hero-detail-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-pale); }
+  .hero-detail-value { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--white); }
+  .hero-detail-value.lime { color: var(--lime); }
+  .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  /* Hero card */
+  .hero-card { background: rgba(158,148,245,0.18); border: 1px solid rgba(234,246,165,0.2); backdrop-filter: blur(20px); padding: 36px; }
+  .hero-card-img { width: 100%; height: 220px; object-fit: cover; object-position: center; display: block; margin-bottom: 24px; opacity: 0.88; }
+  .hero-card-quote { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-style: italic; color: var(--white); line-height: 1.65; margin-bottom: 20px; }
+  .hero-card-quote::before { content: '\201C'; color: var(--lime); font-size: 40px; line-height: 0; vertical-align: -14px; margin-right: 2px; }
+  .hero-card-attr { font-size: 11px; color: rgba(234,246,165,0.55); font-weight: 300; letter-spacing: 0.06em; }
+  .hero-spots { margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(234,246,165,0.15); display: flex; align-items: center; justify-content: space-between; }
+  .spots-label { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+  .spots-count { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 600; color: var(--lime); }
+  .spots-sub { font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+
+  /* Hero animations */
+  .hero-content > * { animation: fadeUp 0.8s ease forwards; opacity: 0; }
+  .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-content > *:nth-child(2) { animation-delay: 0.25s; }
+  .hero-content > *:nth-child(3) { animation-delay: 0.4s; }
+  .hero-content > *:nth-child(4) { animation-delay: 0.55s; }
+  .hero-content > *:nth-child(5) { animation-delay: 0.7s; }
+  .hero-right { animation: fadeUp 0.8s ease 0.5s forwards; opacity: 0; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ── SHARED ── */
+  section { padding: 100px 60px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+  .section-eyebrow-line { width: 32px; height: 1px; background: var(--lime); }
+  .section-eyebrow-text { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lav); }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4vw, 56px); font-weight: 500; line-height: 1.15; color: var(--text-dark); margin-bottom: 20px; }
+  .section-title.light { color: var(--white); }
+  .section-title em { font-style: italic; color: var(--lav); }
+  .section-title.light em { color: var(--lime); }
+  .section-body { font-size: 16px; font-weight: 300; line-height: 1.85; color: var(--text-soft); max-width: 600px; }
+  .section-body.light { color: var(--lav-faint); }
+
+  /* ── PAIN ── */
+  .pain-section { background: var(--white); }
+  .pain-intro { text-align: center; max-width: 720px; margin: 0 auto 72px; }
+  .pain-intro .section-body { margin: 20px auto 0; }
+  .pain-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+  .pain-card { background: var(--cream); padding: 44px 36px; position: relative; transition: all 0.4s; cursor: default; }
+  .pain-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--grad); transition: height 0.4s; }
+  .pain-card:hover { background: var(--white); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(42,21,80,0.08); }
+  .pain-card:hover::before { height: 100%; }
+  .pain-number { font-family: 'Cormorant Garamond', serif; font-size: 60px; font-weight: 300; color: var(--lav); line-height: 1; margin-bottom: 20px; opacity: 0.4; }
+  .pain-card-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--text-dark); margin-bottom: 16px; line-height: 1.3; }
+  .pain-card-body { font-size: 14px; font-weight: 300; line-height: 1.8; color: var(--text-soft); }
+  .pain-card-body strong { color: var(--text-dark); font-weight: 500; }
+
+  /* ── VISUAL BREAK ── */
+  .vbreak { width: 100%; height: 420px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .vbreak img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+  .vbreak-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(42,21,80,0.82) 0%, rgba(158,148,245,0.5) 100%); }
+  .vbreak-text { position: relative; z-index: 2; font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 4vw, 54px); color: var(--white); font-style: italic; text-align: center; line-height: 1.3; text-shadow: 0 2px 10px rgba(0,0,0,0.3); max-width: 800px; padding: 0 40px; }
+  .vbreak-text em { color: var(--lime); }
+
+  /* ── HOW IT WORKS ── */
+  .how-section { background: var(--dark); }
+  .how-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .how-steps { margin-top: 52px; display: flex; flex-direction: column; }
+  .how-step { display: grid; grid-template-columns: 52px 1fr; gap: 24px; align-items: start; padding: 32px 0; border-bottom: 1px solid rgba(255,255,255,0.06); transition: all 0.3s; cursor: default; }
+  .how-step:first-child { padding-top: 0; }
+  .how-step:last-child { border-bottom: none; }
+  .how-step:hover .step-num-wrap { border-color: var(--lime); }
+  .step-num-wrap { width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(158,148,245,0.4); display: flex; align-items: center; justify-content: center; transition: border-color 0.3s; flex-shrink: 0; margin-top: 2px; }
+  .step-num { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--lime); }
+  .step-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lav); margin-bottom: 8px; }
+  .step-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; color: var(--white); margin-bottom: 12px; line-height: 1.2; }
+  .step-desc { font-size: 14px; font-weight: 300; line-height: 1.8; color: var(--lav-faint); }
+  .how-right { position: sticky; top: 120px; }
+  .how-right-img { width: 100%; height: 340px; object-fit: cover; object-position: center; display: block; }
+  .how-right-card { background: rgba(158,148,245,0.12); border: 1px solid rgba(234,246,165,0.15); padding: 36px; }
+  .how-right-card-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; color: var(--white); margin-bottom: 20px; line-height: 1.2; }
+  .how-right-card-title em { color: var(--lime); font-style: italic; }
+  .deliverable-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .deliverable-list li { display: flex; align-items: flex-start; gap: 14px; font-size: 14px; font-weight: 300; color: var(--lav-faint); line-height: 1.5; }
+  .deliverable-list li::before { content: ''; display: block; width: 16px; height: 1px; background: var(--lime); flex-shrink: 0; margin-top: 11px; }
+  .deliverable-list li strong { color: var(--white); font-weight: 500; }
+
+  /* ── INVESTMENT ── */
+  .invest-section { background: var(--cream); }
+  .invest-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .invest-price-block { margin-top: 40px; background: var(--white); border: 1px solid rgba(158,148,245,0.2); padding: 48px; position: relative; overflow: hidden; }
+  .invest-price-block::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--grad-h); }
+  .invest-price-tag { display: inline-block; background: var(--lav-faint); font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--purple); padding: 5px 16px; margin-bottom: 24px; }
+  .invest-amount { font-family: 'Cormorant Garamond', serif; font-size: 72px; font-weight: 600; color: var(--text-dark); line-height: 1; margin-bottom: 8px; }
+  .invest-amount span { font-size: 32px; color: var(--text-soft); }
+  .invest-note { font-size: 13px; font-weight: 300; color: var(--text-soft); margin-bottom: 32px; }
+  .invest-includes { display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+  .invest-item { display: flex; align-items: center; gap: 14px; font-size: 14px; font-weight: 300; color: var(--text-body); }
+  .invest-item::before { content: ''; display: block; width: 20px; height: 1px; background: linear-gradient(90deg, var(--lav) 0%, var(--lav-end) 100%); flex-shrink: 0; }
+  .invest-item strong { color: var(--text-dark); font-weight: 500; }
+  .invest-spots { display: flex; align-items: center; gap: 20px; padding: 20px 24px; background: var(--cream); margin-bottom: 28px; }
+  .invest-spots-num { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 600; color: var(--purple); }
+  .invest-spots-text { font-size: 13px; font-weight: 300; color: var(--text-soft); line-height: 1.5; }
+  .invest-spots-text strong { color: var(--text-dark); font-weight: 500; display: block; }
+  .invest-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px,3vw,42px); font-weight: 500; line-height: 1.3; color: var(--text-dark); margin-bottom: 32px; }
+  .invest-quote em { color: var(--lav); font-style: italic; }
+  .pipeline-card { background: var(--dark); padding: 40px; position: relative; overflow: hidden; }
+  .pipeline-card::before { content: ''; position: absolute; top: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(158,148,245,0.08); }
+  .pipeline-card-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lime); margin-bottom: 16px; }
+  .pipeline-card-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; color: var(--white); margin-bottom: 16px; line-height: 1.3; }
+  .pipeline-card-body { font-size: 14px; font-weight: 300; color: var(--lav-faint); line-height: 1.8; }
+  .pipeline-card-body strong { color: var(--white); font-weight: 500; }
+
+  /* ── FOR YOU ── */
+  .for-section { background: var(--white); }
+  .for-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .for-cards { display: flex; flex-direction: column; gap: 2px; margin-top: 48px; }
+  .for-card { background: var(--cream); padding: 32px 36px; position: relative; transition: all 0.4s; border-left: 3px solid transparent; }
+  .for-card.yes { border-left-color: var(--lav); }
+  .for-card.yes:hover { background: var(--white); transform: translateX(4px); box-shadow: 0 12px 40px rgba(42,21,80,0.06); }
+  .for-card-type { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lav); margin-bottom: 10px; }
+  .for-card-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--text-dark); margin-bottom: 10px; line-height: 1.3; }
+  .for-card-body { font-size: 14px; font-weight: 300; line-height: 1.75; color: var(--text-soft); }
+  .for-right { padding-top: 48px; }
+  .for-img { width: 100%; height: 320px; object-fit: cover; object-position: center; display: block; margin-bottom: 32px; }
+  .for-pullquote { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-style: italic; color: var(--text-dark); line-height: 1.5; padding-left: 24px; border-left: 3px solid var(--lime); }
+  .for-pullquote em { color: var(--lav); }
+
+  /* ── FAQ ── */
+  .faq-section { background: var(--dark); }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .faq-list { margin-top: 52px; }
+  .faq-item { border-bottom: 1px solid rgba(255,255,255,0.07); overflow: hidden; }
+  .faq-btn { width: 100%; background: none; border: none; cursor: pointer; padding: 24px 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; text-align: left; }
+  .faq-q { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: var(--white); line-height: 1.3; }
+  .faq-icon { width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(234,246,165,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.3s; font-size: 18px; color: var(--lime); font-weight: 300; line-height: 1; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); border-color: var(--lime); }
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; font-size: 14px; font-weight: 300; color: var(--lav-faint); line-height: 1.85; }
+  .faq-item.open .faq-answer { max-height: 300px; padding-bottom: 24px; }
+  .faq-answer strong { color: var(--white); font-weight: 500; }
+  .faq-right { position: sticky; top: 120px; }
+  .faq-right-card { background: rgba(158,148,245,0.12); border: 1px solid rgba(234,246,165,0.15); padding: 44px; }
+  .faq-right-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 500; color: var(--white); line-height: 1.2; margin-bottom: 20px; }
+  .faq-right-title em { color: var(--lime); font-style: italic; }
+  .faq-right-body { font-size: 14px; font-weight: 300; color: var(--lav-faint); line-height: 1.8; margin-bottom: 32px; }
+  .faq-right-body strong { color: var(--white); font-weight: 500; }
+  .faq-right-detail { display: flex; flex-direction: column; gap: 16px; margin-bottom: 36px; }
+  .faq-right-item { display: flex; flex-direction: column; gap: 3px; }
+  .faq-right-item-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-pale); }
+  .faq-right-item-value { font-size: 16px; font-weight: 400; color: var(--white); }
+
+  /* ── CTA ── */
+  .cta-section { background: var(--purple); padding: 120px 60px; text-align: center; position: relative; overflow: hidden; }
+  .cta-section::before { content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; border-radius: 50%; background: rgba(234,246,165,0.04); }
+  .cta-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+  .cta-eyebrow { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+  .cta-eyebrow-line { width: 32px; height: 1px; background: var(--lime); }
+  .cta-eyebrow-text { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lime); }
+  .cta-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px,5vw,64px); font-weight: 500; line-height: 1.1; color: var(--white); margin-bottom: 24px; }
+  .cta-title em { color: var(--lime); font-style: italic; }
+  .cta-body { font-size: 16px; font-weight: 300; line-height: 1.8; color: var(--lav-faint); margin-bottom: 48px; }
+  .cta-body strong { color: var(--white); font-weight: 500; }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+  .cta-fine { font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.35); letter-spacing: 0.06em; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--dark); padding: 48px 60px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; border-top: 1px solid rgba(234,246,165,0.08); }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+  .footer-logo span { color: var(--lime); }
+  .footer-tagline { font-size: 10px; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-pale); }
+  .footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
+  .footer-links a { font-size: 12px; font-weight: 300; color: var(--text-soft); text-decoration: none; letter-spacing: 0.08em; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--lime); }
+  .footer-copy { font-size: 11px; color: var(--text-pale); font-weight: 300; }
+
+  /* ── ANIMATIONS ── */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu { display: block; }
+    section { padding: 72px 24px; }
+    .hero { padding: 120px 24px 72px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+    .hero-right { display: none; }
+    .pain-grid { grid-template-columns: 1fr; }
+    .how-grid { grid-template-columns: 1fr; gap: 48px; }
+    .how-right { position: static; }
+    .invest-grid { grid-template-columns: 1fr; gap: 48px; }
+    .for-grid { grid-template-columns: 1fr; gap: 40px; }
+    .faq-grid { grid-template-columns: 1fr; gap: 48px; }
+    .faq-right { position: static; }
+    .vbreak { height: 320px; }
+    footer { flex-direction: column; padding: 40px 24px; text-align: center; }
+    .footer-links { justify-content: center; }
+    .cta-section { padding: 80px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="SHE_Social_Website_v3.html" class="nav-logo">s.h.e. <span>Social</span></a>
+  <div class="nav-links">
+    <a href="#how">How It Works</a>
+    <a href="#investment">Investment</a>
+    <a href="#for-you">Is This For You</a>
+    <a href="#faq">FAQ</a>
+    <a href="SHE_Social_Website_v3.html">← Main Site</a>
+    <a href="#book" class="nav-cta">Reserve My Spot</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#how" onclick="closeMenu()">How It Works</a>
+  <a href="#investment" onclick="closeMenu()">Investment</a>
+  <a href="#for-you" onclick="closeMenu()">Is This For You</a>
+  <a href="#faq" onclick="closeMenu()">FAQ</a>
+  <a href="SHE_Social_Website_v3.html" onclick="closeMenu()">← Main Site</a>
+  <a href="#book" class="mobile-cta" onclick="closeMenu()">Reserve My Spot</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Hero background" loading="eager" />
+  </div>
+  <div class="hero-inner container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <span class="hero-eyebrow-text">S.H.E. Social Presents</span>
+      </div>
+      <div class="hero-tag">Now Booking · Limited to 4 Spots Per Month</div>
+      <h1 class="hero-headline">
+        The<br>
+        <em>Elevation</em><br>
+        Day™
+      </h1>
+      <p class="hero-subhead">
+        One day. One strategy. One month of content — <strong>completely done for you.</strong>
+        No more staring at a blank screen. No more showing up without a plan.
+        Just you, your brand, and a transformation that begins the moment we walk through the door.
+      </p>
+      <div class="hero-divider"></div>
+      <div class="hero-details">
+        <div class="hero-detail">
+          <span class="hero-detail-label">Investment</span>
+          <span class="hero-detail-value lime">$997</span>
+        </div>
+        <div class="hero-detail">
+          <span class="hero-detail-label">Total Time</span>
+          <span class="hero-detail-value">5 Hours</span>
+        </div>
+        <div class="hero-detail">
+          <span class="hero-detail-label">Deliverables</span>
+          <span class="hero-detail-value">7 Items</span>
+        </div>
+      </div>
+      <div class="hero-buttons">
+        <a href="#book" class="btn-primary">Reserve My Elevation Day</a>
+        <a href="#how" class="btn-outline">See How It Works</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-card">
+        <img class="hero-card-img" src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Content day" />
+        <p class="hero-card-quote">I knew I needed to show up on social media. I just couldn't figure out what to say, when to say it, or if any of it was actually working for my brand.</p>
+        <p class="hero-card-attr">— Every brilliant woman we've ever worked with.</p>
+        <div class="hero-spots">
+          <div>
+            <div class="spots-label">Spots Remaining This Month</div>
+            <div class="spots-sub">Once they're gone, next availability is following month</div>
+          </div>
+          <div><div class="spots-count">4</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN SECTION -->
+<section class="pain-section" id="pain">
+  <div class="container">
+    <div class="pain-intro fade-up">
+      <div class="section-eyebrow" style="justify-content:center;">
+        <div class="section-eyebrow-line"></div>
+        <span class="section-eyebrow-text">We See You</span>
+        <div class="section-eyebrow-line"></div>
+      </div>
+      <h2 class="section-title" style="text-align:center;">You didn't build something this good<br>to stay <em>invisible.</em></h2>
+      <p class="section-body" style="text-align:center; margin:20px auto 0;">You are exceptional at what you do. Your clients rave. Your results speak. But when someone goes looking for you online — what do they find? This is the gap The Elevation Day closes. In one day.</p>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card fade-up">
+        <div class="pain-number">01</div>
+        <h3 class="pain-card-title">You know you need content. You just never have time to make it.</h3>
+        <p class="pain-card-body">You're a coach, a consultant, a creative, a CEO. Your time is worth hundreds of dollars an hour. <strong>Spending it figuring out what to post on Instagram is not the highest use of your genius.</strong> Yet here you are, staring at a blank caption at 10pm — exhausted — knowing you need to post something.</p>
+      </div>
+      <div class="pain-card fade-up">
+        <div class="pain-number">02</div>
+        <h3 class="pain-card-title">Your Instagram doesn't look like you actually are.</h3>
+        <p class="pain-card-body">You are polished. You are professional. You are exceptional. <strong>But your profile? Scattered posts. An unclear bio. Content from six months ago.</strong> Every potential client who visits your page is quietly making a judgment. Right now, they're choosing someone else.</p>
+      </div>
+      <div class="pain-card fade-up">
+        <div class="pain-number">03</div>
+        <h3 class="pain-card-title">You don't have a content problem. You have a system problem.</h3>
+        <p class="pain-card-body">Every social media tip tells you to just be consistent. Post every day. Show up. <strong>But consistency without strategy produces consistently forgettable results.</strong> The women who show up effortlessly? They have a system. That is exactly what we build — in one day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISUAL BREAK -->
+<div class="vbreak">
+  <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="" />
+  <div class="vbreak-overlay"></div>
+  <div class="vbreak-text">"One day to build the strategy.<br>One day to create the content.<br><em>One investment that changes everything.</em>"</div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="container">
+    <div class="how-grid">
+      <div class="how-left">
+        <div class="section-eyebrow">
+          <div class="section-eyebrow-line"></div>
+          <span class="section-eyebrow-text">The Process</span>
+        </div>
+        <h2 class="section-title light">Everything that happens<br>on your <em>Elevation Day.</em></h2>
+        <p class="section-body light">This is not a template service. Every single element — your strategy, your pillars, your content — is built specifically for your brand, your audience, and your goals. From the moment we connect to the moment your edited videos land in your inbox.</p>
+        <div class="how-steps">
+          <div class="how-step fade-up">
+            <div class="step-num-wrap"><span class="step-num">1</span></div>
+            <div class="step-body">
+              <div class="step-label">Before The Day · 1 Hour</div>
+              <div class="step-title">The Strategy Consultation Call</div>
+              <div class="step-desc">We start before we ever record a single second. Your account is audited. Your audience is analyzed. Your content pillars are built. Your conversion path is mapped. You arrive to content day with a complete strategy already in hand — not improvising, not guessing. Ready.</div>
+            </div>
+          </div>
+          <div class="how-step fade-up">
+            <div class="step-num-wrap"><span class="step-num">2</span></div>
+            <div class="step-body">
+              <div class="step-label">Content Day · 4 Hours</div>
+              <div class="step-title">We Show Up to Your Space</div>
+              <div class="step-desc">S.H.E. Social comes to you. We bring the direction, the strategy, the hooks, the structure. You bring yourself. Every Reel is scripted with intention. Every moment is captured with purpose. You don't need to figure out what to say — we built that in the consultation. You just show up as the expert you already are.</div>
+            </div>
+          </div>
+          <div class="how-step fade-up">
+            <div class="step-num-wrap"><span class="step-num">3</span></div>
+            <div class="step-body">
+              <div class="step-label">Your Strategy · Yours Forever</div>
+              <div class="step-title">Custom Content Pillars + Brand Strategy Plan</div>
+              <div class="step-desc">Not a generic template. Not a fill-in-the-blank document. A real strategy built around your brand, your audience, and your offers — with 3 to 5 content pillars you can use to guide every post you ever create.</div>
+            </div>
+          </div>
+          <div class="how-step fade-up">
+            <div class="step-num-wrap"><span class="step-num">4</span></div>
+            <div class="step-body">
+              <div class="step-label">Post-Day Delivery · 5–7 Business Days</div>
+              <div class="step-title">6 Edited, Ready-to-Post Reels</div>
+              <div class="step-desc">Professionally edited. Captioned. Formatted for Instagram Reels. Trending audio recommendations included. Not raw footage — finished, post-ready content that represents your brand at its highest level. You open your inbox and everything is waiting for you.</div>
+            </div>
+          </div>
+          <div class="how-step fade-up">
+            <div class="step-num-wrap"><span class="step-num">5</span></div>
+            <div class="step-body">
+              <div class="step-label">The Full Month · Mapped Out</div>
+              <div class="step-title">30-Day Content Calendar + Creation Guide</div>
+              <div class="step-desc">Every post for the month — planned, formatted, and ready. What to post, when to post it, what to say, what format to use. Plus a custom creation guide for carousels, graphics, and future content. You never sit in front of a blank screen again.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="how-right">
+        <img class="how-right-img" src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Content day recording" />
+        <div class="how-right-card">
+          <div class="how-right-card-title">Everything you walk away with — <em>in one day.</em></div>
+          <ul class="deliverable-list">
+            <li><strong>Full account audit</strong> + competitive landscape review</li>
+            <li><strong>Custom content pillars</strong> built for your brand and audience</li>
+            <li><strong>Brand strategy plan</strong> — your system, forever</li>
+            <li><strong>4 hours of creative direction</strong> and on-site recording</li>
+            <li><strong>6 professionally edited Reels</strong>, ready to post</li>
+            <li><strong>30-day content calendar</strong> — every post planned</li>
+            <li><strong>Content creation guide</strong> for carousels, graphics, and beyond</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTMENT -->
+<section class="invest-section" id="investment">
+  <div class="container">
+    <div class="invest-grid">
+      <div class="invest-left fade-up">
+        <div class="section-eyebrow">
+          <div class="section-eyebrow-line"></div>
+          <span class="section-eyebrow-text">The Investment</span>
+        </div>
+        <h2 class="section-title">One investment.<br>One day. <em>Complete transformation.</em></h2>
+        <div class="invest-price-block">
+          <div class="invest-price-tag">The Elevation Day™</div>
+          <div class="invest-amount"><span>$</span>997</div>
+          <div class="invest-note">One-time investment · No monthly commitment · No retainer required</div>
+          <div class="invest-includes">
+            <div class="invest-item"><strong>1-hour</strong> pre-consultation strategy call</div>
+            <div class="invest-item">Full account audit + brand analysis</div>
+            <div class="invest-item">Custom content pillars + brand strategy plan</div>
+            <div class="invest-item"><strong>4-hour</strong> on-site content recording day</div>
+            <div class="invest-item"><strong>6 professionally edited</strong> Reels, delivered</div>
+            <div class="invest-item">30-day content calendar</div>
+            <div class="invest-item">Content creation guide — yours to keep forever</div>
+          </div>
+          <div class="invest-spots">
+            <div class="invest-spots-num">4</div>
+            <div class="invest-spots-text">
+              <strong>Spots available this month</strong>
+              Once these 4 spots are filled, the next available date is the following month. This is not artificial scarcity — each Elevation Day requires full creative attention.
+            </div>
+          </div>
+          <a href="#book" class="btn-primary" style="width:100%; text-align:center; display:block;">Reserve My Spot — $997</a>
+        </div>
+      </div>
+      <div class="invest-right fade-up">
+        <div class="invest-quote">"This isn't just content.<br>It's the strategy that makes <em>the content work.</em>"</div>
+        <p class="section-body" style="margin-bottom:36px;">Other content days produce videos. The Elevation Day produces a brand identity, a conversion framework, a content system — and 6 edited videos to prove it works. The content is evidence of the strategy. Not the other way around.</p>
+        <div class="pipeline-card">
+          <div class="pipeline-card-eyebrow">The S.H.E. Social Pipeline</div>
+          <div class="pipeline-card-title">Not ready for a monthly retainer yet? This is your entry point.</div>
+          <div class="pipeline-card-body">The Elevation Day is designed for the woman who knows she needs to show up — but isn't ready for a $1,500+ monthly commitment. It's your first real experience of what S.H.E. Social does. And after you walk away with your strategy, your content, and your first full month planned — the natural next conversation is: <strong>"What would it look like to never have to think about this again?"</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IS THIS FOR YOU -->
+<section class="for-section" id="for-you">
+  <div class="container">
+    <div class="for-grid">
+      <div class="for-left">
+        <div class="section-eyebrow">
+          <div class="section-eyebrow-line"></div>
+          <span class="section-eyebrow-text">Is This For You</span>
+        </div>
+        <h2 class="section-title">The woman who books<br>The <em>Elevation Day.</em></h2>
+        <div class="for-cards">
+          <div class="for-card yes fade-up">
+            <div class="for-card-type">This is for you if...</div>
+            <div class="for-card-title">You have a business your Instagram doesn't show.</div>
+            <div class="for-card-body">You are brilliant at what you do. You have results, a story, an offer that changes people. But your profile doesn't reflect any of it — and you know it every time you send someone to your page.</div>
+          </div>
+          <div class="for-card yes fade-up">
+            <div class="for-card-type">This is for you if...</div>
+            <div class="for-card-title">You keep saying "I need to work on my social media."</div>
+            <div class="for-card-body">You've been saying it for months. Maybe longer. You're not lazy — you're busy running a real business. You just need someone to show up, build the system, and get it done with you. In one day.</div>
+          </div>
+          <div class="for-card yes fade-up">
+            <div class="for-card-type">This is for you if...</div>
+            <div class="for-card-title">You're not ready for a monthly commitment — but you are ready to stop being invisible.</div>
+            <div class="for-card-body">The Elevation Day is not a long-term contract. It's one investment, one day, one complete transformation. You walk away with everything you need to show up with confidence for the next 30 days. And the 30 days after that.</div>
+          </div>
+          <div class="for-card yes fade-up">
+            <div class="for-card-type">This is for you if...</div>
+            <div class="for-card-title">You are uncomfortable on camera and don't know what to say.</div>
+            <div class="for-card-body">That is exactly why we are there. We script the hooks. We direct the content. We create the structure. You don't need to be a content creator — you just need to show up as yourself. We handle the rest.</div>
+          </div>
+        </div>
+      </div>
+      <div class="for-right fade-up">
+        <img class="for-img" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Women in business" />
+        <div class="for-pullquote">"Your dream client is on Instagram right now. She's scrolling. She's looking for someone exactly like you. And she can't find you — not because you don't exist. <em>Because your brand doesn't show up the way you do in real life.</em>"</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <div class="faq-grid">
+      <div class="faq-left">
+        <div class="section-eyebrow">
+          <div class="section-eyebrow-line"></div>
+          <span class="section-eyebrow-text">Questions Answered</span>
+        </div>
+        <h2 class="section-title light">Everything you<br>need to <em>know.</em></h2>
+        <div class="faq-list" style="margin-top:48px;">
+          <div class="faq-item">
+            <button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">Is the content day in person?</span><span class="faq-icon">+</span></button>
+            <div class="faq-answer">Yes — S.H.E. Social comes to you. We show up to your office, your studio, your workspace, or wherever makes the most sense for your brand. If you're outside our standard service area, reach out and we'll discuss options.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What if I'm not comfortable on camera?</span><span class="faq-icon">+</span></button>
+            <div class="faq-answer">That is <strong>exactly why we are there.</strong> You don't show up to figure out what to say — we built that in the consultation call. We direct everything. We guide your pacing, your energy, your delivery. Most clients are surprised by how natural it feels once the strategy is in hand and someone is there to guide the process.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">When do I receive my edited videos?</span><span class="faq-icon">+</span></button>
+            <div class="faq-answer">Your 6 edited, Reels-ready videos are delivered within <strong>5–7 business days</strong> after your content day. You'll receive them with caption guidance, trending audio recommendations, and posting notes — everything you need to publish confidently.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">Can I do The Elevation Day if I'm just starting out?</span><span class="faq-icon">+</span></button>
+            <div class="faq-answer"><strong>Especially</strong> if you're just starting. Building your strategy and content system at the beginning means you launch with intention — not trial and error. The Elevation Day gives you the foundation that most businesses spend 12 months trying to figure out on their own.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">What happens after The Elevation Day?</span><span class="faq-icon">+</span></button>
+            <div class="faq-answer">You walk away with a complete system — your strategy, your 30-day calendar, your content creation guide, and 6 finished Reels. And if you decide you want S.H.E. Social to handle it all going forward, we can talk about a monthly partnership. There's no pressure — but the door is always open.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">Why only 4 spots per month?</span><span class="faq-icon">+</span></button>
+            <div class="faq-answer">Because this is not a template. Every Elevation Day is fully custom — your brand, your audience, your strategy, your content. That level of attention takes real time and requires a full creative commitment. We limit to 4 per month so that every client gets the quality they invested in.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-btn" onclick="toggleFaq(this)"><span class="faq-q">Is there a payment plan available?</span><span class="faq-icon">+</span></button>
+            <div class="faq-answer">Yes. A split-payment option is available — reach out directly and we will get you set up. Your spot is reserved upon receipt of the first payment.</div>
+          </div>
+        </div>
+        <div style="margin-top:48px;">
+          <p style="font-size:14px; font-weight:300; color:var(--lav-faint); margin-bottom:20px;">Still have a question not answered here?</p>
+          <a href="mailto:she_social@outlook.com" class="btn-outline">Send Us a Message</a>
+        </div>
+      </div>
+      <div class="faq-right">
+        <div class="faq-right-card">
+          <div class="faq-right-title">Ready to stop being <em>invisible?</em></div>
+          <div class="faq-right-body">The Elevation Day was built for the woman who is exceptional at her work — and exhausted by the gap between who she is and how she shows up online. <strong>One day closes that gap.</strong> Forever.</div>
+          <div class="faq-right-detail">
+            <div class="faq-right-item">
+              <span class="faq-right-item-label">Investment</span>
+              <span class="faq-right-item-value" style="font-family:'Cormorant Garamond',serif; font-size:32px; color:var(--lime);">$997</span>
+            </div>
+            <div class="faq-right-item">
+              <span class="faq-right-item-label">Total Time</span>
+              <span class="faq-right-item-value">1-hr consultation + 4-hr content day</span>
+            </div>
+            <div class="faq-right-item">
+              <span class="faq-right-item-label">Availability</span>
+              <span class="faq-right-item-value">4 spots per month · Limited</span>
+            </div>
+            <div class="faq-right-item">
+              <span class="faq-right-item-label">Delivery</span>
+              <span class="faq-right-item-value">Videos within 5–7 business days</span>
+            </div>
+          </div>
+          <a href="#book" class="btn-primary" style="width:100%; text-align:center; display:block;">Reserve My Elevation Day</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-section" id="book">
+  <div class="cta-inner">
+    <div class="cta-eyebrow">
+      <div class="cta-eyebrow-line"></div>
+      <span class="cta-eyebrow-text">Limited to 4 Spots Per Month</span>
+      <div class="cta-eyebrow-line"></div>
+    </div>
+    <h2 class="cta-title">Your brand deserves to show up<br>the way you <em>actually are.</em></h2>
+    <p class="cta-body">You have been waiting for the right moment. The right plan. The right person to help you finally get this done. <strong>This is that moment.</strong> One day. One investment. One complete transformation. And when those 4 spots are gone — they're gone until next month.</p>
+    <div class="cta-buttons">
+      <a href="mailto:she_social@outlook.com?subject=Elevation Day Inquiry" class="btn-primary">Email to Book — $997</a>
+      <a href="SHE_Social_Website_v3.html" class="btn-outline">Return to Main Site</a>
+    </div>
+    <p class="cta-fine">Questions? Email she_social@outlook.com · Payment plans available · Spots reserved upon payment</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">s.h.e. <span>Social</span></div>
+    <div class="footer-tagline">Strategically Helping Elevate Social Presence</div>
+  </div>
+  <div class="footer-links">
+    <a href="#how">How It Works</a>
+    <a href="#investment">Investment</a>
+    <a href="#faq">FAQ</a>
+    <a href="SHE_Social_Website_v3.html">Main Site</a>
+  </div>
+  <div class="footer-copy">© 2026 S.H.E. Social, LLC · Florida · All rights reserved.</div>
+</footer>
+
+<script>
+function toggleMenu() {
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  btn.classList.toggle('open');
+  menu.classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+const gridObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity='1'; entry.target.style.transform='translateY(0)'; } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.pain-card, .for-card, .how-step').forEach((el, i) => {
+  el.style.opacity = '0'; el.style.transform = 'translateY(22px)';
+  el.style.transition = `opacity 0.6s ease ${(i%4)*0.1}s, transform 0.6s ease ${(i%4)*0.1}s`;
+  gridObserver.observe(el);
+});
+</script>
+</body>
+</html>
