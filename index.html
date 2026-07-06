@@ -690,6 +690,19 @@ nav#main-nav.site-header.scrolled {
   color: var(--lime);
 }
 
+.site-header .nav-links a:focus-visible,
+.site-header .desktop-book-btn:focus-visible,
+.nav-logo:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+.site-header .nav-links a:focus:not(:focus-visible),
+.site-header .desktop-book-btn:focus:not(:focus-visible),
+.nav-logo:focus:not(:focus-visible) {
+  outline: none;
+}
+
 .site-header .desktop-book-btn,
 .site-header .nav-book-btn.desktop-book-btn {
   flex: 0 0 auto;
@@ -1007,13 +1020,6 @@ body.mobile-menu-open .mobile-menu {
 }
 
 
-/* Logo white circle bg — makes the logo pop on dark nav */
-.site-header .nav-logo img,
-.mobile-menu-logo img {
-  background: rgba(255,255,255,0.92);
-  border-radius: 50%;
-  padding: 3px;
-}
 </style>
 </head>
 <body>
