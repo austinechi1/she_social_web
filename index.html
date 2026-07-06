@@ -1075,7 +1075,7 @@ body.mobile-menu-open .mobile-menu {
         <div class="hero-eyebrow-line"></div>
         <span class="hero-eyebrow-text">Strategically Helping Elevate Social Presence</span>
       </div>
-      <h1 class="hero-headline" id="hero-headline">sharleenn__You built something
+      <h1 class="hero-headline" id="hero-headline">You built something
 remarkable.
 The world should know.</h1>
       <p class="hero-subhead">You've spent years building your business, your reputation, your expertise. <strong class="">Social media should be working just as hard for you</strong>   but right now, it keeps falling to the bottom of your list.</p>
@@ -1656,6 +1656,9 @@ document.querySelectorAll(
 <script id="she-builder-engine">
 (function() {
   // SHE Social Visual Editor Engine v2
+  // Only activate inside the standalone editor (which loads this page via a blob: URL).
+  // On the real published site (https://...), this must stay completely inactive.
+  if (window.location.protocol !== 'blob:') { return; }
   var sel = null, selType = null, undoStack = [], redoStack = [];
 
   // ── STYLES ──────────────────────────────────────────────────────────────
