@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>S.H.E. Social — Diagnostic</title>
+<style>
+  body { background:#160422; color:#fff; font-family:monospace; padding:30px; font-size:15px; line-height:1.7; }
+  h1 { color:#EAF6A5; font-size:20px; }
+  .ok   { color:#8f8; }
+  .bad  { color:#f88; font-weight:bold; }
+  .line { margin-bottom:10px; padding:10px; background:rgba(255,255,255,.05); border-radius:6px; white-space:pre-wrap; word-break:break-word; }
+</style>
+</head>
+<body>
+<h1>🔍 S.H.E. Social Editor — Diagnostic</h1>
+<div id="out">Running checks…</div>
+
+<script>
+const out = document.getElementById('out');
+function log(label, ok, detail) {
+  const div = document.createElement('div');
+  div.className = 'line';
+  div.innerHTML = '<b class="' + (ok ? 'ok' : 'bad') + '">' + (ok ? '✓ ' : '✕ ') + label + '</b><br>' + (detail || '');
+  out.appendChild(div);
+}
+out.innerHTML = '';
+
+(async () => {
+  // 1. Check saved GitHub settings
+  let settings = null;
+  try {
+    settings = JSON.parse(localStorage.getItem('she_gh_settings_v1'));
+  } catch(e) {}
+  if (settings && settings.owner && settings.repo && settings.token) {
+    log('GitHub settings found in this browser', true,
+      'Username: ' + settings.owner + '<br>Repo: ' + settings.repo + '<br>Branch: ' + (settings.branch||'main') + '<br>Token: saved (length ' + settings.token.length + ' characters)');
+  } else {
+    log('GitHub settings found in this browser', false, 'No saved settings — this is fine, editor will use its built-in backup copy instead.');
+  }
+
+  // 2. Try fetching the live index.html the same way the editor does
+  if (settings && settings.token) {
+    try {
+      const apiBase = 'https://api.github.com/repos/' + encodeURIComponent(settings.owner) + '/' + encodeURIComponent(settings.repo) + '/contents/index.html';
+      const res = await fetch(apiBase + '?ref=' + encodeURIComponent(settings.branch||'main') + '&_=' + Date.now(), {
+        cache: 'no-store',
+        headers: {
+          'Authorization': 'Bearer ' + settings.token,
+          'Accept': 'application/vnd.github+json',
+          'X-GitHub-Api-Version': '2022-11-28'
+        }
+      });
+      log('GitHub API responded', res.ok, 'Status code: ' + res.status + (res.ok ? '' : ' — this means the token or repo settings are being rejected.'));
+      if (res.ok) {
+        const data = await res.json();
+        if (data.content) {
+          log('Received file content directly', true, 'Size: ' + data.content.length + ' characters (base64)');
+        } else if (data.download_url) {
+          log('File too big for direct fetch — trying backup method', true, 'Download URL found, fetching raw file…');
+          const rawRes = await fetch(data.download_url + '&_=' + Date.now(), { cache:'no-store' });
+          log('Raw file fetch responded', rawRes.ok, 'Status: ' + rawRes.status);
+          if (rawRes.ok) {
+            const buf = await rawRes.arrayBuffer();
+            log('Downloaded full site file', true, 'Size: ' + (buf.byteLength/1024/1024).toFixed(2) + ' MB');
+            try {
+              const blobUrl = URL.createObjectURL(new Blob([buf], {type:'text/html'}));
+              const testFrame = document.createElement('iframe');
+              testFrame.style.cssText = 'width:100%;height:300px;border:2px solid #EAF6A5;margin-top:10px';
+              await new Promise((resolve, reject) => {
+                testFrame.onload = resolve;
+                testFrame.onerror = reject;
+                testFrame.src = blobUrl;
+                setTimeout(() => reject(new Error('timed out after 8 seconds')), 8000);
+              });
+              log('Test preview loaded below', true, 'If you can see your website preview below this line, the file itself works fine and the problem is something else in the editor page.');
+              out.appendChild(testFrame);
+            } catch (e) {
+              log('Test preview failed to load', false, String(e.message || e));
+            }
+          }
+        } else {
+          log('Unexpected response from GitHub', false, JSON.stringify(data).substring(0,300));
+        }
+      } else {
+        const errBody = await res.text();
+        log('Error details from GitHub', false, errBody.substring(0,300));
+      }
+    } catch (e) {
+      log('Network / fetch error', false, String(e.message || e));
+    }
+  } else {
+    log('Skipping live fetch test', true, 'No token saved, so editor would use its built-in backup copy — that part works fine on its own.');
+  }
+
+  log('All checks complete', true, 'Screenshot this whole page and send it back.');
+})();
+</script>
+</body>
+</html>
