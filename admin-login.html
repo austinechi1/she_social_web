@@ -313,12 +313,13 @@ html,body{height:100%;overflow:hidden;font-family:'Jost',sans-serif;background:#
   <div class="pnl on" id="p-img" style="display:none">
     <div class="phd" onclick="tP(this)"><span class="ptit">🖼 Replace Image</span><span class="parr">▼</span></div>
     <div class="pbdy">
-      <label class="upl">📁 Upload from Computer<input type="file" accept="image/*" onchange="upFile(this,'img')"></label>
+      <label class="upl">📁 Upload Photo or Video from Computer<input type="file" accept="image/*,video/*" onchange="upFile(this,'img')"></label>
       <div class="hint">✓ Applies instantly — no extra step needed</div>
       <div class="orsep"><span>or</span></div>
       <div class="ct">
-        <label>Paste image URL instead</label>
-        <input type="url" id="v-iurl" placeholder="https://images.unsplash.com/…">
+        <label>Paste photo or video URL instead</label>
+        <input type="url" id="v-iurl" placeholder="https://images.unsplash.com/… or a .mp4 link">
+      </div>
       </div>
       <button class="btn grn" onclick="aImgUrl()">Apply Image URL</button>
 
@@ -646,7 +647,9 @@ function aFS(v)      { document.getElementById('fslbl').textContent=v+'px'; msg(
 function aImgUrl() {
   const u = document.getElementById('v-iurl').value.trim();
   if (!u) { toast('Paste a URL first'); return; }
-  msg({cmd:'set-img-src',value:u}); toast('Image updated ✓');
+  const isVid = /\.(mp4|webm|mov|ogg)(\?|#|$)/i.test(u);
+  msg({cmd:'set-img-src', value:u, isVideo:isVid});
+  toast(isVid ? 'Video updated ✓' : 'Image updated ✓');
 }
 function aBgUrl() {
   const u = document.getElementById('v-bgurl').value.trim();
@@ -662,9 +665,9 @@ function upFile(input, mode) {
   const isVid = file.type.startsWith('video/');
   const reader = new FileReader();
   reader.onload = ev => {
-    if (mode === 'img') msg({cmd:'set-img-src', value:ev.target.result});
+    if (mode === 'img') msg({cmd:'set-img-src', value:ev.target.result, isVideo:isVid});
     else msg({cmd:'set-bg-image-data', value:ev.target.result, isVideo:isVid});
-    toast(isVid ? 'Video background set ✓' : 'Image updated ✓');
+    toast(isVid ? 'Video updated ✓' : 'Image updated ✓');
   };
   reader.readAsDataURL(file);
 }
