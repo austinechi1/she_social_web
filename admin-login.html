@@ -334,6 +334,10 @@ html,body{height:100%;overflow:hidden;font-family:'Jost',sans-serif;background:#
         <div class="dragpad" id="imgpad"><div class="dragdot" id="imgdot"></div></div>
         <button class="btn" style="margin-top:6px" onclick="centerImgPos()">Center it</button>
       </div>
+      <div class="ct" style="margin-top:10px">
+        <label>Zoom <span class="dim" id="imgzoomlbl">100%</span></label>
+        <input type="range" min="100" max="250" value="100" id="imgzoom" oninput="setImgZoom(this.value)">
+      </div>
 
       <div class="ct" style="margin-top:14px">
         <label>Alt Text (accessibility)</label>
@@ -379,6 +383,10 @@ html,body{height:100%;overflow:hidden;font-family:'Jost',sans-serif;background:#
         <label>Drag to reposition <span class="dim">(fixes images cut off top/bottom)</span></label>
         <div class="dragpad" id="bgpad"><div class="dragdot" id="bgdot"></div></div>
         <button class="btn" style="margin-top:6px" onclick="centerBgPos()">Center it</button>
+      </div>
+      <div class="ct" style="margin-top:10px">
+        <label>Zoom <span class="dim" id="bgzoomlbl">100%</span></label>
+        <input type="range" min="100" max="250" value="100" id="bgzoom" oninput="setBgZoom(this.value)">
       </div>
     </div>
   </div>
@@ -591,13 +599,28 @@ function onSel(m) {
   } else if (selType === 'image') {
     show('p-img'); show('p-act');
     document.getElementById('v-alt').value = m.alt || '';
+    const ip = parsePos(m.objectPosition); setDotPos('imgdot', ip[0], ip[1]);
+    document.getElementById('imgzoom').value = 100;
+    document.getElementById('imgzoomlbl').textContent = '100%';
+    const fit = (m.objectFit === 'contain') ? 'contain' : 'cover';
+    document.getElementById('fit-cover').classList.toggle('on', fit === 'cover');
+    document.getElementById('fit-contain').classList.toggle('on', fit === 'contain');
   } else {
     // bgdiv, sectionbg, nav — all get the background panel
     show('p-bg');
     if (selType !== 'nav') show('p-act');
     // pre-fill bg color picker
     try { document.getElementById('v-bgc').value = r2h(m.backgroundColor); } catch(e) {}
+    const bp = parsePos(m.backgroundPosition); setDotPos('bgdot', bp[0], bp[1]);
+    document.getElementById('bgzoom').value = 100;
+    document.getElementById('bgzoomlbl').textContent = '100%';
   }
+}
+function parsePos(v) {
+  if (!v) return [50,50];
+  const parts = v.trim().split(/\s+/).map(p => parseFloat(p));
+  if (parts.length >= 2 && !isNaN(parts[0]) && !isNaN(parts[1])) return [parts[0], parts[1]];
+  return [50,50];
 }
 
 function deselUI() {
@@ -654,6 +677,8 @@ function setImgFit(v) {
 }
 function centerImgPos()  { setDotPos('imgdot', 50, 50); msg({cmd:'set-img-position', value:'50% 50%'}); }
 function centerBgPos()   { setDotPos('bgdot', 50, 50);  msg({cmd:'set-bg-position',  value:'50% 50%'}); }
+function setImgZoom(v) { document.getElementById('imgzoomlbl').textContent = v+'%'; msg({cmd:'set-img-zoom', value:v}); }
+function setBgZoom(v)  { document.getElementById('bgzoomlbl').textContent  = v+'%'; msg({cmd:'set-bg-zoom',  value:v}); }
 
 // ── DRAG-TO-REPOSITION PADS ──────────────────────────────────────────────
 function setDotPos(dotId, xPct, yPct) {

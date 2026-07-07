@@ -1167,8 +1167,15 @@ document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
       sel.style.objectFit = 'cover';
     }
     else if (m.cmd === 'set-img-alt') { if(!sel)return; sel.alt = m.value; }
-    else if (m.cmd === 'set-img-position') { if(!sel)return; sel.style.objectPosition = m.value; }
+    else if (m.cmd === 'set-img-position') { if(!sel)return; sel.style.objectPosition = m.value; sel.style.transformOrigin = m.value; }
     else if (m.cmd === 'set-img-fit')      { if(!sel)return; saveU(); sel.style.objectFit = m.value; }
+    else if (m.cmd === 'set-img-zoom') {
+      if (!sel) return;
+      var z = parseFloat(m.value) / 100;
+      sel.style.transform = 'scale(' + z + ')';
+      if (!sel.style.transformOrigin) sel.style.transformOrigin = '50% 50%';
+      if (sel.parentElement) sel.parentElement.style.overflow = 'hidden';
+    }
 
     // BACKGROUND COLOR — works on ANY element
     else if (m.cmd === 'set-bg-color') {
@@ -1212,6 +1219,9 @@ document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
     }
     else if (m.cmd === 'set-bg-position') {
       if (!sel) return; sel.style.backgroundPosition = m.value;
+    }
+    else if (m.cmd === 'set-bg-zoom') {
+      if (!sel) return; sel.style.backgroundSize = m.value + '%';
     }
     else if (m.cmd === 'set-bg-overlay') {
       // Set the ::before pseudo overlay opacity via a style tag
