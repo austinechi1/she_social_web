@@ -318,7 +318,7 @@ html,body{height:100%;overflow:hidden;font-family:'Jost',sans-serif;background:#
     <div class="phd" onclick="tP(this)"><span class="ptit">🖼 Replace Image</span><span class="parr">▼</span></div>
     <div class="pbdy">
       <label class="upl">📁 Upload Photo or Video from Computer<input type="file" accept="image/*,video/*" onchange="upFile(this,'img')"></label>
-      <div class="hint">✓ Applies instantly — no extra step needed</div>
+      <div class="hint">✓ Applies instantly &mdash; photos are auto-optimized for web</div>
       <div class="orsep"><span>or</span></div>
       <div class="ct">
         <label>Paste photo or video URL instead</label>
@@ -383,7 +383,7 @@ html,body{height:100%;overflow:hidden;font-family:'Jost',sans-serif;background:#
         <label>Background Image</label>
       </div>
       <label class="upl">📁 Upload Background Photo / Video<input type="file" accept="image/*,video/*" onchange="upFile(this,'bg')"></label>
-      <div class="hint">✓ Applies instantly — no extra step needed</div>
+      <div class="hint">✓ Applies instantly &mdash; photos are auto-optimized for web</div>
       <div class="orsep"><span>or</span></div>
       <div class="ct">
         <label>Paste image URL instead</label>
@@ -684,16 +684,56 @@ function delEl() {
   if (!confirm('Delete this element? You can undo with Ctrl+Z.')) return;
   msg({cmd:'delete-element'}); deselUI();
 }
-function upFile(input, mode) {
+function compressImage(file, maxDim, quality) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > maxDim || height > maxDim) {
+          if (width > height) { height = Math.round(height * maxDim / width); width = maxDim; }
+          else { width = Math.round(width * maxDim / height); height = maxDim; }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width; canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        const isPng = file.type === 'image/png';
+        // PNG kept as PNG (preserves transparency, e.g. logos); everything else -> JPEG for real size savings
+        resolve(isPng ? canvas.toDataURL('image/png') : canvas.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+function readRawDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => resolve(e.target.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+async function upFile(input, mode) {
   const file = input.files[0]; if (!file) return;
   const isVid = file.type.startsWith('video/');
-  const reader = new FileReader();
-  reader.onload = ev => {
-    if (mode === 'img') msg({cmd:'set-img-src', value:ev.target.result, isVideo:isVid});
-    else msg({cmd:'set-bg-image-data', value:ev.target.result, isVideo:isVid});
-    toast(isVid ? 'Video updated ✓' : 'Image updated ✓');
-  };
-  reader.readAsDataURL(file);
+  const send = (value) => { if (mode === 'img') msg({cmd:'set-img-src', value, isVideo:isVid}); else msg({cmd:'set-bg-image-data', value, isVideo:isVid}); };
+
+  if (isVid) { send(await readRawDataUrl(file)); toast('Video updated ✓'); return; }
+
+  toast('Optimizing image…');
+  try {
+    const dataUrl = await compressImage(file, 1920, 0.82);
+    send(dataUrl);
+    toast('Image updated ✓ (optimized for web)');
+  } catch (e) {
+    send(await readRawDataUrl(file));
+    toast('Image updated ✓');
+  }
 }
 
 // ── IMAGE FIT (cover/contain) ────────────────────────────────────────────
