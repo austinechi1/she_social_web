@@ -956,6 +956,47 @@ document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
   if (window.location.protocol !== 'blob:') { return; }
   var sel = null, selType = null, undoStack = [], redoStack = [];
 
+  // ── PER-DEVICE CROP RULES ────────────────────────────────────────────────
+  // Lets an element have a different background/object position & zoom on
+  // tablet/mobile than on desktop, via generated @media rules scoped to a
+  // unique data attribute. Desktop values still use plain inline styles
+  // (set directly on the element) and act as the fallback for all sizes.
+  var respRules = {}, posCounter = 0, respStyleEl = null;
+  function ensurePosId(el) {
+    if (!el.dataset.shePosId) el.dataset.shePosId = 'sp' + (++posCounter) + '-' + Date.now();
+    return el.dataset.shePosId;
+  }
+  function cssPropsToString(o) {
+    var s = '';
+    if (o.backgroundPosition) s += 'background-position:' + o.backgroundPosition + '!important;';
+    if (o.backgroundSize)     s += 'background-size:'     + o.backgroundSize     + '!important;';
+    if (o.objectPosition)     s += 'object-position:'      + o.objectPosition     + '!important;';
+    if (o.transform)          s += 'transform:'            + o.transform         + '!important;';
+    if (o.transformOrigin)    s += 'transform-origin:'     + o.transformOrigin   + '!important;';
+    return s;
+  }
+  function rebuildRespStyle() {
+    if (!respStyleEl) {
+      respStyleEl = document.createElement('style');
+      respStyleEl.id = 'she-responsive-style';
+      document.head.appendChild(respStyleEl);
+    }
+    var css = '';
+    Object.keys(respRules).forEach(function(id) {
+      var r = respRules[id];
+      if (r.tablet) css += '@media (max-width:900px){[data-she-pos-id="' + id + '"]{' + cssPropsToString(r.tablet) + '}}';
+      if (r.mobile) css += '@media (max-width:480px){[data-she-pos-id="' + id + '"]{' + cssPropsToString(r.mobile) + '}}';
+    });
+    respStyleEl.textContent = css;
+  }
+  function setDeviceProp(el, device, propObj) {
+    var id = ensurePosId(el);
+    respRules[id] = respRules[id] || {};
+    respRules[id][device] = respRules[id][device] || {};
+    for (var k in propObj) respRules[id][device][k] = propObj[k];
+    rebuildRespStyle();
+  }
+
   // ── STYLES ──────────────────────────────────────────────────────────────
   var sty = document.createElement('style');
   sty.id = 'she-sty';
@@ -1194,13 +1235,24 @@ document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
       }
     }
     else if (m.cmd === 'set-img-alt') { if(!sel)return; sel.alt = m.value; }
-    else if (m.cmd === 'set-img-position') { if(!sel)return; sel.style.objectPosition = m.value; sel.style.transformOrigin = m.value; }
+    else if (m.cmd === 'set-img-position') {
+      if (!sel) return;
+      if (m.device && m.device !== 'desktop') {
+        setDeviceProp(sel, m.device, {objectPosition: m.value, transformOrigin: m.value});
+      } else {
+        sel.style.objectPosition = m.value; sel.style.transformOrigin = m.value;
+      }
+    }
     else if (m.cmd === 'set-img-fit')      { if(!sel)return; saveU(); sel.style.objectFit = m.value; }
     else if (m.cmd === 'set-img-zoom') {
       if (!sel) return;
       var z = parseFloat(m.value) / 100;
-      sel.style.transform = 'scale(' + z + ')';
-      if (!sel.style.transformOrigin) sel.style.transformOrigin = '50% 50%';
+      if (m.device && m.device !== 'desktop') {
+        setDeviceProp(sel, m.device, {transform: 'scale(' + z + ')'});
+      } else {
+        sel.style.transform = 'scale(' + z + ')';
+        if (!sel.style.transformOrigin) sel.style.transformOrigin = '50% 50%';
+      }
       if (sel.parentElement) sel.parentElement.style.overflow = 'hidden';
     }
 
@@ -1245,10 +1297,14 @@ document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
       var ov3 = sel.querySelector('video.she-v'); if(ov3) ov3.remove();
     }
     else if (m.cmd === 'set-bg-position') {
-      if (!sel) return; sel.style.backgroundPosition = m.value;
+      if (!sel) return;
+      if (m.device && m.device !== 'desktop') setDeviceProp(sel, m.device, {backgroundPosition: m.value});
+      else sel.style.backgroundPosition = m.value;
     }
     else if (m.cmd === 'set-bg-zoom') {
-      if (!sel) return; sel.style.backgroundSize = m.value + '%';
+      if (!sel) return;
+      if (m.device && m.device !== 'desktop') setDeviceProp(sel, m.device, {backgroundSize: m.value + '%'});
+      else sel.style.backgroundSize = m.value + '%';
     }
     else if (m.cmd === 'set-bg-overlay') {
       // Set the ::before pseudo overlay opacity via a style tag

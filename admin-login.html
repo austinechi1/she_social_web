@@ -116,6 +116,10 @@ html,body{height:100%;overflow:hidden;font-family:'Jost',sans-serif;background:#
 .fitbtn.on{background:rgba(158,148,245,.25);border-color:#9E94F5;color:#fff}
 .dragpad{position:relative;width:100%;aspect-ratio:16/10;background:repeating-conic-gradient(rgba(255,255,255,.06) 0% 25%, transparent 0% 50%) 50% / 16px 16px;border:1px solid rgba(255,255,255,.18);border-radius:6px;cursor:crosshair;touch-action:none}
 .dragdot{position:absolute;width:16px;height:16px;left:50%;top:50%;transform:translate(-50%,-50%);background:#EAF6A5;border:2px solid #160422;border-radius:50%;box-shadow:0 0 0 2px rgba(234,246,165,.4);pointer-events:none}
+.devrow{display:flex;gap:6px}
+.devbtn{flex:1;padding:7px 4px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.55);font-family:'Jost',sans-serif;font-size:10px;font-weight:600;cursor:pointer;border-radius:4px;transition:all .2s}
+.devbtn:hover{border-color:rgba(158,148,245,.6);color:#fff}
+.devbtn.on{background:rgba(234,246,165,.18);border-color:#EAF6A5;color:#fff}
 
 /* Swatches */
 .sws{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px}
@@ -331,6 +335,14 @@ html,body{height:100%;overflow:hidden;font-family:'Jost',sans-serif;background:#
         </div>
       </div>
       <div class="ct" style="margin-top:10px">
+        <label>Adjust crop for <span class="dim">(set each device separately)</span></label>
+        <div class="devrow" id="imgdevrow">
+          <button class="devbtn on" data-d="desktop" onclick="setPosDevice('img','desktop')">🖥️ Desktop</button>
+          <button class="devbtn" data-d="tablet" onclick="setPosDevice('img','tablet')">📱 Tablet</button>
+          <button class="devbtn" data-d="mobile" onclick="setPosDevice('img','mobile')">📲 Mobile</button>
+        </div>
+      </div>
+      <div class="ct" style="margin-top:10px">
         <label>Drag to reposition <span class="dim">(fixes images cut off top/bottom)</span></label>
         <div class="dragpad" id="imgpad"><div class="dragdot" id="imgdot"></div></div>
         <button class="btn" style="margin-top:6px" onclick="centerImgPos()">Center it</button>
@@ -380,6 +392,14 @@ html,body{height:100%;overflow:hidden;font-family:'Jost',sans-serif;background:#
       <button class="btn grn" onclick="aBgUrl()">Apply Background Image URL</button>
       <button class="btn red" style="margin-top:2px" onclick="msg({cmd:'remove-bg-image'})">✕ Remove Background Image</button>
 
+      <div class="ct" style="margin-top:10px">
+        <label>Adjust crop for <span class="dim">(set each device separately)</span></label>
+        <div class="devrow" id="bgdevrow">
+          <button class="devbtn on" data-d="desktop" onclick="setPosDevice('bg','desktop')">🖥️ Desktop</button>
+          <button class="devbtn" data-d="tablet" onclick="setPosDevice('bg','tablet')">📱 Tablet</button>
+          <button class="devbtn" data-d="mobile" onclick="setPosDevice('bg','mobile')">📲 Mobile</button>
+        </div>
+      </div>
       <div class="ct" style="margin-top:10px">
         <label>Drag to reposition <span class="dim">(fixes images cut off top/bottom)</span></label>
         <div class="dragpad" id="bgpad"><div class="dragdot" id="bgdot"></div></div>
@@ -606,6 +626,8 @@ function onSel(m) {
     const fit = (m.objectFit === 'contain') ? 'contain' : 'cover';
     document.getElementById('fit-cover').classList.toggle('on', fit === 'cover');
     document.getElementById('fit-contain').classList.toggle('on', fit === 'contain');
+    imgPosDevice = 'desktop';
+    document.getElementById('imgdevrow').querySelectorAll('.devbtn').forEach(b => b.classList.toggle('on', b.dataset.d === 'desktop'));
   } else {
     // bgdiv, sectionbg, nav — all get the background panel
     show('p-bg');
@@ -615,6 +637,8 @@ function onSel(m) {
     const bp = parsePos(m.backgroundPosition); setDotPos('bgdot', bp[0], bp[1]);
     document.getElementById('bgzoom').value = 100;
     document.getElementById('bgzoomlbl').textContent = '100%';
+    bgPosDevice = 'desktop';
+    document.getElementById('bgdevrow').querySelectorAll('.devbtn').forEach(b => b.classList.toggle('on', b.dataset.d === 'desktop'));
   }
 }
 function parsePos(v) {
@@ -678,10 +702,24 @@ function setImgFit(v) {
   document.getElementById('fit-contain').classList.toggle('on', v === 'contain');
   msg({cmd:'set-img-fit', value:v});
 }
-function centerImgPos()  { setDotPos('imgdot', 50, 50); msg({cmd:'set-img-position', value:'50% 50%'}); }
-function centerBgPos()   { setDotPos('bgdot', 50, 50);  msg({cmd:'set-bg-position',  value:'50% 50%'}); }
-function setImgZoom(v) { document.getElementById('imgzoomlbl').textContent = v+'%'; msg({cmd:'set-img-zoom', value:v}); }
-function setBgZoom(v)  { document.getElementById('bgzoomlbl').textContent  = v+'%'; msg({cmd:'set-bg-zoom',  value:v}); }
+
+// ── PER-DEVICE CROP STATE ─────────────────────────────────────────────────
+let imgPosDevice = 'desktop', bgPosDevice = 'desktop';
+function setPosDevice(which, device) {
+  const row = document.getElementById(which === 'img' ? 'imgdevrow' : 'bgdevrow');
+  row.querySelectorAll('.devbtn').forEach(b => b.classList.toggle('on', b.dataset.d === device));
+  if (which === 'img') imgPosDevice = device; else bgPosDevice = device;
+  // Reset the pad/zoom display to a neutral starting point for that device's own view
+  setDotPos(which === 'img' ? 'imgdot' : 'bgdot', 50, 50);
+  document.getElementById(which === 'img' ? 'imgzoom' : 'bgzoom').value = 100;
+  document.getElementById(which === 'img' ? 'imgzoomlbl' : 'bgzoomlbl').textContent = '100%';
+  toast('Editing crop for ' + device + ' — resize the preview to check it');
+}
+
+function centerImgPos() { setDotPos('imgdot', 50, 50); msg({cmd:'set-img-position', value:'50% 50%', device:imgPosDevice}); }
+function centerBgPos()  { setDotPos('bgdot', 50, 50);  msg({cmd:'set-bg-position',  value:'50% 50%', device:bgPosDevice}); }
+function setImgZoom(v) { document.getElementById('imgzoomlbl').textContent = v+'%'; msg({cmd:'set-img-zoom', value:v, device:imgPosDevice}); }
+function setBgZoom(v)  { document.getElementById('bgzoomlbl').textContent  = v+'%'; msg({cmd:'set-bg-zoom',  value:v, device:bgPosDevice}); }
 
 // ── DRAG-TO-REPOSITION PADS ──────────────────────────────────────────────
 function setDotPos(dotId, xPct, yPct) {
@@ -705,8 +743,8 @@ function wireDragPad(padId, dotId, onMove) {
   pad.addEventListener('pointerup',   () => { dragging = false; });
   pad.addEventListener('pointercancel', () => { dragging = false; });
 }
-wireDragPad('imgpad', 'imgdot', (x,y) => msg({cmd:'set-img-position', value:x+'% '+y+'%'}));
-wireDragPad('bgpad',  'bgdot',  (x,y) => msg({cmd:'set-bg-position',  value:x+'% '+y+'%'}));
+wireDragPad('imgpad', 'imgdot', (x,y) => msg({cmd:'set-img-position', value:x+'% '+y+'%', device:imgPosDevice}));
+wireDragPad('bgpad',  'bgdot',  (x,y) => msg({cmd:'set-bg-position',  value:x+'% '+y+'%', device:bgPosDevice}));
 
 
 // ── SECTION BACKGROUND PICKER ────────────────────────────────────────────
