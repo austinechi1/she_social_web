@@ -116,10 +116,6 @@ html,body{height:100%;overflow:hidden;font-family:'Jost',sans-serif;background:#
 .fitbtn.on{background:rgba(158,148,245,.25);border-color:#9E94F5;color:#fff}
 .dragpad{position:relative;width:100%;aspect-ratio:16/10;background:repeating-conic-gradient(rgba(255,255,255,.06) 0% 25%, transparent 0% 50%) 50% / 16px 16px;border:1px solid rgba(255,255,255,.18);border-radius:6px;cursor:crosshair;touch-action:none}
 .dragdot{position:absolute;width:16px;height:16px;left:50%;top:50%;transform:translate(-50%,-50%);background:#EAF6A5;border:2px solid #160422;border-radius:50%;box-shadow:0 0 0 2px rgba(234,246,165,.4);pointer-events:none}
-.devrow{display:flex;gap:6px}
-.devbtn{flex:1;padding:7px 4px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.55);font-family:'Jost',sans-serif;font-size:10px;font-weight:600;cursor:pointer;border-radius:4px;transition:all .2s}
-.devbtn:hover{border-color:rgba(158,148,245,.6);color:#fff}
-.devbtn.on{background:rgba(234,246,165,.18);border-color:#EAF6A5;color:#fff}
 
 /* Swatches */
 .sws{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px}
@@ -317,13 +313,12 @@ html,body{height:100%;overflow:hidden;font-family:'Jost',sans-serif;background:#
   <div class="pnl on" id="p-img" style="display:none">
     <div class="phd" onclick="tP(this)"><span class="ptit">🖼 Replace Image</span><span class="parr">▼</span></div>
     <div class="pbdy">
-      <label class="upl">📁 Upload Photo or Video from Computer<input type="file" accept="image/*,video/*" onchange="upFile(this,'img')"></label>
-      <div class="hint">✓ Applies instantly &mdash; photos are auto-optimized for web</div>
+      <label class="upl">📁 Upload from Computer<input type="file" accept="image/*" onchange="upFile(this,'img')"></label>
+      <div class="hint">✓ Applies instantly — no extra step needed</div>
       <div class="orsep"><span>or</span></div>
       <div class="ct">
-        <label>Paste photo or video URL instead</label>
-        <input type="url" id="v-iurl" placeholder="https://images.unsplash.com/… or a .mp4 link">
-      </div>
+        <label>Paste image URL instead</label>
+        <input type="url" id="v-iurl" placeholder="https://images.unsplash.com/…">
       </div>
       <button class="btn grn" onclick="aImgUrl()">Apply Image URL</button>
 
@@ -335,21 +330,9 @@ html,body{height:100%;overflow:hidden;font-family:'Jost',sans-serif;background:#
         </div>
       </div>
       <div class="ct" style="margin-top:10px">
-        <label>Adjust crop for <span class="dim">(set each device separately)</span></label>
-        <div class="devrow" id="imgdevrow">
-          <button class="devbtn on" data-d="desktop" onclick="setPosDevice('img','desktop')">🖥️ Desktop</button>
-          <button class="devbtn" data-d="tablet" onclick="setPosDevice('img','tablet')">📱 Tablet</button>
-          <button class="devbtn" data-d="mobile" onclick="setPosDevice('img','mobile')">📲 Mobile</button>
-        </div>
-      </div>
-      <div class="ct" style="margin-top:10px">
         <label>Drag to reposition <span class="dim">(fixes images cut off top/bottom)</span></label>
         <div class="dragpad" id="imgpad"><div class="dragdot" id="imgdot"></div></div>
         <button class="btn" style="margin-top:6px" onclick="centerImgPos()">Center it</button>
-      </div>
-      <div class="ct" style="margin-top:10px">
-        <label>Zoom <span class="dim" id="imgzoomlbl">100%</span></label>
-        <input type="range" min="100" max="250" value="100" id="imgzoom" oninput="setImgZoom(this.value)">
       </div>
 
       <div class="ct" style="margin-top:14px">
@@ -383,7 +366,7 @@ html,body{height:100%;overflow:hidden;font-family:'Jost',sans-serif;background:#
         <label>Background Image</label>
       </div>
       <label class="upl">📁 Upload Background Photo / Video<input type="file" accept="image/*,video/*" onchange="upFile(this,'bg')"></label>
-      <div class="hint">✓ Applies instantly &mdash; photos are auto-optimized for web</div>
+      <div class="hint">✓ Applies instantly — no extra step needed</div>
       <div class="orsep"><span>or</span></div>
       <div class="ct">
         <label>Paste image URL instead</label>
@@ -393,21 +376,9 @@ html,body{height:100%;overflow:hidden;font-family:'Jost',sans-serif;background:#
       <button class="btn red" style="margin-top:2px" onclick="msg({cmd:'remove-bg-image'})">✕ Remove Background Image</button>
 
       <div class="ct" style="margin-top:10px">
-        <label>Adjust crop for <span class="dim">(set each device separately)</span></label>
-        <div class="devrow" id="bgdevrow">
-          <button class="devbtn on" data-d="desktop" onclick="setPosDevice('bg','desktop')">🖥️ Desktop</button>
-          <button class="devbtn" data-d="tablet" onclick="setPosDevice('bg','tablet')">📱 Tablet</button>
-          <button class="devbtn" data-d="mobile" onclick="setPosDevice('bg','mobile')">📲 Mobile</button>
-        </div>
-      </div>
-      <div class="ct" style="margin-top:10px">
         <label>Drag to reposition <span class="dim">(fixes images cut off top/bottom)</span></label>
         <div class="dragpad" id="bgpad"><div class="dragdot" id="bgdot"></div></div>
         <button class="btn" style="margin-top:6px" onclick="centerBgPos()">Center it</button>
-      </div>
-      <div class="ct" style="margin-top:10px">
-        <label>Zoom <span class="dim" id="bgzoomlbl">100%</span></label>
-        <input type="range" min="100" max="250" value="100" id="bgzoom" oninput="setBgZoom(this.value)">
       </div>
     </div>
   </div>
@@ -620,32 +591,13 @@ function onSel(m) {
   } else if (selType === 'image') {
     show('p-img'); show('p-act');
     document.getElementById('v-alt').value = m.alt || '';
-    const ip = parsePos(m.objectPosition); setDotPos('imgdot', ip[0], ip[1]);
-    document.getElementById('imgzoom').value = 100;
-    document.getElementById('imgzoomlbl').textContent = '100%';
-    const fit = (m.objectFit === 'contain') ? 'contain' : 'cover';
-    document.getElementById('fit-cover').classList.toggle('on', fit === 'cover');
-    document.getElementById('fit-contain').classList.toggle('on', fit === 'contain');
-    imgPosDevice = 'desktop';
-    document.getElementById('imgdevrow').querySelectorAll('.devbtn').forEach(b => b.classList.toggle('on', b.dataset.d === 'desktop'));
   } else {
     // bgdiv, sectionbg, nav — all get the background panel
     show('p-bg');
     if (selType !== 'nav') show('p-act');
     // pre-fill bg color picker
     try { document.getElementById('v-bgc').value = r2h(m.backgroundColor); } catch(e) {}
-    const bp = parsePos(m.backgroundPosition); setDotPos('bgdot', bp[0], bp[1]);
-    document.getElementById('bgzoom').value = 100;
-    document.getElementById('bgzoomlbl').textContent = '100%';
-    bgPosDevice = 'desktop';
-    document.getElementById('bgdevrow').querySelectorAll('.devbtn').forEach(b => b.classList.toggle('on', b.dataset.d === 'desktop'));
   }
-}
-function parsePos(v) {
-  if (!v) return [50,50];
-  const parts = v.trim().split(/\s+/).map(p => parseFloat(p));
-  if (parts.length >= 2 && !isNaN(parts[0]) && !isNaN(parts[1])) return [parts[0], parts[1]];
-  return [50,50];
 }
 
 function deselUI() {
@@ -671,9 +623,7 @@ function aFS(v)      { document.getElementById('fslbl').textContent=v+'px'; msg(
 function aImgUrl() {
   const u = document.getElementById('v-iurl').value.trim();
   if (!u) { toast('Paste a URL first'); return; }
-  const isVid = /\.(mp4|webm|mov|ogg)(\?|#|$)/i.test(u);
-  msg({cmd:'set-img-src', value:u, isVideo:isVid});
-  toast(isVid ? 'Video updated ✓' : 'Image updated ✓');
+  msg({cmd:'set-img-src',value:u}); toast('Image updated ✓');
 }
 function aBgUrl() {
   const u = document.getElementById('v-bgurl').value.trim();
@@ -684,56 +634,16 @@ function delEl() {
   if (!confirm('Delete this element? You can undo with Ctrl+Z.')) return;
   msg({cmd:'delete-element'}); deselUI();
 }
-function compressImage(file, maxDim, quality) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      const img = new Image();
-      img.onload = () => {
-        let { width, height } = img;
-        if (width > maxDim || height > maxDim) {
-          if (width > height) { height = Math.round(height * maxDim / width); width = maxDim; }
-          else { width = Math.round(width * maxDim / height); height = maxDim; }
-        }
-        const canvas = document.createElement('canvas');
-        canvas.width = width; canvas.height = height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, width, height);
-        const isPng = file.type === 'image/png';
-        // PNG kept as PNG (preserves transparency, e.g. logos); everything else -> JPEG for real size savings
-        resolve(isPng ? canvas.toDataURL('image/png') : canvas.toDataURL('image/jpeg', quality));
-      };
-      img.onerror = reject;
-      img.src = e.target.result;
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-function readRawDataUrl(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = e => resolve(e.target.result);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-async function upFile(input, mode) {
+function upFile(input, mode) {
   const file = input.files[0]; if (!file) return;
   const isVid = file.type.startsWith('video/');
-  const send = (value) => { if (mode === 'img') msg({cmd:'set-img-src', value, isVideo:isVid}); else msg({cmd:'set-bg-image-data', value, isVideo:isVid}); };
-
-  if (isVid) { send(await readRawDataUrl(file)); toast('Video updated ✓'); return; }
-
-  toast('Optimizing image…');
-  try {
-    const dataUrl = await compressImage(file, 1920, 0.82);
-    send(dataUrl);
-    toast('Image updated ✓ (optimized for web)');
-  } catch (e) {
-    send(await readRawDataUrl(file));
-    toast('Image updated ✓');
-  }
+  const reader = new FileReader();
+  reader.onload = ev => {
+    if (mode === 'img') msg({cmd:'set-img-src', value:ev.target.result});
+    else msg({cmd:'set-bg-image-data', value:ev.target.result, isVideo:isVid});
+    toast(isVid ? 'Video background set ✓' : 'Image updated ✓');
+  };
+  reader.readAsDataURL(file);
 }
 
 // ── IMAGE FIT (cover/contain) ────────────────────────────────────────────
@@ -742,24 +652,8 @@ function setImgFit(v) {
   document.getElementById('fit-contain').classList.toggle('on', v === 'contain');
   msg({cmd:'set-img-fit', value:v});
 }
-
-// ── PER-DEVICE CROP STATE ─────────────────────────────────────────────────
-let imgPosDevice = 'desktop', bgPosDevice = 'desktop';
-function setPosDevice(which, device) {
-  const row = document.getElementById(which === 'img' ? 'imgdevrow' : 'bgdevrow');
-  row.querySelectorAll('.devbtn').forEach(b => b.classList.toggle('on', b.dataset.d === device));
-  if (which === 'img') imgPosDevice = device; else bgPosDevice = device;
-  // Reset the pad/zoom display to a neutral starting point for that device's own view
-  setDotPos(which === 'img' ? 'imgdot' : 'bgdot', 50, 50);
-  document.getElementById(which === 'img' ? 'imgzoom' : 'bgzoom').value = 100;
-  document.getElementById(which === 'img' ? 'imgzoomlbl' : 'bgzoomlbl').textContent = '100%';
-  toast('Editing crop for ' + device + ' — resize the preview to check it');
-}
-
-function centerImgPos() { setDotPos('imgdot', 50, 50); msg({cmd:'set-img-position', value:'50% 50%', device:imgPosDevice}); }
-function centerBgPos()  { setDotPos('bgdot', 50, 50);  msg({cmd:'set-bg-position',  value:'50% 50%', device:bgPosDevice}); }
-function setImgZoom(v) { document.getElementById('imgzoomlbl').textContent = v+'%'; msg({cmd:'set-img-zoom', value:v, device:imgPosDevice}); }
-function setBgZoom(v)  { document.getElementById('bgzoomlbl').textContent  = v+'%'; msg({cmd:'set-bg-zoom',  value:v, device:bgPosDevice}); }
+function centerImgPos()  { setDotPos('imgdot', 50, 50); msg({cmd:'set-img-position', value:'50% 50%'}); }
+function centerBgPos()   { setDotPos('bgdot', 50, 50);  msg({cmd:'set-bg-position',  value:'50% 50%'}); }
 
 // ── DRAG-TO-REPOSITION PADS ──────────────────────────────────────────────
 function setDotPos(dotId, xPct, yPct) {
@@ -783,8 +677,8 @@ function wireDragPad(padId, dotId, onMove) {
   pad.addEventListener('pointerup',   () => { dragging = false; });
   pad.addEventListener('pointercancel', () => { dragging = false; });
 }
-wireDragPad('imgpad', 'imgdot', (x,y) => msg({cmd:'set-img-position', value:x+'% '+y+'%', device:imgPosDevice}));
-wireDragPad('bgpad',  'bgdot',  (x,y) => msg({cmd:'set-bg-position',  value:x+'% '+y+'%', device:bgPosDevice}));
+wireDragPad('imgpad', 'imgdot', (x,y) => msg({cmd:'set-img-position', value:x+'% '+y+'%'}));
+wireDragPad('bgpad',  'bgdot',  (x,y) => msg({cmd:'set-bg-position',  value:x+'% '+y+'%'}));
 
 
 // ── SECTION BACKGROUND PICKER ────────────────────────────────────────────
