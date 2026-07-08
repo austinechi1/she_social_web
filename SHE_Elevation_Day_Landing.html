@@ -1243,6 +1243,226 @@ nav.elevation-nav .mobile-menu-toggle {
   }
 }
 
+
+
+/* FINAL HEADER FIX - match S.H.E. Social main mobile header and restore working menu */
+nav.elevation-nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 1000 !important;
+  height: 96px !important;
+  padding: 0 60px !important;
+  display: grid !important;
+  grid-template-columns: 220px 1fr 240px !important;
+  align-items: center !important;
+  background: rgb(26, 5, 50) !important;
+  border: 0 !important;
+  border-bottom: none !important;
+  box-shadow: 0 8px 24px rgba(18, 0, 31, 0.2) !important;
+}
+
+nav.elevation-nav .nav-logo {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  justify-self: start !important;
+  text-decoration: none !important;
+  width: auto !important;
+  margin: 0 !important;
+}
+
+nav.elevation-nav .nav-logo img {
+  display: block !important;
+  height: 68px !important;
+  width: auto !important;
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+nav.elevation-nav .elevation-nav-links {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(34px, 5vw, 76px) !important;
+  width: 100% !important;
+}
+
+nav.elevation-nav .elevation-nav-links a {
+  color: var(--white) !important;
+  font-family: 'Jost', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: .22em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  transition: color .3s ease, transform .3s ease !important;
+}
+
+nav.elevation-nav .elevation-nav-links a:hover {
+  color: var(--lime) !important;
+  transform: translateY(-1px) !important;
+}
+
+nav.elevation-nav .elevation-nav-cta {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  justify-self: end !important;
+  min-width: 190px !important;
+  padding: 18px 30px !important;
+  background: var(--lime) !important;
+  color: var(--dark) !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  font-family: 'Jost', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: .18em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  transition: background .3s ease, transform .3s ease, box-shadow .3s ease !important;
+}
+
+nav.elevation-nav .elevation-nav-cta:hover {
+  background: var(--lime-hover) !important;
+  color: var(--dark) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px rgba(234,246,165,0.35) !important;
+}
+
+nav.elevation-nav .mobile-menu-toggle {
+  display: none !important;
+}
+
+.elevation-mobile-menu.mobile-menu {
+  background: rgb(26, 5, 50) !important;
+  z-index: 1002 !important;
+}
+
+.elevation-mobile-menu .mobile-menu-logo {
+  height: 64px !important;
+  width: auto !important;
+}
+
+.elevation-mobile-menu .mobile-menu-links a {
+  color: var(--white) !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  letter-spacing: .22em !important;
+  text-transform: uppercase !important;
+  padding: 20px 0 !important;
+  border-bottom: 0 !important;
+}
+
+.elevation-mobile-menu .mobile-menu-divider {
+  width: 100% !important;
+  height: 1px !important;
+  margin: 28px 0 30px !important;
+  background: rgba(255,255,255,.35) !important;
+}
+
+.elevation-mobile-menu .mobile-menu-cta {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 20px 24px !important;
+  background: var(--lime) !important;
+  color: var(--dark) !important;
+  border-radius: 8px !important;
+  text-align: center !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  letter-spacing: .22em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+}
+
+body.mobile-menu-open .mobile-menu-backdrop {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+body.mobile-menu-open .elevation-mobile-menu {
+  transform: translateX(0) !important;
+}
+
+@media (max-width: 900px) {
+  nav.elevation-nav {
+    height: 142px !important;
+    padding: 0 38px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    background: rgb(26, 5, 50) !important;
+    border: 0 !important;
+    box-shadow: 0 8px 24px rgba(18, 0, 31, 0.18) !important;
+  }
+
+  nav.elevation-nav .nav-logo {
+    flex: 0 0 auto !important;
+    justify-self: auto !important;
+    margin: 0 !important;
+    transform: none !important;
+  }
+
+  nav.elevation-nav .nav-logo img {
+    height: 76px !important;
+    width: auto !important;
+    margin: 0 !important;
+  }
+
+  nav.elevation-nav .elevation-nav-links,
+  nav.elevation-nav .elevation-nav-cta {
+    display: none !important;
+  }
+
+  nav.elevation-nav .mobile-menu-toggle {
+    display: inline-flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    width: 48px !important;
+    height: 48px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    cursor: pointer !important;
+    flex: 0 0 auto !important;
+  }
+
+  nav.elevation-nav .mobile-menu-toggle span {
+    display: block !important;
+    width: 34px !important;
+    height: 3px !important;
+    border-radius: 999px !important;
+    background: var(--white) !important;
+  }
+
+  .hero {
+    padding-top: 190px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  nav.elevation-nav {
+    height: 142px !important;
+    padding: 0 36px !important;
+  }
+
+  nav.elevation-nav .nav-logo img {
+    height: 74px !important;
+  }
+
+  nav.elevation-nav .mobile-menu-toggle span {
+    width: 32px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2182,5 +2402,23 @@ document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 })();
 </script>
 
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const body = document.body;
+    document.querySelectorAll('.mobile-menu-toggle').forEach(function (btn) {
+      btn.addEventListener('click', function (event) {
+        event.preventDefault();
+        body.classList.add('mobile-menu-open');
+      });
+    });
+    document.querySelectorAll('.mobile-menu-close, .mobile-menu-backdrop, .elevation-mobile-menu a').forEach(function (el) {
+      el.addEventListener('click', function () {
+        body.classList.remove('mobile-menu-open');
+      });
+    });
+  });
+</script>
 
 </body></html>
