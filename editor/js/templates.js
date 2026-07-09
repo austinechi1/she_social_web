@@ -1,0 +1,2 @@
+/* Reusable section templates will live here.
+   Kept separate as a placeholder so we can refactor without breaking the editor. */

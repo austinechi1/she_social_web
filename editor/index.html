@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S.H.E. Social — Website Editor</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/editor.css">
+</head>
+<body>
+<div id="shell">
+
+<header id="tb">
+  <div style="display:flex;align-items:center;gap:12px">
+    <span class="tlogo">s.h.e. <em>Social</em></span>
+    <span class="tbadge">Visual Editor</span>
+  </div>
+  <div class="tctr">
+    <button class="ptab on" data-k="main">🏠 Main Site</button>
+    <button class="ptab" data-k="elev">✨ Elevation Day</button>
+    <button class="hbtn" id="brefresh" title="Reload the latest published version from GitHub" onclick="refreshFromGithub()">🔄</button>
+  </div>
+  <div class="trgt">
+    <button class="hbtn" id="bundo" title="Undo (Ctrl+Z)" disabled>↩</button>
+    <button class="hbtn" id="bredo" title="Redo (Ctrl+Y)" disabled>↪</button>
+    <button id="bghcfg" title="GitHub Publish Settings" onclick="openGhModal()">⚙️</button>
+    <button id="bdraft" title="Save a private draft in this browser">💾 Save Draft</button>
+    <button id="bsave">⬇ Save & Download</button>
+    <button id="bpublish" title="Publish this page straight to your live site">🚀 Publish</button>
+  </div>
+</header>
+
+<!-- ── GITHUB PUBLISH SETTINGS MODAL ── -->
+<div id="ghOverlay">
+  <div id="ghModal">
+    <h3>🚀 Publish Settings</h3>
+    <p class="sub">Connect this editor to your GitHub repo once, and the Publish button will push your edits straight to the live site. Your token is stored only in this browser, on this device.</p>
+    <div class="ghrow">
+      <div>
+        <label>GitHub Username</label>
+        <input type="text" id="gh-owner" placeholder="austinechi1">
+      </div>
+      <div>
+        <label>Repository Name</label>
+        <input type="text" id="gh-repo" placeholder="she_social_web">
+      </div>
+    </div>
+    <label>Branch</label>
+    <input type="text" id="gh-branch" placeholder="main" value="main">
+    <label>Personal Access Token</label>
+    <input type="password" id="gh-token" placeholder="ghp_… or github_pat_…">
+    <p class="sub" style="margin:8px 0 0">Need a token? <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Create one here</a> — set repository access to just <b>she_social_web</b>, and under Permissions give <b>Contents: Read and write</b>.</p>
+    <div id="ghStatus"></div>
+    <div class="ghbtns">
+      <button id="ghCancelBtn" onclick="closeGhModal()">Cancel</button>
+      <button id="ghSaveBtn" onclick="saveGhSettings()">Save Settings</button>
+    </div>
+  </div>
+</div>
+
+<aside id="sb">
+
+  <!-- ── PAGES SYSTEM ── -->
+  <div class="pnl on" id="p-pages">
+    <div class="phd" onclick="tP(this)"><span class="ptit">📄 Pages</span><span class="parr">▼</span></div>
+    <div class="pbdy">
+      <div class="pg-list" id="pglist"></div>
+      <button class="btn grn" style="margin-top:10px" onclick="addNewPage()">+ Add New Page</button>
+      <button class="btn" onclick="loadDraftForPage()">Load Draft</button>
+    </div>
+  </div>
+
+  <!-- ── SECTION LIBRARY ── -->
+  <div class="pnl on" id="p-library">
+    <div class="phd" onclick="tP(this)"><span class="ptit">🧩 Section Library</span><span class="parr">▼</span></div>
+    <div class="pbdy">
+      <p style="font-size:11px;color:rgba(255,255,255,.32);margin-bottom:10px;line-height:1.65">Adds a new editable section after the selected section. If nothing is selected, it adds before the footer.</p>
+      <div class="lib-grid">
+        <button class="lib-btn" onclick="addSectionFromLibrary('hero')">Hero <span>＋</span></button>
+        <button class="lib-btn" onclick="addSectionFromLibrary('about')">About <span>＋</span></button>
+        <button class="lib-btn" onclick="addSectionFromLibrary('services')">Services <span>＋</span></button>
+        <button class="lib-btn" onclick="addSectionFromLibrary('packages')">Packages <span>＋</span></button>
+        <button class="lib-btn" onclick="addSectionFromLibrary('testimonials')">Testimonials <span>＋</span></button>
+        <button class="lib-btn" onclick="addSectionFromLibrary('faq')">FAQ <span>＋</span></button>
+        <button class="lib-btn" onclick="addSectionFromLibrary('contact')">Contact <span>＋</span></button>
+        <button class="lib-btn" onclick="addSectionFromLibrary('cta')">CTA <span>＋</span></button>
+        <button class="lib-btn" onclick="addSectionFromLibrary('gallery')">Gallery <span>＋</span></button>
+        <button class="lib-btn" onclick="addSectionFromLibrary('blank')">Blank Section <span>＋</span></button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── MEDIA LIBRARY ── -->
+  <div class="pnl on" id="p-media">
+    <div class="phd" onclick="tP(this)"><span class="ptit">🗂 Media Library</span><span class="parr">▼</span></div>
+    <div class="pbdy">
+      <label class="media-drop">📁 Upload + compress image/video
+        <input type="file" id="mediaUpload" accept="image/*,video/*" multiple onchange="handleMediaUpload(this.files)">
+      </label>
+      <div class="mini-row" style="margin-bottom:8px">
+        <button class="btn sm" onclick="document.getElementById('mediaUpload').click()">Upload</button>
+        <button class="btn sm red" onclick="clearMediaLibrary()">Clear</button>
+      </div>
+      <div class="ct">
+        <label>Image Quality <span id="imgqLabel" class="rng-val">82%</span></label>
+        <input type="range" id="imgQuality" min="50" max="95" value="82" oninput="document.getElementById('imgqLabel').textContent=this.value+'%'">
+      </div>
+      <p style="font-size:10.5px;color:rgba(255,255,255,.28);line-height:1.55;margin-bottom:10px">Images are compressed to WebP when possible. Videos are stored for use, with a browser-safe size warning.</p>
+      <div class="media-grid" id="mediaGrid"></div>
+    </div>
+  </div>
+
+  <!-- No selection state -->
+  <div id="nosel">
+    <span class="ni">✏️</span>
+    <p>Click anything on the site to edit it.</p>
+    <div class="hint">
+      <b>Click</b> any text → edit words, color, size<br>
+      <b>Click</b> any image → replace it<br>
+      <b>Right-click</b> any section → change background<br>
+      <b>Use the section list below</b> → jump &amp; reorder
+    </div>
+  </div>
+
+  <!-- Selected element header -->
+  <div id="selhd">
+    <div id="stag">Element</div>
+    <div id="sdesc"></div>
+    <button id="bdesel">✕ Deselect</button>
+  </div>
+
+  <!-- ── TEXT ── -->
+  <div class="pnl on" id="p-txt" style="display:none">
+    <div class="phd" onclick="tP(this)"><span class="ptit">✏️ Edit Text</span><span class="parr">▼</span></div>
+    <div class="pbdy">
+      <div class="ct">
+        <label>Text Content</label>
+        <textarea id="v-txt" rows="4" placeholder="Type your text here…"></textarea>
+      </div>
+      <button class="btn grn" onclick="applyTxt()">✓ Apply Text</button>
+      <div class="ct" style="margin-top:10px">
+        <label>Link / Button URL</label>
+        <input type="url" id="v-href" placeholder="https://…">
+      </div>
+      <button class="btn" onclick="applyHref()">Apply Link URL</button>
+    </div>
+  </div>
+
+  <!-- ── TEXT STYLE ── -->
+  <div class="pnl on" id="p-sty" style="display:none">
+    <div class="phd" onclick="tP(this)"><span class="ptit">🎨 Text Style</span><span class="parr">▼</span></div>
+    <div class="pbdy">
+      <div class="ct">
+        <label>Text Color</label>
+        <div class="sws" id="txt-sws">
+          <div class="sw" style="background:#fff" onclick="aC('#ffffff')" title="White"></div>
+          <div class="sw" style="background:#EAF6A5" onclick="aC('#EAF6A5')" title="Lime"></div>
+          <div class="sw" style="background:#9E94F5" onclick="aC('#9E94F5')" title="Lavender"></div>
+          <div class="sw" style="background:#8E50BF" onclick="aC('#8E50BF')" title="Purple"></div>
+          <div class="sw" style="background:#2A1550" onclick="aC('#2A1550')" title="Dark"></div>
+          <div class="sw" style="background:#4B3270" onclick="aC('#4B3270')" title="Body"></div>
+          <div class="sw" style="background:#F9F5F1" onclick="aC('#F9F5F1')" title="Cream" style="border:1px solid rgba(255,255,255,.2)"></div>
+        </div>
+        <input type="color" id="v-col" value="#ffffff" oninput="aC(this.value)">
+      </div>
+      <div class="ct">
+        <label>Font Size — <span id="fslbl">16px</span></label>
+        <input type="range" id="v-fs" min="10" max="96" value="16" oninput="aFS(this.value)">
+      </div>
+      <div class="ct">
+        <label>Font Weight</label>
+        <select onchange="msg({cmd:'set-font-weight',value:this.value})">
+          <option value="300">Light (300)</option>
+          <option value="400">Regular (400)</option>
+          <option value="500" selected>Medium (500)</option>
+          <option value="600">SemiBold (600)</option>
+          <option value="700">Bold (700)</option>
+          <option value="800">ExtraBold (800)</option>
+        </select>
+      </div>
+      <div class="ct">
+        <label>Font Family</label>
+        <select onchange="msg({cmd:'set-font-family',value:this.value})">
+          <option value="'Jost',sans-serif">Jost (Modern / Body)</option>
+          <option value="'Cormorant Garamond',serif">Cormorant Garamond (Elegant)</option>
+          <option value="Georgia,serif">Georgia (Classic Serif)</option>
+          <option value="Arial,sans-serif">Arial (Clean Sans)</option>
+        </select>
+      </div>
+      <div class="ct">
+        <label>Alignment</label>
+        <div class="brow">
+          <button class="btn sm" onclick="msg({cmd:'set-text-align',value:'left'})">⬅ Left</button>
+          <button class="btn sm" onclick="msg({cmd:'set-text-align',value:'center'})">≡ Center</button>
+          <button class="btn sm" onclick="msg({cmd:'set-text-align',value:'right'})">➡ Right</button>
+        </div>
+      </div>
+      <button class="btn" onclick="msg({cmd:'set-font-style'})">𝐼 Toggle Italic</button>
+    </div>
+  </div>
+
+  <!-- ── IMAGE ── -->
+  <div class="pnl on" id="p-img" style="display:none">
+    <div class="phd" onclick="tP(this)"><span class="ptit">🖼 Replace Image</span><span class="parr">▼</span></div>
+    <div class="pbdy">
+      <label class="upl">📁 Upload from Computer<input type="file" accept="image/*" onchange="upFile(this,'img')"></label>
+      <div class="hint">✓ Applies instantly — no extra step needed</div>
+      <div class="orsep"><span>or</span></div>
+      <div class="ct">
+        <label>Paste image URL instead</label>
+        <input type="url" id="v-iurl" placeholder="https://images.unsplash.com/…">
+      </div>
+      <button class="btn grn" onclick="aImgUrl()">Apply Image URL</button>
+
+      <div class="ct" style="margin-top:14px">
+        <label>Crop / Fit</label>
+        <div class="fitrow">
+          <button class="fitbtn on" id="fit-cover" onclick="setImgFit('cover')">Fill frame</button>
+          <button class="fitbtn" id="fit-contain" onclick="setImgFit('contain')">Show whole image</button>
+        </div>
+      </div>
+      <div class="ct" style="margin-top:10px">
+        <label>Drag to reposition <span class="dim">(fixes images cut off top/bottom)</span></label>
+        <div class="dragpad" id="imgpad"><div class="dragdot" id="imgdot"></div></div>
+        <button class="btn" style="margin-top:6px" onclick="centerImgPos()">Center it</button>
+      </div>
+
+      <div class="ct" style="margin-top:14px">
+        <label>Alt Text (accessibility)</label>
+        <input type="text" id="v-alt" placeholder="Describe the image">
+      </div>
+      <button class="btn" onclick="msg({cmd:'set-img-alt',value:document.getElementById('v-alt').value})">Apply Alt Text</button>
+    </div>
+  </div>
+
+  <!-- ── SECTION BACKGROUND ── -->
+  <div class="pnl on" id="p-bg" style="display:none">
+    <div class="phd" onclick="tP(this)"><span class="ptit">🌄 Background</span><span class="parr">▼</span></div>
+    <div class="pbdy">
+      <div class="ct">
+        <label>Background Color</label>
+        <div class="sws">
+          <div class="sw" style="background:#2A1550" onclick="aBG('#2A1550')" title="Dark"></div>
+          <div class="sw" style="background:#8E50BF" onclick="aBG('#8E50BF')" title="Purple"></div>
+          <div class="sw" style="background:#F9F5F1" onclick="aBG('#F9F5F1')" title="Cream"></div>
+          <div class="sw" style="background:#ffffff" onclick="aBG('#ffffff')" title="White"></div>
+          <div class="sw" style="background:#EAF6A5" onclick="aBG('#EAF6A5')" title="Lime"></div>
+          <div class="sw" style="background:#9E94F5" onclick="aBG('#9E94F5')" title="Lavender"></div>
+          <div class="sw" style="background:#1a0532" onclick="aBG('#1a0532')" title="Deep Dark"></div>
+          <div class="sw" style="background:#000000" onclick="aBG('#000000')" title="Black"></div>
+        </div>
+        <input type="color" id="v-bgc" value="#2A1550" oninput="aBG(this.value)">
+      </div>
+
+      <div class="ct" style="margin-top:4px">
+        <label>Background Image</label>
+      </div>
+      <label class="upl">📁 Upload Background Photo / Video<input type="file" accept="image/*,video/*" onchange="upFile(this,'bg')"></label>
+      <div class="hint">✓ Applies instantly — no extra step needed</div>
+      <div class="orsep"><span>or</span></div>
+      <div class="ct">
+        <label>Paste image URL instead</label>
+        <input type="url" id="v-bgurl" placeholder="https://images.unsplash.com/…">
+      </div>
+      <button class="btn grn" onclick="aBgUrl()">Apply Background Image URL</button>
+      <button class="btn red" style="margin-top:2px" onclick="msg({cmd:'remove-bg-image'})">✕ Remove Background Image</button>
+
+      <div class="ct" style="margin-top:10px">
+        <label>Drag to reposition <span class="dim">(fixes images cut off top/bottom)</span></label>
+        <div class="dragpad" id="bgpad"><div class="dragdot" id="bgdot"></div></div>
+        <button class="btn" style="margin-top:6px" onclick="centerBgPos()">Center it</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ACTIONS ── -->
+  <div class="pnl on" id="p-act" style="display:none">
+    <div class="phd" onclick="tP(this)"><span class="ptit">⚡ Actions</span><span class="parr">▼</span></div>
+    <div class="pbdy">
+      <button class="btn" onclick="duplicateSelectedSection()">⧉ Duplicate Selected Section</button>
+      <button class="btn" onclick="hideSelectedSection()">👁 Hide Selected Section</button>
+      <button class="btn red" onclick="deleteSelectedSection()">🗑 Delete Selected Section</button>
+      <button class="btn red" onclick="delEl()">🗑 Delete Selected Element</button>
+      <button class="btn" onclick="duplicateSelectedSection()">⧉ Duplicate Section</button>
+      <button class="btn" onclick="hideSelectedSection()">🙈 Hide Section</button>
+      <button class="btn red" onclick="deleteSelectedSection()">🗑 Delete Section</button>
+    </div>
+  </div>
+
+
+
+  <!-- ── PHASE 2 ADVANCED STYLE ── -->
+  <div class="pnl on" id="p-advstyle" style="display:none">
+    <div class="phd" onclick="tP(this)"><span class="ptit">🧩 Advanced Style</span><span class="parr">▼</span></div>
+    <div class="pbdy">
+      <p class="phase2-note">Use this for spacing, sizing, borders, shadows, and layout polish on the selected element or section.</p>
+      <div class="ct"><label>Line Height — <span id="lhLbl">1.6</span></label><input type="range" min="0.9" max="3" step="0.05" value="1.6" oninput="p2LineHeight(this.value)"></div>
+      <div class="ct"><label>Letter Spacing — <span id="lsLbl">0px</span></label><input type="range" min="-2" max="12" step="0.5" value="0" oninput="p2LetterSpacing(this.value)"></div>
+      <div class="ct"><label>Opacity — <span id="opLbl">100%</span></label><input type="range" min="0" max="100" value="100" oninput="p2Opacity(this.value)"></div>
+      <div class="phase2-grid">
+        <button class="btn sm" onclick="p2Style('padding','24px')">Padding +</button>
+        <button class="btn sm" onclick="p2Style('padding','0')">Padding 0</button>
+        <button class="btn sm" onclick="p2Style('margin','0 auto')">Center</button>
+        <button class="btn sm" onclick="p2Style('width','100%')">Width 100%</button>
+        <button class="btn sm" onclick="p2Style('maxWidth','1200px')">Max 1200</button>
+        <button class="btn sm" onclick="p2Style('borderRadius','18px')">Round</button>
+      </div>
+      <div class="ct"><label>Custom CSS Value</label><input type="text" id="p2Prop" placeholder="property e.g. paddingTop"><input type="text" id="p2Val" placeholder="value e.g. 80px" style="margin-top:6px"></div>
+      <button class="btn grn" onclick="p2ApplyCustomStyle()">Apply Custom Style</button>
+      <button class="btn" onclick="p2Style('boxShadow','0 20px 60px rgba(42,21,80,.16)')">Add Soft Shadow</button>
+      <button class="btn" onclick="p2Style('boxShadow','none')">Remove Shadow</button>
+    </div>
+  </div>
+
+  <!-- ── PHASE 2 GLOBAL THEME ── -->
+  <div class="pnl on" id="p-theme">
+    <div class="phd" onclick="tP(this)"><span class="ptit">🎛 Theme Settings</span><span class="parr">▼</span></div>
+    <div class="pbdy">
+      <p class="phase2-note">Change global brand colors across the page. These update CSS variables like --lime, --purple, --dark, and --cream.</p>
+      <div class="token-row"><span>Lime</span><input type="color" value="#EAF6A5" onchange="p2Theme('--lime',this.value)"></div>
+      <div class="token-row"><span>Lavender</span><input type="color" value="#9E94F5" onchange="p2Theme('--lav',this.value)"></div>
+      <div class="token-row"><span>Purple</span><input type="color" value="#8E50BF" onchange="p2Theme('--purple',this.value)"></div>
+      <div class="token-row"><span>Dark</span><input type="color" value="#2A1550" onchange="p2Theme('--dark',this.value)"></div>
+      <div class="token-row"><span>Cream</span><input type="color" value="#F9F5F1" onchange="p2Theme('--cream',this.value)"></div>
+      <button class="btn" onclick="p2ResetTheme()">Reset Brand Colors</button>
+    </div>
+  </div>
+
+  <!-- ── PHASE 2 COMPONENTS ── -->
+  <div class="pnl on" id="p-components">
+    <div class="phd" onclick="tP(this)"><span class="ptit">🧱 Global Components</span><span class="parr">▼</span></div>
+    <div class="pbdy">
+      <p class="phase2-note">Save a selected section as a reusable component, then insert it on any page.</p>
+      <button class="btn grn" onclick="p2SaveComponent()">Save Selected Section</button>
+      <div class="component-list" id="componentList"></div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 2 VERSION HISTORY ── -->
+  <div class="pnl on" id="p-history">
+    <div class="phd" onclick="tP(this)"><span class="ptit">🕘 Version History</span><span class="parr">▼</span></div>
+    <div class="pbdy">
+      <p class="phase2-note">Save checkpoints before big edits and restore them later.</p>
+      <button class="btn grn" onclick="p2SaveVersion()">Save Checkpoint</button>
+      <div class="version-list" id="versionList"></div>
+    </div>
+  </div>
+
+
+  <!-- ── PHASE 3 PERFORMANCE + SEO ── -->
+  <div class="pnl on" id="p-phase3">
+    <div class="phd" onclick="tP(this)"><span class="ptit">⚡ Phase 3: SEO + Speed</span><span class="parr">▼</span></div>
+    <div class="pbdy">
+      <p class="phase2-note">Optimize the page before publishing: SEO tags, lazy loading, image attributes, and performance checks.</p>
+      <div class="ct"><label>SEO Page Title</label><input type="text" id="p3Title" placeholder="S.H.E. Social | Social Media Management"></div>
+      <div class="ct"><label>SEO Description</label><textarea id="p3Desc" rows="3" placeholder="Short page description for Google and social sharing"></textarea></div>
+      <div class="ct"><label>Keywords</label><input type="text" id="p3Keywords" placeholder="social media management, women entrepreneurs"></div>
+      <div class="ct"><label>Canonical URL</label><input type="url" id="p3Canonical" placeholder="https://www.she-social.com/"></div>
+      <button class="btn grn" onclick="p3ApplySEO()">Apply SEO Tags</button>
+      <div class="mini-row" style="margin-top:8px">
+        <button class="btn sm" onclick="p3AuditPage()">Run Audit</button>
+        <button class="btn sm" onclick="p3OptimizePage()">Auto Optimize</button>
+      </div>
+      <button class="btn" onclick="p3AddBusinessSchema()">Add Local Business Schema</button>
+      <div class="ct" style="margin-top:12px"><label>Selected Image Compression Quality <span id="p3qLabel" class="rng-val">78%</span></label><input type="range" id="p3Quality" min="45" max="92" value="78" oninput="document.getElementById('p3qLabel').textContent=this.value+'%'"></div>
+      <button class="btn" onclick="p3CompressSelectedImage()">Compress Selected Image to WebP</button>
+      <button class="btn" onclick="p3AddImageDimensions()">Add Width/Height to Images</button>
+      <button class="btn" onclick="p3ExportCleanHtml()">Export Clean Optimized HTML</button>
+      <div id="p3Audit" class="audit-box">Run an audit to see what still needs attention.</div>
+    </div>
+  </div>
+
+
+  <!-- ── PHASE 4 SAFE ADD-ONS ── -->
+  <div class="pnl on" id="p-p4safe">
+    <div class="phd" onclick="tP(this)"><span class="ptit">🧩 Phase 4: Forms + Blog + Backups</span><span class="parr">▼</span></div>
+    <div class="pbdy">
+      <p class="phase2-note">Safe add-ons built on the Phase 3 editable base.</p>
+      <div class="brow">
+        <button class="btn sm grn" onclick="p4SafeAddContactForm()">+ Contact</button>
+        <button class="btn sm grn" onclick="p4SafeAddLeadForm()">+ Lead Form</button>
+        <button class="btn sm" onclick="p4SafeAddBlogGrid()">+ Blog</button>
+      </div>
+      <div class="ct">
+        <label>Form Email</label>
+        <input type="text" id="p4FormEmail" placeholder="she_social@outlook.com">
+      </div>
+      <button class="btn" onclick="p4SafeApplyFormSettings()">Apply Form Email</button>
+      <div class="brow">
+        <button class="btn sm" onclick="p4SafeSaveBackup()">Backup</button>
+        <button class="btn sm" onclick="p4SafeDownloadBackup()">Download</button>
+        <button class="btn sm red" onclick="p4SafeClearBackups()">Clear</button>
+      </div>
+      <div id="p4SafeBackups" class="phase2-list"></div>
+    </div>
+  </div>
+
+
+
+  <!-- ── PHASE 5: AI + SMART TOOLS ── -->
+  <div class="pnl on" id="p-phase5">
+    <div class="phd" onclick="tP(this)"><span class="ptit">🤖 Phase 5: AI + Smart Tools</span><span class="parr">▼</span></div>
+    <div class="pbdy">
+      <p class="phase2-note">Safe AI-style helper tools added without breaking the Phase 3/4 editing base.</p>
+      <button class="btn grn" onclick="p5RewriteText()">✨ Rewrite Selected Text</button>
+      <button class="btn" onclick="p5MakePunchy()">⚡ Make Text Short + Punchy</button>
+      <button class="btn" onclick="p5GenerateHeadlines()">📝 Generate 5 Headlines</button>
+      <button class="btn" onclick="p5GenerateCTA()">🎯 Generate CTA Options</button>
+      <button class="btn" onclick="p5GenerateFAQ()">❓ Generate FAQ Section</button>
+      <button class="btn" onclick="p5SuggestSEO()">🔎 SEO Suggestions</button>
+      <button class="btn" onclick="p5AltText()">🖼 Generate Image Alt Text</button>
+      <button class="btn" onclick="p5ColorIdeas()">🎨 Brand Color Ideas</button>
+      <button class="btn" onclick="p5ContentAudit()">✅ Page Content Audit</button>
+      <div class="ct" style="margin-top:12px">
+        <label>Smart Output</label>
+        <textarea id="p5-output" rows="8" placeholder="AI helper output will appear here. Copy what you like into the selected section."></textarea>
+      </div>
+      <button class="btn grn" onclick="p5ApplyOutputToText()">Apply Output to Selected Text</button>
+    </div>
+  </div>
+
+  <!-- ── CHANGE SECTION BG (always visible) ── -->
+  <div class="pnl on" id="p-secpick">
+    <div class="phd" onclick="tP(this)"><span class="ptit">🎨 Change Any Section Background</span><span class="parr">▼</span></div>
+    <div class="pbdy">
+      <p style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:10px;line-height:1.7">Click a section button to select it, then use the <b style="color:rgba(255,255,255,.55)">Background</b> panel above to change its color or image.</p>
+      <div class="bgpick" id="bgpick"></div>
+    </div>
+  </div>
+
+  <!-- ── SECTIONS NAV ── -->
+  <div class="pnl on">
+    <div class="phd" onclick="tP(this)"><span class="ptit">📋 Jump to Section</span><span class="parr">▼</span></div>
+    <div class="pbdy">
+      <p style="font-size:10px;color:rgba(255,255,255,.22);margin-bottom:10px">Click name to jump · arrows to reorder</p>
+      <ul class="scl" id="scl"></ul>
+    </div>
+  </div>
+
+  <!-- ── DEVICE ── -->
+  <div class="pnl on">
+    <div class="phd" onclick="tP(this)"><span class="ptit">📐 Preview Size</span><span class="parr">▼</span></div>
+    <div class="pbdy">
+      <div class="dvbtns">
+        <button class="dvb on" onclick="setDev('',this)">🖥 Desktop</button>
+        <button class="dvb" onclick="setDev('tablet',this)">⬛ Tablet</button>
+        <button class="dvb" onclick="setDev('mobile',this)">📱 Mobile</button>
+      </div>
+    </div>
+  </div>
+
+</aside>
+
+<main id="cv">
+  <div id="ld">
+    <span class="ll">s.h.e. Social</span>
+    <div class="lb"><div class="lf"></div></div>
+    <span class="lt">Loading your site…</span>
+  </div>
+  <div id="frw"><iframe id="sfr" title="S.H.E. Social Preview"></iframe></div>
+  <div id="hint">
+    <span><span class="hk">Click</span>select &amp; edit</span>
+    <span><span class="hk">Right-click</span>section background</span>
+    <span><span class="hk">Ctrl+Z</span>undo</span>
+    <span><span class="hk">Ctrl+Y</span>redo</span>
+    <span><span class="hk">Esc</span>deselect</span>
+  </div>
+</main>
+</div>
+<div id="toast"></div>
+
+
+<script src="js/pages.js"></script>
+<script src="js/sections.js"></script>
+<script src="js/templates.js"></script>
+<script src="js/media.js"></script>
+<script src="js/github.js"></script>
+<script src="js/history.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/editor.js"></script>
+
+</body>
+</html>
