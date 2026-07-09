@@ -1,2 +1,0 @@
-/* Page management functions will be moved here after the safe split is tested.
-   Kept separate as a placeholder so we can refactor without breaking the editor. */
