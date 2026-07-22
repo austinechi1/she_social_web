@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Content Accelerator Retreat — A Two-Day Executive Content Experience | S.H.E. Social</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12201F;
+    --teal-black:#0A2426;
+    --teal-deep:#0F3B3E;
+    --teal:#1A565A;
+    --teal-bright:#2EBCBE;
+    --teal-pale:#E7F4F3;
+    --gold:#F2A11C;
+    --gold-deep:#D6870A;
+    --paper:#F7F2E7;
+    --paper-line:#e7dfcd;
+    --white:#FEFDFB;
+    --shadow: 0 20px 45px -18px rgba(10,36,38,0.4);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  h1,h2,h3,h4{font-family:'Poppins',sans-serif;margin:0;line-height:1.05;}
+  p{margin:0;}
+  a{text-decoration:none;color:inherit;}
+  .eyebrow-script{
+    font-family:'Caveat',cursive;
+    font-size:1.5rem;
+    color:var(--gold-deep);
+    display:inline-block;
+    transform:rotate(-2deg);
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:0.95rem;
+    letter-spacing:.02em;
+    padding:16px 30px;
+    border-radius:999px;
+    border:2px solid transparent;
+    cursor:pointer;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .btn-gold{
+    background:linear-gradient(135deg,#F7B23C,var(--gold) 60%,var(--gold-deep));
+    color:var(--teal-black);
+    box-shadow:0 12px 26px -10px rgba(242,161,28,0.65);
+  }
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 16px 30px -10px rgba(242,161,28,0.8);}
+  .btn-teal{
+    background:var(--teal-deep);
+    color:var(--white);
+  }
+  .btn-teal:hover{transform:translateY(-2px);background:var(--teal);}
+  .stripe-note{
+    display:block;
+    font-size:0.68rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:inherit;
+    opacity:.65;
+    margin-top:6px;
+    font-family:'Inter',sans-serif;
+    font-weight:500;
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,36,38,0.94);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .nav .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:13px;padding-bottom:13px;
+  }
+  .nav-brand{display:flex;align-items:center;gap:12px;color:var(--white);}
+  .nav-brand img{height:36px;width:36px;border-radius:50%;object-fit:cover;}
+  .nav-brand img.cce{border-radius:8px;}
+  .nav-brand-text{display:flex;flex-direction:column;line-height:1.2;}
+  .nav-brand-text span:first-child{font-family:'Poppins',sans-serif;font-weight:700;font-size:0.92rem;}
+  .nav-brand-text span:last-child{font-family:'Inter',sans-serif;font-weight:500;font-size:0.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-bright);}
+  .nav-cta{font-size:0.8rem;padding:11px 22px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    color:var(--white);
+    background:var(--teal-black);
+    overflow:hidden;
+  }
+  .hero-top{
+    position:relative;
+    height:220px;
+    background-image:
+      linear-gradient(180deg, rgba(9,28,29,0.35) 0%, rgba(9,28,29,0.55) 55%, var(--teal-black) 100%),
+      url('assets/keyboard.jpg');
+    background-size:cover;
+    background-position:center top;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    padding-bottom:0;
+  }
+  .framework-pill{
+    position:relative;
+    transform:translateY(50%);
+    background:rgba(10,36,38,0.82);
+    backdrop-filter:blur(4px);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:999px;
+    padding:13px 34px;
+    display:flex;
+    gap:10px;
+    align-items:center;
+    font-family:'Poppins',sans-serif;
+    font-weight:600;
+    font-size:0.82rem;
+    letter-spacing:.04em;
+    white-space:nowrap;
+    box-shadow:0 18px 30px -16px rgba(0,0,0,0.5);
+  }
+  .framework-pill .sep{color:var(--gold);opacity:.85;}
+
+  .hero-body{
+    position:relative;
+    padding-top:76px;
+    padding-bottom:56px;
+    overflow:hidden;
+    background:
+      radial-gradient(120% 100% at 85% 0%, rgba(46,188,190,0.16), transparent 45%),
+      radial-gradient(90% 90% at 5% 100%, rgba(242,161,28,0.10), transparent 45%);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:56px;
+    align-items:center;
+  }
+  .hero-eyebrow-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+  .hero-eyebrow-row .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+  .hero-eyebrow-text{
+    font-family:'Poppins',sans-serif;
+    text-transform:uppercase;
+    font-size:0.7rem;
+    letter-spacing:.2em;
+    color:var(--teal-bright);
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 4.2vw, 3.7rem);
+    font-weight:800;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 em{font-style:normal;color:var(--gold);}
+  .experience-tag{
+    display:inline-block;
+    margin-top:14px;
+    font-family:'Poppins',sans-serif;
+    font-weight:600;
+    font-size:0.78rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--teal-black);
+    background:var(--gold);
+    padding:8px 16px;
+    border-radius:3px;
+  }
+  .hero-tagline{
+    font-family:'Caveat',cursive;
+    font-size:1.7rem;
+    color:#F1D89A;
+    margin-top:16px;
+    transform:rotate(-1deg);
+    display:block;
+  }
+  .hero-sub{
+    margin-top:16px;
+    font-size:1.04rem;
+    line-height:1.65;
+    color:#D8ECEA;
+    max-width:520px;
+  }
+  .hero-actions{
+    margin-top:30px;
+    display:flex;
+    align-items:flex-start;
+    gap:22px;
+    flex-wrap:wrap;
+  }
+  .hero-seats{
+    font-size:0.82rem;
+    color:#F1D89A;
+    font-weight:600;
+    letter-spacing:.02em;
+    padding-top:16px;
+  }
+  .event-bar{
+    margin-top:36px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    background:rgba(46,188,190,0.14);
+    border:1px solid rgba(46,188,190,0.35);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .event-bar div{padding:15px 16px;border-right:1px solid rgba(46,188,190,0.3);}
+  .event-bar div:last-child{border-right:none;}
+  .event-bar .label{display:block;font-size:0.62rem;text-transform:uppercase;letter-spacing:.15em;color:#9FCFC8;margin-bottom:5px;}
+  .event-bar .value{font-family:'Poppins',sans-serif;font-weight:700;font-size:0.92rem;color:var(--gold);}
+
+  .hero-photo-wrap{position:relative;}
+  .hero-photo{
+    position:relative;
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);
+    border:6px solid var(--white);
+  }
+  .hero-photo img{width:100%;height:520px;object-fit:cover;object-position:top center;display:block;}
+  .hero-photo .hairline{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.5);}
+  .hero-photo .hairline.a{left:33%;}
+  .hero-photo .hairline.b{left:66%;}
+  .polaroid-tag{
+    position:absolute;
+    bottom:-20px;left:-18px;
+    background:var(--gold);
+    color:var(--teal-black);
+    font-family:'Poppins',sans-serif;
+    font-weight:800;
+    font-size:0.76rem;
+    padding:13px 17px;
+    border-radius:4px;
+    box-shadow:var(--shadow);
+    transform:rotate(-4deg);
+    line-height:1.3;
+  }
+  .clip-badge{
+    position:absolute;
+    top:-16px;right:24px;
+    background:var(--white);
+    color:var(--teal-deep);
+    font-family:'Poppins',sans-serif;
+    font-weight:800;
+    font-size:0.7rem;
+    letter-spacing:.05em;
+    padding:9px 15px;
+    border-radius:999px;
+    box-shadow:var(--shadow);
+  }
+
+  /* ---------- FRAMEWORK STRIP ---------- */
+  .framework{background:var(--ink);color:var(--white);padding:44px 0;overflow:hidden;}
+  .framework .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+  .framework-item{padding:0 26px;border-left:1px solid rgba(255,255,255,0.14);}
+  .framework-item:first-child{border-left:none;padding-left:0;}
+  .framework-num{font-family:'Caveat',cursive;color:var(--gold);font-size:1.4rem;}
+  .framework-item h3{font-size:1.15rem;margin-top:4px;margin-bottom:8px;}
+  .framework-item p{font-size:0.87rem;color:#C9CDCC;line-height:1.55;}
+
+  /* ---------- SECTION HEADERS ---------- */
+  section{padding:92px 0;position:relative;}
+  .section-head{max-width:640px;margin-bottom:50px;}
+  .section-head .eyebrow-script{margin-bottom:10px;}
+  .section-head h2{font-size:clamp(1.85rem,3vw,2.5rem);font-weight:800;}
+  .section-head p{margin-top:14px;font-size:1.02rem;line-height:1.65;}
+  .center{text-align:center;margin-left:auto;margin-right:auto;}
+
+  /* ---------- TEAL SECTIONS WITH GEAR CORNERS ---------- */
+  .teal-section{background:var(--teal);color:var(--white);overflow:hidden;}
+  .teal-section .section-head h2{color:var(--white);}
+  .teal-section .section-head p{color:#D8ECEA;}
+  .gear{position:absolute;pointer-events:none;opacity:0.55;}
+  .gear.tl{top:-10px;left:-10px;width:150px;}
+  .gear.tr{top:-10px;right:-10px;width:150px;}
+  .gear.bl{bottom:-10px;left:-10px;width:160px;}
+  .gear.br{bottom:-10px;right:-10px;width:160px;}
+
+  /* subtle watermark gear for light/dark sections that aren't the flat teal color */
+  .gear-soft{position:absolute;pointer-events:none;z-index:0;}
+  .gear-soft.on-light{opacity:0.07;}
+  .gear-soft.on-dark{opacity:0.16;}
+  .gear-soft.tl{top:-30px;left:-30px;width:180px;}
+  .gear-soft.tr{top:-30px;right:-30px;width:180px;transform:scaleX(-1);}
+  .gear-soft.bl{bottom:-30px;left:-30px;width:190px;}
+  .gear-soft.br{bottom:-30px;right:-30px;width:190px;transform:scaleX(-1);}
+  .gear-soft.laptop-tr{top:-20px;right:-40px;width:260px;transform:rotate(3deg);}
+  .gear-soft.laptop-bl{bottom:-20px;left:-40px;width:260px;transform:rotate(-3deg) scaleX(-1);}
+  section > .wrap{position:relative;z-index:1;}
+
+  /* ---------- WHO IT'S FOR (torn note) ---------- */
+  .torn-note{
+    position:relative;
+    background:var(--paper);
+    padding:60px 64px 52px;
+    max-width:780px;
+    margin:0 auto;
+    box-shadow:var(--shadow);
+    clip-path: polygon(0% 1%, 4% 0%, 9% 1.6%, 15% 0%, 21% 1.4%, 28% 0%, 34% 1.6%, 41% 0%, 47% 1.2%, 54% 0%, 60% 1.6%, 67% 0%, 73% 1.2%, 80% 0%, 86% 1.6%, 93% 0%, 100% 1%, 100% 97%, 95% 100%, 88% 97.5%, 81% 100%, 74% 98%, 68% 100%, 61% 97.5%, 54% 100%, 47% 98%, 40% 100%, 33% 97.5%, 26% 100%, 19% 98%, 12% 100%, 6% 97.5%, 0% 100%);
+  }
+  .torn-note .clip-img{position:absolute;top:-42px;left:50%;transform:translateX(-50%);width:66px;}
+  .torn-note h3{font-size:1.55rem;color:var(--ink);margin-bottom:16px;}
+  .torn-note p{font-size:1.06rem;line-height:1.7;color:#33413f;}
+  .torn-note .sign{margin-top:20px;font-family:'Caveat',cursive;font-size:1.3rem;color:var(--teal);}
+
+  /* ---------- DELIVERABLES ---------- */
+  .deliverables{background:var(--white);}
+  .deliv-sheet{
+    position:relative;
+    max-width:980px;
+    margin:0 auto;
+    background:var(--paper);
+    box-shadow:var(--shadow);
+    padding-top:56px;
+    padding-bottom:36px;
+    clip-path: polygon(0% 1.5%, 5% 0%, 11% 1.4%, 17% 0%, 23% 1.4%, 30% 0%, 36% 1.4%, 43% 0%, 49% 1.2%, 55% 0%, 61% 1.4%, 68% 0%, 74% 1.2%, 80% 0%, 87% 1.4%, 93% 0%, 100% 1.2%, 100% 100%, 0% 100%);
+  }
+  .deliv-sheet .clip-img{position:absolute;top:-46px;left:50%;transform:translateX(-50%);width:74px;}
+  .deliv-title{text-align:center;font-size:clamp(1.7rem,3vw,2.3rem);color:var(--ink);padding:0 40px 40px;}
+  .deliv-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+  .deliv-card{padding:26px 22px 30px;border-left:1px dashed var(--paper-line);}
+  .deliv-card:nth-child(4n+1){border-left:none;}
+  .deliv-card:nth-child(n+5){border-top:1px dashed var(--paper-line);}
+  .deliv-num{font-family:'Caveat',cursive;font-size:1.5rem;color:var(--gold-deep);display:block;margin-bottom:8px;}
+  .deliv-card h4{font-size:0.98rem;color:var(--teal-deep);margin-bottom:8px;line-height:1.35;}
+  .deliv-card p{font-size:0.84rem;color:#4a5654;line-height:1.55;}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testimonials{background:var(--paper);overflow:hidden;}
+  .video-carousel{
+    display:flex;
+    gap:22px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    padding:8px 4px 20px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .video-carousel::-webkit-scrollbar{height:6px;}
+  .video-carousel::-webkit-scrollbar-thumb{background:var(--paper-line);border-radius:999px;}
+  .video-card{
+    position:relative;
+    flex:0 0 auto;
+    width:240px;
+    aspect-ratio:9/16;
+    border-radius:8px;
+    overflow:hidden;
+    background:var(--teal-black);
+    box-shadow:0 16px 30px -18px rgba(11,79,73,0.35);
+    scroll-snap-align:start;
+    border:3px solid var(--white);
+  }
+  .video-card video{width:100%;height:100%;object-fit:cover;display:block;}
+  .video-card .video-tag{
+    position:absolute;top:12px;left:12px;z-index:2;
+    background:var(--gold);
+    color:var(--teal-black);
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:0.6rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    padding:5px 10px;
+    border-radius:999px;
+    pointer-events:none;
+  }
+  .carousel-hint{
+    text-align:center;
+    font-size:0.78rem;
+    color:#7a8583;
+    margin-top:4px;
+  }
+  .quote-card{
+    background:var(--white);
+    border:1px solid var(--paper-line);
+    border-radius:6px;
+    padding:30px 34px;
+    box-shadow:0 14px 28px -20px rgba(0,0,0,0.14);
+  }
+  .quote-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    max-width:900px;
+    margin:44px auto 0;
+  }
+  .quote-card .stars{color:var(--gold);font-size:0.9rem;letter-spacing:2px;margin-bottom:10px;}
+  .quote-card .ig-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:'Poppins',sans-serif;
+    font-weight:600;
+    font-size:0.7rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--teal-bright);
+    margin-bottom:12px;
+  }
+  .quote-card p{font-size:1rem;line-height:1.65;color:var(--ink);}
+  .quote-card .qname{
+    margin-top:16px;
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:0.86rem;
+    color:var(--teal-deep);
+  }
+  .quote-card .qrole{font-size:0.78rem;color:#7a8583;}
+
+  /* ---------- PRICING ---------- */
+  .pricing{background:linear-gradient(160deg,#123f42 0%, var(--teal-deep) 45%, var(--teal-black) 100%);color:var(--white);}
+  .pricing-card{
+    position:relative;
+    max-width:760px;
+    margin:0 auto;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.18);
+    border-radius:6px;
+    padding:54px 56px;
+    text-align:center;
+  }
+  .pricing-card .eyebrow-script{color:var(--gold);}
+  .price{font-family:'Poppins',sans-serif;font-weight:900;font-size:4.2rem;color:var(--gold);margin:10px 0 4px;line-height:1;}
+  .price sup{font-size:1.6rem;top:-1.6em;}
+  .price-note{font-size:0.9rem;color:#B9D8D3;margin-bottom:30px;}
+  .price-list{text-align:left;max-width:460px;margin:0 auto 34px;display:grid;grid-template-columns:1fr 1fr;gap:12px 26px;}
+  .price-list div{font-size:0.87rem;color:#E4F1EE;display:flex;gap:8px;align-items:flex-start;line-height:1.4;}
+  .price-list div::before{content:"✓";color:var(--gold);font-weight:700;flex-shrink:0;}
+  .seats-note{margin-top:20px;font-size:0.82rem;color:#F1D89A;font-weight:600;}
+  .stripe-badge{margin-top:18px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:0.72rem;color:#9FCFC8;letter-spacing:.04em;}
+
+  /* ---------- FAQ ---------- */
+  .faq{background:var(--white);}
+  .faq-list{max-width:760px;margin:0 auto;}
+  .faq-item{border-bottom:1px solid var(--paper-line);padding:22px 0;}
+  .faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:'Poppins',sans-serif;font-weight:600;font-size:1.02rem;color:var(--ink);}
+  .faq-q .plus{font-size:1.4rem;color:var(--gold-deep);transition:transform .2s ease;flex-shrink:0;margin-left:20px;}
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .28s ease;}
+  .faq-a p{padding-top:14px;font-size:0.92rem;line-height:1.65;color:#4a5654;max-width:640px;}
+
+  /* ---------- FINAL CTA ---------- */
+  .final-cta{background:var(--ink);color:var(--white);text-align:center;padding:100px 0;}
+  .final-cta h2{font-size:clamp(2rem,3.6vw,3rem);font-weight:800;max-width:760px;margin:0 auto 20px;}
+  .final-cta p{color:#C9CDCC;font-size:1.05rem;margin-bottom:36px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--teal-black);color:#9FB5B1;padding:44px 0 30px;}
+  .footer-grid{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:28px;margin-bottom:22px;}
+  .footer-logos{display:flex;align-items:center;gap:18px;}
+  .footer-logos img{height:44px;width:44px;border-radius:50%;object-fit:cover;}
+  .footer-logos .cce{border-radius:6px;height:40px;width:40px;object-fit:cover;}
+  .footer-fine{font-size:0.78rem;line-height:1.7;}
+
+  @media (max-width: 900px){
+    .quote-grid{grid-template-columns:1fr;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-photo{order:-1;}
+    .event-bar{grid-template-columns:1fr 1fr;}
+    .event-bar div:nth-child(2){border-right:none;}
+    .framework .wrap{grid-template-columns:1fr 1fr;gap:26px 0;}
+    .framework-item:nth-child(3){border-left:none;padding-left:0;}
+    .deliv-grid{grid-template-columns:1fr 1fr;}
+    .deliv-card:nth-child(2n+1){border-left:none;}
+    .deliv-card:nth-child(n+3){border-top:1px dashed var(--paper-line);}
+    .test-grid{grid-template-columns:1fr;}
+    .price-list{grid-template-columns:1fr;}
+    .torn-note{padding:48px 30px;}
+    section{padding:64px 0;}
+    .framework-pill{font-size:0.68rem;padding:11px 18px;gap:6px;}
+    .gear{display:none;}
+    .gear-soft{display:none;}
+  }
+  @media (max-width: 560px){
+    .deliv-grid{grid-template-columns:1fr;}
+    .deliv-card{border-left:none !important;border-top:1px dashed var(--paper-line);}
+    .deliv-card:first-child{border-top:none;}
+    .nav-brand-text{display:none;}
+  }
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap">
+    <a class="nav-brand" href="#top">
+      <img class="cce" src="assets/cce-logo.jpeg" alt="Content Creators Experience logo" />
+      <span class="nav-brand-text">
+        <span>The Content Accelerator Retreat</span>
+        <span>Two-Day Executive Content Experience</span>
+      </span>
+    </a>
+    <a class="btn btn-gold nav-cta" href="apply.html">Apply Now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="hero-top">
+    <div class="framework-pill">
+      <span>Plan</span><span class="sep">·</span><span>Position</span><span class="sep">·</span><span>Produce</span><span class="sep">·</span><span>Publish</span>
+    </div>
+  </div>
+
+  <div class="hero-body">
+    <img class="gear-soft on-dark laptop-bl" src="assets/laptop.png" alt="" />
+    <div class="wrap hero-grid">
+      <div>
+        <div class="hero-eyebrow-row">
+          <span class="dot"></span>
+          <span class="hero-eyebrow-text">Content Creators Experience &amp; S.H.E. Social Present</span>
+        </div>
+        <h1>The Content <em>Accelerator</em> Retreat</h1>
+        <span class="experience-tag">A Two-Day Executive Content Experience</span>
+        <span class="hero-tagline">90 days of strategy, done in two.</span>
+        <p class="hero-sub">Two full days in Orlando to walk out with the content, the clarity, and the calendar to carry your brand through Q4 — done for you, not just talked about. Space is limited to 10 business owners, by application.</p>
+
+        <div class="hero-actions">
+          <div>
+            <a class="btn btn-gold" href="apply.html">Apply for Your Seat</a>
+            <span class="stripe-note">Applications reviewed within 48 hours</span>
+          </div>
+          <span class="hero-seats">Only 10 seats — by application</span>
+        </div>
+
+        <div class="event-bar">
+          <div><span class="label">Dates</span><span class="value">Aug 20–21, 2026</span></div>
+          <div><span class="label">Location</span><span class="value">Orlando, FL</span></div>
+          <div><span class="label">Start Time</span><span class="value">9:00 AM Daily</span></div>
+          <div><span class="label">Format</span><span class="value">2-Day Retreat</span></div>
+        </div>
+      </div>
+
+      <div class="hero-photo-wrap">
+        <div class="hero-photo">
+          <img src="assets/hero-photo.jpg" alt="Two business owners collaborating on content strategy during a content day" />
+          <div class="hairline a"></div>
+          <div class="hairline b"></div>
+        </div>
+        <span class="clip-badge">Orlando, FL · Aug 20–21</span>
+        <span class="polaroid-tag">Only 10<br>seats</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- FRAMEWORK -->
+<section class="framework">
+  <img class="gear-soft on-dark tr" src="assets/tr_lens_alpha.png" alt="" />
+  <img class="gear-soft on-dark bl" src="assets/bl_tripod_alpha.png" alt="" />
+  <div class="wrap">
+    <div class="framework-item">
+      <span class="framework-num">day one · morning</span>
+      <h3>Position</h3>
+      <p>Clarify your brand and your message so the right people know exactly what you do and why it matters.</p>
+    </div>
+    <div class="framework-item">
+      <span class="framework-num">day one · afternoon</span>
+      <h3>Produce</h3>
+      <p>Sit in front of a professional camera and walk away with high-quality photo and video content, already in the can.</p>
+    </div>
+    <div class="framework-item">
+      <span class="framework-num">day two · morning</span>
+      <h3>Plan</h3>
+      <p>Build a real 90-day content calendar with us — not a template you'll never open again.</p>
+    </div>
+    <div class="framework-item">
+      <span class="framework-num">day two · afternoon</span>
+      <h3>Publish</h3>
+      <p>Leave with a clear, written Q4 execution strategy so this quarter is a plan, not a scramble.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="who teal-section">
+  <img class="gear tl" src="assets/tl_lens_alpha.png" alt="" />
+  <img class="gear tr" src="assets/tr_lens_alpha.png" alt="" />
+  <img class="gear bl" src="assets/bl_tripod_alpha.png" alt="" />
+  <img class="gear br" src="assets/br_tripod_alpha.png" alt="" />
+  <div class="wrap">
+    <div class="torn-note">
+      <img class="clip-img" src="assets/paperclip_alpha.png" alt="" />
+      <span class="eyebrow-script">who this is for</span>
+      <h3>Designed for the business owner who is done waiting on visibility.</h3>
+      <p>This retreat is built for founders, coaches, ministry leaders, and service providers who are ready to increase their visibility, strengthen their brand authority, and walk into the fourth quarter with a plan instead of a prayer that something goes viral. Two days, one small room, real work done. If you're tired of posting into the void, this is your table.</p>
+      <span class="sign">— see you in Orlando</span>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERABLES -->
+<section class="deliverables" style="overflow:hidden;">
+  <img class="gear-soft on-light laptop-tr" src="assets/laptop.png" alt="" />
+  <img class="gear-soft on-light bl" src="assets/tl_lens_alpha.png" alt="" />
+  <div class="wrap">
+    <div class="deliv-sheet">
+      <img class="clip-img" src="assets/binderclip_alpha.png" alt="" />
+      <h2 class="deliv-title"><span class="eyebrow-script" style="display:block;margin-bottom:6px;">what's in it for you</span>Here's exactly what you're walking away with</h2>
+      <div class="deliv-grid">
+        <div class="deliv-card">
+          <span class="deliv-num">01</span>
+          <h4>90-Day Content Calendar</h4>
+          <p>A fully built, ready-to-execute calendar so you always know what to post and why.</p>
+        </div>
+        <div class="deliv-card">
+          <span class="deliv-num">02</span>
+          <h4>Professional Photography &amp; Video</h4>
+          <p>Real brand content, captured on-site by a professional — no ring light required.</p>
+        </div>
+        <div class="deliv-card">
+          <span class="deliv-num">03</span>
+          <h4>Social Media Audit &amp; Strategy</h4>
+          <p>A clear-eyed look at what's working, what's not, and what to fix first.</p>
+        </div>
+        <div class="deliv-card">
+          <span class="deliv-num">04</span>
+          <h4>Brand Positioning Workshop</h4>
+          <p>Get sharp on who you serve and why you're the one to trust with it.</p>
+        </div>
+        <div class="deliv-card">
+          <span class="deliv-num">05</span>
+          <h4>Messaging Refinement</h4>
+          <p>Words that sound like you and land with the people you're trying to reach.</p>
+        </div>
+        <div class="deliv-card">
+          <span class="deliv-num">06</span>
+          <h4>Networking With Business Leaders</h4>
+          <p>A small room of driven peers — the kind of connections that outlast the retreat.</p>
+        </div>
+        <div class="deliv-card">
+          <span class="deliv-num">07</span>
+          <h4>Reels &amp; Short-Form Content</h4>
+          <p>We shoot and shape short-form content built for how people actually scroll.</p>
+        </div>
+        <div class="deliv-card">
+          <span class="deliv-num">08</span>
+          <h4>Q4 Marketing Action Plan</h4>
+          <p>Leave with a written plan to maximize your biggest quarter of the year.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" style="overflow:hidden;">
+  <img class="gear-soft on-light tr" src="assets/br_tripod_alpha.png" alt="" />
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="eyebrow-script" style="color:var(--gold-deep);">hear it from past attendees</span>
+      <h2 style="color:var(--ink);">Business owners who left with more than a notebook</h2>
+    </div>
+
+    <div class="video-carousel">
+      <div class="video-card">
+        <span class="video-tag">Client Video</span>
+        <video controls playsinline preload="metadata" poster="assets/posters/testimonial-1.jpg">
+          <source src="assets/videos/testimonial-1.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="video-card">
+        <span class="video-tag">Client Video</span>
+        <video controls playsinline preload="metadata" poster="assets/posters/testimonial-2.jpg">
+          <source src="assets/videos/testimonial-2.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="video-card">
+        <span class="video-tag">Client Video</span>
+        <video controls playsinline preload="metadata" poster="assets/posters/testimonial-3.jpg">
+          <source src="assets/videos/testimonial-3.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="video-card">
+        <span class="video-tag">Client Video</span>
+        <video controls playsinline preload="metadata" poster="assets/posters/testimonial-4.jpg">
+          <source src="assets/videos/testimonial-4.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="video-card">
+        <span class="video-tag">Client Video</span>
+        <video controls playsinline preload="metadata" poster="assets/posters/testimonial-5.jpg">
+          <source src="assets/videos/testimonial-5.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="video-card">
+        <span class="video-tag">Client Video</span>
+        <video controls playsinline preload="metadata" poster="assets/posters/testimonial-6.jpg">
+          <source src="assets/videos/testimonial-6.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="video-card">
+        <span class="video-tag">Client Video</span>
+        <video controls playsinline preload="metadata" poster="assets/posters/testimonial-7.jpg">
+          <source src="assets/videos/testimonial-7.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="video-card">
+        <span class="video-tag">Client Video</span>
+        <video controls playsinline preload="metadata" poster="assets/posters/testimonial-8.jpg">
+          <source src="assets/videos/testimonial-8.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="video-card">
+        <span class="video-tag">Client Video</span>
+        <video controls playsinline preload="metadata" poster="assets/posters/testimonial-9.jpg">
+          <source src="assets/videos/testimonial-9.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+    <p class="carousel-hint">Swipe to see more &middot; tap any video to play</p>
+
+    <div class="quote-grid">
+      <div class="quote-card">
+        <span class="ig-tag">&#128247; From Instagram</span>
+        <p>"Thank you so much to the amazing innovator @curationsbyev with her marketing campaign and collaboration of my estate sale. With her help and strategy, we sold more than our goal on the first sale date. Stay tuned for our next sale and networking mixer on 10/5."</p>
+        <div class="qname">LP Creative Club</div>
+        <div class="qrole">Client of Curations by Ev</div>
+      </div>
+      <div class="quote-card">
+        <span class="ig-tag">&#11088; From Google Reviews</span>
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"Eveline curated a phenomenal experience for my branding VIP experience. I can't wait to do this again. What I liked the most was the straight forward pricing and everything promised was delivered!"</p>
+        <div class="qname">Cherlette McCullough</div>
+        <div class="qrole">Google Local Guide · Client of Curations by Ev</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="reserve" style="overflow:hidden;">
+  <img class="gear-soft on-dark tl" src="assets/tl_lens_alpha.png" alt="" />
+  <img class="gear-soft on-dark laptop-bl" src="assets/laptop.png" alt="" />
+  <img class="gear-soft on-dark br" src="assets/br_tripod_alpha.png" alt="" />
+  <div class="wrap">
+    <div class="pricing-card">
+      <span class="eyebrow-script">apply for your seat</span>
+      <h2 style="font-size:1.6rem;font-weight:800;margin:10px 0 6px;">A Two-Day Executive Content Experience</h2>
+      <p class="price-note" style="margin-bottom:22px;">Ten seats. Two days. Every applicant is personally reviewed to make sure this room is the right fit.</p>
+      <div class="price"><sup>$</sup>795</div>
+      <p class="price-note" style="margin-bottom:6px;">Per seat · Aug 20–21, 2026 · Orlando, FL</p>
+      <p class="price-note" style="font-size:0.8rem;color:#F1D89A;margin-bottom:30px;">Once accepted, pay in full or split into 3 payments</p>
+
+      <div class="price-list">
+        <div>90-day content calendar</div>
+        <div>Professional photo &amp; video</div>
+        <div>Social audit &amp; strategy</div>
+        <div>Brand positioning workshop</div>
+        <div>Messaging refinement</div>
+        <div>Business networking</div>
+        <div>Reels &amp; short-form content</div>
+        <div>Q4 marketing action plan</div>
+      </div>
+
+      <a class="btn btn-gold" href="apply.html" style="width:100%;justify-content:center;">Apply for Your Seat</a>
+      <p class="seats-note">Only 10 slots — applications are reviewed in the order they're received.</p>
+
+      <div style="margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,255,0.15);">
+        <p style="font-size:0.82rem;color:#B9D8D3;">Already been accepted?</p>
+        <a href="https://buy.stripe.com/REPLACE_WITH_YOUR_PAYMENT_LINK" style="font-family:'Poppins',sans-serif;font-weight:600;font-size:0.86rem;color:var(--gold);text-decoration:underline;">Complete your payment via Stripe &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="eyebrow-script">questions before you commit</span>
+      <h2 style="color:var(--ink);">A few things you're probably wondering</h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item open">
+        <div class="faq-q">What's actually included in the $795?<span class="plus">+</span></div>
+        <div class="faq-a"><p>Your seat covers both retreat days, your professional photo and video session, the brand positioning workshop, your 90-day content calendar, your Q4 action plan, and working materials. Travel and lodging are not included.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do I need to bring my own camera or equipment?<span class="plus">+</span></div>
+        <div class="faq-a"><p>No. Photography and video are professionally produced on-site both days. Just bring 2–3 outfit options and anything specific to your brand you'd like featured.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is this only for social media managers or agency owners?<span class="plus">+</span></div>
+        <div class="faq-a"><p>Not at all. This retreat is built for any business owner, coach, or ministry leader who wants a real content plan and doesn't want to build it alone.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do I need to attend both days?<span class="plus">+</span></div>
+        <div class="faq-a"><p>Yes — this is a two-day experience by design. Day one covers positioning and production; day two covers your calendar and Q4 plan. The deliverables build on each other, so both days are included in your seat.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Why do I have to apply instead of just paying?<span class="plus">+</span></div>
+        <div class="faq-a"><p>With only 10 seats, we want every business owner in the room to be a good fit for the room — and we want to walk in already knowing your business so we can make the two days specific to you, not generic. The application takes about 5 minutes.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I split up the $795?<span class="plus">+</span></div>
+        <div class="faq-a"><p>Yes. Once accepted, you can pay in full or split your seat into 3 payments at checkout — whichever works better for your budget.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What's your refund policy?<span class="plus">+</span></div>
+        <div class="faq-a"><p>All sales are final — we don't offer refunds. If the date no longer works for you, your seat can be moved to our next two-day retreat at no extra cost. Just reach out and we'll get you rescheduled.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How do I secure my seat?<span class="plus">+</span></div>
+        <div class="faq-a"><p>Tap "Apply for Your Seat" above and complete the short application. We personally review every submission — if it's a fit, you'll get a private link within 48 hours to complete payment and lock in your spot.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" style="overflow:hidden;">
+  <img class="gear-soft on-dark tl" src="assets/bl_tripod_alpha.png" alt="" />
+  <img class="gear-soft on-dark tr" src="assets/tr_lens_alpha.png" alt="" />
+  <div class="wrap">
+    <h2>Your Q4 content shouldn't be an afterthought.</h2>
+    <p>Ten seats. Two days. One plan you'll actually use — apply before Orlando fills up.</p>
+    <a class="btn btn-gold" href="apply.html">Apply for Your Seat</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-logos">
+        <img class="cce" src="assets/cce-logo.jpeg" alt="Content Creators Experience logo" />
+        <img src="assets/she-social-logo.jpeg" alt="S.H.E. Social logo" />
+      </div>
+      <a class="btn btn-teal" href="apply.html" style="padding:12px 24px;font-size:0.85rem;">Apply Now</a>
+    </div>
+    <p class="footer-fine">The Content Accelerator Retreat is a two-day executive content experience hosted by S.H.E. Social in partnership with Content Creators Experience.<br>Orlando, FL · August 20–21, 2026 · © 2026 S.H.E. Social. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const a = item.querySelector('.faq-a');
+    if(item.classList.contains('open')){ a.style.maxHeight = a.scrollHeight + 'px'; }
+    item.querySelector('.faq-q').addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if(!isOpen){ item.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
+    });
+  });
+</script>
+
+</body>
+</html>
