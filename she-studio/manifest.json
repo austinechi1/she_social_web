@@ -1,0 +1,13 @@
+{
+  "name": "S.H.E. Studio Connector",
+  "version": "1.0.0",
+  "description": "Lightweight bridge metadata for managing this website from S.H.E. Studio.",
+  "config": "config.json",
+  "runtime": "connector.js",
+  "capabilities": [
+    "page-discovery",
+    "asset-discovery",
+    "visual-editing",
+    "github-publishing"
+  ]
+}
