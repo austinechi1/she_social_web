@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Application Received | The Content Accelerator Retreat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12201F;
+    --teal-black:#0A2426;
+    --teal-deep:#0F3B3E;
+    --teal:#1A565A;
+    --teal-bright:#2EBCBE;
+    --gold:#F2A11C;
+    --gold-deep:#D6870A;
+    --paper:#F7F2E7;
+    --paper-line:#e7dfcd;
+    --white:#FEFDFB;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    font-family:'Inter',sans-serif;
+    color:var(--white);
+    background:radial-gradient(120% 130% at 15% -10%, #123f42 0%, var(--teal-deep) 45%, var(--teal-black) 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px;
+    -webkit-font-smoothing:antialiased;
+    text-align:center;
+  }
+  h1,h2{font-family:'Poppins',sans-serif;margin:0;}
+  .card{max-width:560px;}
+  .checkmark{
+    width:68px;height:68px;border-radius:50%;
+    background:var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 26px;
+    font-size:1.8rem;
+    color:var(--teal-black);
+    font-weight:800;
+  }
+  .eyebrow-script{
+    font-family:'Caveat',cursive;
+    font-size:1.5rem;
+    color:var(--gold);
+    display:inline-block;
+    margin-bottom:8px;
+    transform:rotate(-2deg);
+  }
+  h1{font-size:clamp(1.8rem,4vw,2.4rem);font-weight:800;}
+  .card p{font-size:1.02rem;line-height:1.7;color:#D8ECEA;margin-top:18px;}
+  .next-steps{
+    text-align:left;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:6px;
+    padding:26px 28px;
+    margin-top:32px;
+  }
+  .next-steps h3{font-size:0.95rem;color:var(--gold);margin-bottom:14px;font-family:'Poppins',sans-serif;font-weight:700;}
+  .next-steps ol{margin:0;padding-left:20px;color:#D8ECEA;font-size:0.92rem;line-height:1.8;}
+  .back-link{
+    display:inline-block;
+    margin-top:36px;
+    font-family:'Poppins',sans-serif;
+    font-weight:600;
+    font-size:0.88rem;
+    color:var(--teal-bright);
+    text-decoration:none;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="checkmark">&check;</div>
+    <span class="eyebrow-script">you're on the list</span>
+    <h1>Application Received</h1>
+    <p>Thank you for applying to The Content Accelerator Retreat. With only 10 seats, we review every application personally to make sure this room is the right fit for where your business is right now.</p>
+
+    <div class="next-steps">
+      <h3>What happens next</h3>
+      <ol>
+        <li>Our team reviews your application — usually within 48 hours.</li>
+        <li>If it's a fit, you'll receive a private email with a secure link to complete your payment (in full or 3 installments) and lock in your seat.</li>
+        <li>Once you're confirmed, we'll follow up with everything you need to know before Aug 20–21 in Orlando.</li>
+      </ol>
+    </div>
+
+    <a class="back-link" href="index.html">&larr; Back to retreat details</a>
+  </div>
+</body>
+</html>
