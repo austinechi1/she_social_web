@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "connectorVersion": "1.0.0",
+  "siteName": "S.H.E. Social",
+  "repository": "austinechi1/she_social_web",
+  "branch": "main",
+  "liveUrl": "https://she-social.com",
+  "framework": "static-html",
+  "publishProvider": "github-netlify",
+  "installedAt": "2026-08-05T05:14:21.180Z"
+}
