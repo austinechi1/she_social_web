@@ -341,6 +341,27 @@
   .deliv-card h4{font-size:0.98rem;color:var(--teal-deep);margin-bottom:8px;line-height:1.35;}
   .deliv-card p{font-size:0.84rem;color:#4a5654;line-height:1.55;}
 
+  /* ---------- SCHEDULE ---------- */
+  .schedule-list{max-width:760px;margin:0 auto;}
+  .schedule-item{
+    display:grid;
+    grid-template-columns:150px 1fr;
+    gap:24px;
+    padding:24px 0;
+    border-bottom:1px solid rgba(255,255,255,0.15);
+  }
+  .schedule-item:first-child{padding-top:0;}
+  .schedule-item:last-child{border-bottom:none;padding-bottom:0;}
+  .schedule-time{
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:0.92rem;
+    color:var(--gold);
+    letter-spacing:.01em;
+  }
+  .schedule-body h4{font-size:1.05rem;color:var(--white);margin-bottom:8px;}
+  .schedule-body p{font-size:0.9rem;color:#D8ECEA;line-height:1.6;}
+
   /* ---------- TESTIMONIALS ---------- */
   .testimonials{background:var(--paper);overflow:hidden;}
   .video-carousel{
@@ -444,6 +465,46 @@
   .seats-note{margin-top:20px;font-size:0.82rem;color:#F1D89A;font-weight:600;}
   .stripe-badge{margin-top:18px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:0.72rem;color:#9FCFC8;letter-spacing:.04em;}
 
+  .pricing-tiers{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    max-width:680px;
+    margin:0 auto;
+    align-items:stretch;
+  }
+  .tier-card{
+    position:relative;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.18);
+    border-radius:6px;
+    padding:34px 28px;
+    text-align:center;
+  }
+  .tier-card.featured{
+    background:rgba(242,161,28,0.07);
+    border:2px solid var(--gold);
+  }
+  .tier-badge{
+    display:inline-block;
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:0.62rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--teal-black);
+    background:var(--teal-bright);
+    padding:6px 12px;
+    border-radius:999px;
+    margin-bottom:14px;
+  }
+  .tier-badge.early-bird{background:#E4F1EE;}
+  .tier-card.featured .tier-badge{background:var(--gold);}
+  .tier-name{font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:6px;}
+  .tier-price{font-family:'Poppins',sans-serif;font-weight:900;font-size:2.6rem;color:var(--gold);line-height:1;}
+  .tier-price sup{font-size:1.1rem;top:-1.2em;}
+  .tier-note{font-size:0.8rem;color:#B9D8D3;margin-top:8px;line-height:1.5;}
+
   /* ---------- FAQ ---------- */
   .faq{background:var(--white);}
   .faq-list{max-width:760px;margin:0 auto;}
@@ -468,6 +529,8 @@
   .footer-fine{font-size:0.78rem;line-height:1.7;}
 
   @media (max-width: 900px){
+    .pricing-tiers{grid-template-columns:1fr;max-width:340px;}
+    .schedule-item{grid-template-columns:1fr;gap:6px;}
     .quote-grid{grid-template-columns:1fr;}
     .hero-grid{grid-template-columns:1fr;}
     .hero-photo{order:-1;}
@@ -539,12 +602,13 @@
           </div>
           <span class="hero-seats">Only 10 seats — by application</span>
         </div>
+        <p style="margin-top:14px;font-size:0.82rem;color:#F1D89A;font-weight:600;">&#9889; Early bird pricing ends Thursday, August 6th</p>
 
         <div class="event-bar">
           <div><span class="label">Dates</span><span class="value">Aug 20–21, 2026</span></div>
           <div><span class="label">Location</span><span class="value">Orlando, FL</span></div>
           <div><span class="label">Start Time</span><span class="value">9:00 AM Daily</span></div>
-          <div><span class="label">Format</span><span class="value">2-Day Retreat</span></div>
+          <div><span class="label">Format</span><span class="value">1 or 2-Day Pass</span></div>
         </div>
       </div>
 
@@ -613,52 +677,111 @@
   <div class="wrap">
     <div class="deliv-sheet">
       <img class="clip-img" src="assets/binderclip_alpha.png" alt="" />
-      <h2 class="deliv-title"><span class="eyebrow-script" style="display:block;margin-bottom:6px;">what's in it for you</span>Here's exactly what you're walking away with</h2>
-      <div class="deliv-grid">
+      <h2 class="deliv-title"><span class="eyebrow-script" style="display:block;margin-bottom:6px;">what's in it for you</span>By the end of two days, leave with:</h2>
+      <div class="deliv-grid" style="grid-template-columns:repeat(3,1fr);">
         <div class="deliv-card">
           <span class="deliv-num">01</span>
+          <h4>Complete Q4 Marketing Strategy</h4>
+          <p>A clear, written plan to maximize your biggest quarter of the year.</p>
+        </div>
+        <div class="deliv-card">
+          <span class="deliv-num">02</span>
           <h4>90-Day Content Calendar</h4>
           <p>A fully built, ready-to-execute calendar so you always know what to post and why.</p>
         </div>
         <div class="deliv-card">
-          <span class="deliv-num">02</span>
-          <h4>Professional Photography &amp; Video</h4>
-          <p>Real brand content, captured on-site by a professional — no ring light required.</p>
-        </div>
-        <div class="deliv-card">
           <span class="deliv-num">03</span>
-          <h4>Social Media Audit &amp; Strategy</h4>
-          <p>A clear-eyed look at what's working, what's not, and what to fix first.</p>
+          <h4>Updated Headshots &amp; Professional Photos</h4>
+          <p>Real brand photography, captured on-site by a professional.</p>
         </div>
         <div class="deliv-card">
           <span class="deliv-num">04</span>
-          <h4>Brand Positioning Workshop</h4>
-          <p>Get sharp on who you serve and why you're the one to trust with it.</p>
+          <h4>Professional Profile / Intro Video</h4>
+          <p>A polished video that introduces you and your business with confidence.</p>
         </div>
         <div class="deliv-card">
           <span class="deliv-num">05</span>
-          <h4>Messaging Refinement</h4>
-          <p>Words that sound like you and land with the people you're trying to reach.</p>
+          <h4>Ready-to-Post Talking-Head Videos</h4>
+          <p>A library of on-camera content, shot and ready to publish.</p>
         </div>
         <div class="deliv-card">
           <span class="deliv-num">06</span>
-          <h4>Networking With Business Leaders</h4>
-          <p>A small room of driven peers — the kind of connections that outlast the retreat.</p>
+          <h4>Library of Evergreen B-Roll</h4>
+          <p>Supporting footage to layer into posts for months to come.</p>
         </div>
         <div class="deliv-card">
           <span class="deliv-num">07</span>
-          <h4>Reels &amp; Short-Form Content</h4>
-          <p>We shoot and shape short-form content built for how people actually scroll.</p>
+          <h4>Behind-the-Scenes Footage</h4>
+          <p>Real, relatable content that fuels months of storytelling.</p>
         </div>
         <div class="deliv-card">
           <span class="deliv-num">08</span>
-          <h4>Q4 Marketing Action Plan</h4>
-          <p>Leave with a written plan to maximize your biggest quarter of the year.</p>
+          <h4>Stronger Messaging &amp; Positioning</h4>
+          <p>Words that sound like you and land with the people you're trying to reach.</p>
+        </div>
+        <div class="deliv-card">
+          <span class="deliv-num">09</span>
+          <h4>Relationships With High-Level Entrepreneurs</h4>
+          <p>A small room of driven peers — the kind of connections that outlast the retreat.</p>
+        </div>
+      </div>
+      <p style="text-align:center;font-family:'Caveat',cursive;font-size:1.4rem;color:var(--teal);padding:8px 40px 4px;">
+        AND the confidence to show up consistently without wondering what to post.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="schedule teal-section" style="overflow:hidden;">
+  <img class="gear tl" src="assets/tl_lens_alpha.png" alt="" />
+  <img class="gear br" src="assets/br_tripod_alpha.png" alt="" />
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="eyebrow-script" style="color:var(--gold);">schedule overview</span>
+      <h2 style="color:var(--white);">Content Retreat 2026 — Agenda</h2>
+    </div>
+
+    <div class="schedule-list">
+      <div class="schedule-item">
+        <div class="schedule-time">9:00 – 11:00 AM</div>
+        <div class="schedule-body">
+          <h4>Networking &amp; Strategy Workshop</h4>
+          <p>Kick off the retreat by connecting with fellow business leaders while participating in interactive workshops focused on brand messaging, Q4 campaign planning, and content strategy.</p>
+        </div>
+      </div>
+      <div class="schedule-item">
+        <div class="schedule-time">12:00 – 1:00 PM</div>
+        <div class="schedule-body">
+          <h4>Curated Lunch (Included)</h4>
+          <p>Enjoy a catered lunch while continuing meaningful conversations and building valuable business relationships.</p>
+        </div>
+      </div>
+      <div class="schedule-item">
+        <div class="schedule-time">1:00 – 2:00 PM</div>
+        <div class="schedule-body">
+          <h4>Refresh &amp; Reset</h4>
+          <p>Take time to transition, freshen up, and change outfits before stepping into your content creation experience.</p>
+        </div>
+      </div>
+      <div class="schedule-item">
+        <div class="schedule-time">2:00 – 5:00 PM</div>
+        <div class="schedule-body">
+          <h4>Content Batching Experience</h4>
+          <p>Bring your brand to life with professionally guided content sessions designed to build a library of marketing assets — branded photos, talking-head videos, behind-the-scenes content, and lifestyle visuals for your next 90 days of marketing.</p>
+        </div>
+      </div>
+      <div class="schedule-item">
+        <div class="schedule-time">6:00 PM</div>
+        <div class="schedule-body">
+          <h4>The Founders Table</h4>
+          <p>A curated roundtable dinner with private chef Jonathan Woodbury, hosted with The Legendary Experience. Dive into meaningful conversations and connections with fellow founders and entrepreneurs.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
+
 
 <!-- TESTIMONIALS -->
 <section class="testimonials" style="overflow:hidden;">
@@ -751,32 +874,48 @@
   <img class="gear-soft on-dark laptop-bl" src="assets/laptop.png" alt="" />
   <img class="gear-soft on-dark br" src="assets/br_tripod_alpha.png" alt="" />
   <div class="wrap">
-    <div class="pricing-card">
+    <div class="section-head center" style="max-width:640px;">
       <span class="eyebrow-script">apply for your seat</span>
-      <h2 style="font-size:1.6rem;font-weight:800;margin:10px 0 6px;">A Two-Day Executive Content Experience</h2>
-      <p class="price-note" style="margin-bottom:22px;">Ten seats. Two days. Every applicant is personally reviewed to make sure this room is the right fit.</p>
-      <div class="price"><sup>$</sup>795</div>
-      <p class="price-note" style="margin-bottom:6px;">Per seat · Aug 20–21, 2026 · Orlando, FL</p>
-      <p class="price-note" style="font-size:0.8rem;color:#F1D89A;margin-bottom:30px;">Once accepted, pay in full or split into 3 payments</p>
+      <h2 style="color:var(--white);">Choose Your Access</h2>
+      <p style="color:#D8ECEA;">Only 10 candidates. Every applicant is personally reviewed to make sure this room is the right fit.</p>
+    </div>
 
-      <div class="price-list">
-        <div>90-day content calendar</div>
-        <div>Professional photo &amp; video</div>
-        <div>Social audit &amp; strategy</div>
-        <div>Brand positioning workshop</div>
-        <div>Messaging refinement</div>
-        <div>Business networking</div>
-        <div>Reels &amp; short-form content</div>
-        <div>Q4 marketing action plan</div>
+    <div class="pricing-tiers">
+      <div class="tier-card">
+        <span class="tier-badge early-bird">Early Bird &middot; Expires Aug 6</span>
+        <h3 class="tier-name">One-Day Pass</h3>
+        <div class="tier-price"><sup>$</sup>650</div>
+        <p class="tier-note">One day &middot; Aug 20 or 21, 2026 &middot; Orlando, FL</p>
+        <a class="btn btn-teal" href="apply.html" style="width:100%;justify-content:center;margin-top:20px;">Apply for the One-Day Pass</a>
       </div>
 
-      <a class="btn btn-gold" href="apply.html" style="width:100%;justify-content:center;">Apply for Your Seat</a>
-      <p class="seats-note">Only 10 slots — applications are reviewed in the order they're received.</p>
-
-      <div style="margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,255,0.15);">
-        <p style="font-size:0.82rem;color:#B9D8D3;">Already been accepted?</p>
-        <a href="https://buy.stripe.com/REPLACE_WITH_YOUR_PAYMENT_LINK" style="font-family:'Poppins',sans-serif;font-weight:600;font-size:0.86rem;color:var(--gold);text-decoration:underline;">Complete your payment via Stripe &rarr;</a>
+      <div class="tier-card featured">
+        <span class="tier-badge">Full Access</span>
+        <h3 class="tier-name">Both Days</h3>
+        <div class="tier-price"><sup>$</sup>1,197</div>
+        <p class="tier-note">Aug 20–21, 2026 · Orlando, FL</p>
+        <p class="tier-note" style="font-size:0.78rem;color:#F1D89A;">Pay in full or split into 3 payments once accepted</p>
+        <a class="btn btn-gold" href="apply.html" style="width:100%;justify-content:center;margin-top:20px;">Apply for Full Access</a>
       </div>
+    </div>
+
+    <div class="price-list" style="max-width:640px;margin:44px auto 0;">
+      <div>Complete Q4 marketing strategy</div>
+      <div>90-day content calendar</div>
+      <div>Updated headshots &amp; professional photos</div>
+      <div>Professional profile / intro video</div>
+      <div>Ready-to-post talking-head videos</div>
+      <div>Library of evergreen B-roll</div>
+      <div>Behind-the-scenes footage</div>
+      <div>Stronger messaging &amp; positioning</div>
+      <div>Relationships with fellow entrepreneurs</div>
+    </div>
+
+    <p class="seats-note" style="text-align:center;">Only 10 seats — applications are reviewed in the order they're received.</p>
+
+    <div style="text-align:center;margin-top:18px;padding-top:22px;border-top:1px solid rgba(255,255,255,0.15);max-width:640px;margin-left:auto;margin-right:auto;">
+      <p style="font-size:0.82rem;color:#B9D8D3;">Already been accepted?</p>
+      <a href="https://buy.stripe.com/REPLACE_WITH_YOUR_PAYMENT_LINK" style="font-family:'Poppins',sans-serif;font-weight:600;font-size:0.86rem;color:var(--gold);text-decoration:underline;">Complete your payment via Stripe &rarr;</a>
     </div>
   </div>
 </section>
@@ -791,32 +930,32 @@
 
     <div class="faq-list">
       <div class="faq-item open">
-        <div class="faq-q">What's actually included in the $795?<span class="plus">+</span></div>
-        <div class="faq-a"><p>Your seat covers both retreat days, your professional photo and video session, the brand positioning workshop, your 90-day content calendar, your Q4 action plan, and working materials. Travel and lodging are not included.</p></div>
+        <div class="faq-q">What's the difference between the One-Day Pass and Full Access?<span class="plus">+</span></div>
+        <div class="faq-a"><p>The Full Access Pass ($1,197) covers both retreat days in full — the strategy workshop, your full content batching session, and the Founders Table dinner. The One-Day Pass ($650, early bird pricing through Aug 6) gives you a single day of the experience. Travel and lodging are not included in either pass.</p></div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Do I need to bring my own camera or equipment?<span class="plus">+</span></div>
-        <div class="faq-a"><p>No. Photography and video are professionally produced on-site both days. Just bring 2–3 outfit options and anything specific to your brand you'd like featured.</p></div>
+        <div class="faq-a"><p>No. Photography and video are professionally produced on-site. Just bring 2–3 outfit options and anything specific to your brand you'd like featured.</p></div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Is this only for social media managers or agency owners?<span class="plus">+</span></div>
         <div class="faq-a"><p>Not at all. This retreat is built for any business owner, coach, or ministry leader who wants a real content plan and doesn't want to build it alone.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Do I need to attend both days?<span class="plus">+</span></div>
-        <div class="faq-a"><p>Yes — this is a two-day experience by design. Day one covers positioning and production; day two covers your calendar and Q4 plan. The deliverables build on each other, so both days are included in your seat.</p></div>
+        <div class="faq-q">Should I get the One-Day Pass or Full Access?<span class="plus">+</span></div>
+        <div class="faq-a"><p>Full Access is built for the complete experience — positioning, a full content batching session, your 90-day calendar, and the Founders Table dinner with fellow entrepreneurs. The One-Day Pass is a lighter-touch option if your schedule or budget only allows for one day.</p></div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Why do I have to apply instead of just paying?<span class="plus">+</span></div>
-        <div class="faq-a"><p>With only 10 seats, we want every business owner in the room to be a good fit for the room — and we want to walk in already knowing your business so we can make the two days specific to you, not generic. The application takes about 5 minutes.</p></div>
+        <div class="faq-a"><p>With only 10 seats, we want every business owner in the room to be a good fit for the room — and we want to walk in already knowing your business so we can make the retreat specific to you, not generic. The application takes about 10 minutes.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Can I split up the $795?<span class="plus">+</span></div>
-        <div class="faq-a"><p>Yes. Once accepted, you can pay in full or split your seat into 3 payments at checkout — whichever works better for your budget.</p></div>
+        <div class="faq-q">Can I split up the payment?<span class="plus">+</span></div>
+        <div class="faq-a"><p>Yes, for the Full Access Pass — once accepted, you can pay in full or split it into 3 payments, whichever works better for your budget. The One-Day Pass is early bird pricing and is paid in full at checkout.</p></div>
       </div>
       <div class="faq-item">
         <div class="faq-q">What's your refund policy?<span class="plus">+</span></div>
-        <div class="faq-a"><p>All sales are final — we don't offer refunds. If the date no longer works for you, your seat can be moved to our next two-day retreat at no extra cost. Just reach out and we'll get you rescheduled.</p></div>
+        <div class="faq-a"><p>All sales are final — we don't offer refunds. If the date no longer works for you, your seat can be moved to our next retreat at no extra cost. Just reach out and we'll get you rescheduled.</p></div>
       </div>
       <div class="faq-item">
         <div class="faq-q">How do I secure my seat?<span class="plus">+</span></div>
