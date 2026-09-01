@@ -69,7 +69,7 @@
       "name": "Sharleen Heartwell",
       "jobTitle": "CEO & Founder",
       "worksFor": {"@id": "https://www.she-social.com/#business"},
-      "description": "Faith-driven entrepreneur, strategist, author of The Healing, and social media expert with 15+ years in marketing and 20 years in ministry.",
+      "description": "Faith-driven entrepreneur, strategist, and social media expert with 15+ years in marketing and 20 years in ministry.",
       "url": "https://www.she-social.com"
     }
   ]
@@ -357,6 +357,31 @@ h1.hero-headline em { font-style:italic; color:var(--lime); }
 }
 .elev-step-title { font-size:14px; font-weight:600; color:var(--white); margin-bottom:4px; }
 .elev-step-body { font-size:12.5px; font-weight:300; color:rgba(255,255,255,0.68); line-height:1.7; }
+
+/*    SNAPSHOT   FEATURED (LOWER-TICKET ENTRY POINT)    */
+.snap-teaser { background:var(--purple); }
+.snap-teaser-inner { display:grid; grid-template-columns:1.1fr 0.9fr; gap:64px; align-items:center; }
+.snap-teaser-tag {
+  display:inline-block; background:rgba(234,246,165,0.14);
+  border:1px solid rgba(234,246,165,0.32);
+  font-size:10px; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--lime); padding:6px 16px; margin-bottom:20px;
+}
+.snap-teaser-body { font-size:15px; font-weight:300; line-height:1.85; color:rgba(255,255,255,0.82); max-width:520px; margin-bottom:28px; }
+.snap-teaser-body strong { color:var(--lime); font-weight:500; }
+.snap-teaser-list { list-style:none; margin-bottom:32px; }
+.snap-teaser-list li { display:flex; align-items:flex-start; gap:10px; font-size:13.5px; font-weight:300; color:rgba(255,255,255,0.85); padding:8px 0; border-bottom:1px solid rgba(234,246,165,0.1); }
+.snap-teaser-list li:last-child { border-bottom:none; }
+.snap-teaser-list li::before { content:' '; color:var(--lime); flex-shrink:0; font-size:9px; margin-top:4px; }
+.snap-teaser-card {
+  background:rgba(255,255,255,0.06); border:1px solid rgba(234,246,165,0.25);
+  padding:44px 38px; text-align:center; position:relative;
+}
+.snap-teaser-card::before { content:''; position:absolute; top:0; left:0; width:100%; height:4px; background:var(--lime); }
+.snap-teaser-price { font-family:'Cormorant Garamond',serif; font-size:52px; font-weight:300; color:var(--lime); line-height:1; margin-bottom:6px; }
+.snap-teaser-price-sub { font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:28px; }
+.snap-teaser-card .btn-lime { width:100%; margin-bottom:14px; }
+.snap-teaser-note { font-size:11.5px; color:rgba(255,255,255,0.4); }
 
 /*    SERVICES    */
 .services-section { background:var(--cream); }
@@ -666,7 +691,7 @@ footer::before {
   .nav-logo img{height:44px;}
   section{padding:72px 24px;}
   .hero{padding:100px 24px 60px;background-attachment:scroll;}
-  .hero-grid,.truth-grid,.what-grid,.ideal-grid,.faq-grid,.services-header,.founder-grid,.elev-grid,.contact-inner{grid-template-columns:1fr;gap:44px;}
+  .hero-grid,.truth-grid,.what-grid,.ideal-grid,.faq-grid,.services-header,.founder-grid,.elev-grid,.contact-inner,.snap-teaser-inner{grid-template-columns:1fr;gap:44px;}
   .pain-grid,.packages-grid,.magnets-grid,.opp-grid,.process-steps,.proof-grid,.founder-stats,.form-row{grid-template-columns:1fr;}
   .process-steps::before{display:none;}
   .founder-right{position:static;}
@@ -1343,6 +1368,32 @@ body.mobile-menu-open .mobile-menu {
   </div>
 </section>
 
+<!--                      SOCIAL SNAPSHOT   $67 ENTRY-POINT PRODUCT                      -->
+<section class="snap-teaser" id="social-snapshot" aria-labelledby="snap-teaser-heading" draggable="true" data-she-draggable="true">
+  <div class="container">
+    <div class="snap-teaser-inner">
+      <div>
+        <span class="snap-teaser-tag">Not Ready For a Partnership Yet?</span>
+        <h2 class="section-title light" id="snap-teaser-heading">The Social Snapshot.<br>A real look at your page, <em class="">from a real strategist.</em></h2>
+        <p class="snap-teaser-body">Not a course. Not a template. Just Sharleen, looking at your Instagram, TikTok, or Facebook, and telling you exactly what's working, what's costing you engagement, and <strong>the 3 things to fix first.</strong></p>
+        <ul class="snap-teaser-list">
+          <li class="">Personal, one-on-one review   done by a human, not AI</li>
+          <li class="">A short written breakdown of what's working and what's not</li>
+          <li class="">One clear next step, tailored to your business</li>
+          <li class="">Delivered within 48 hours of booking</li>
+        </ul>
+        <a href="SHE_Social_Snapshot_Landing.html" class="btn-ghost">See Full Details</a>
+      </div>
+      <div class="snap-teaser-card">
+        <div class="snap-teaser-price">$67</div>
+        <div class="snap-teaser-price-sub">One Time &middot; No Commitment</div>
+        <a href="SHE_Social_Snapshot_Landing.html" class="btn-lime">Book My Social Snapshot &rarr;</a>
+        <p class="snap-teaser-note">Delivered within 48 hours</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!--                      SERVICES VISUAL BREAK                      -->
 <div style="width:100%;height:400px;position:relative;background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1950&amp;q=80');background-size:cover;background-position:center;" role="img" aria-label="Professional team collaborating on social media strategy" draggable="true" data-she-draggable="true">
   <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(42,21,80,0.88) 0%,rgba(158,148,245,0.45) 100%);display:flex;align-items:center;padding-left:10%;">
@@ -1414,7 +1465,7 @@ body.mobile-menu-open .mobile-menu {
       <div class="magnet-card magnet-free" style="opacity: 0; transform: translateY(20px); transition: opacity 0.55s, transform 0.55s;"><span class="magnet-badge">Free Download</span><h3 class="magnet-title">Is Your Social Media Costing You Clients? The 10-Point Audit</h3><p class="magnet-body">In 10 minutes, you'll know exactly where your social media presence is strong, where it's losing people, and what to fix first. Be prepared   this checklist is honest.</p><ul class="magnet-list"><li class="">10 critical audit points every business needs to check</li><li class="">The exact reason clients leave your profile without contacting you</li><li class="">A scoring system showing where you really stand</li><li class="">Quick-win action steps for each area</li><li class="">The one thing most businesses miss that costs them the most</li></ul><div class="magnet-price">Free</div><a href="#" class="magnet-cta">Download Your Free Checklist</a></div>
       <div class="magnet-card magnet-paid" style="opacity: 0; transform: translateY(20px); transition: opacity 0.55s, transform 0.55s;"><span class="magnet-badge">$27 Guide</span><h3 class="magnet-title">Stop Posting. Start Showing Up. The Done-With-You Playbook</h3><p class="magnet-body">The exact framework S.H.E. Social uses with every client   built for business owners who understand the value of social media but are honest about not having the bandwidth to execute it alone.</p><ul class="magnet-list"><li class="">Why you're behind   and why it's not your fault</li><li class="">What social media actually does for your revenue</li><li class="">The Human Touch Framework: AI needs you, not vice versa</li><li class="">The content you already have that you're not using</li><li class="">Your 30-day launch plan starting today</li></ul><div class="magnet-price">$27</div><a href="#" class="magnet-cta">Get The Playbook Now</a></div>
     </div>
-    <p style="text-align:center;margin-top:28px;font-size:13px;color:rgba(255,255,255,0.45);font-weight:300;" class="">After the checklist, most people realize they want someone to <em class="">do this for them.</em> <a href="#contact" style="color:var(--lime);text-decoration:none;" class="">That's what we're here for.  </a></p>
+    <p style="text-align:center;margin-top:28px;font-size:13px;color:rgba(255,255,255,0.45);font-weight:300;" class="">Want an expert to actually look at your page instead? <a href="SHE_Social_Snapshot_Landing.html" style="color:var(--lime);text-decoration:none;" class="">Get The Social Snapshot for $67  </a></p>
   </div>
 </section>
 
@@ -1569,6 +1620,7 @@ body.mobile-menu-open .mobile-menu {
           <div class="form-group"><label for="f-interest" class="">I'm interested in</label>
             <select id="f-interest">
               <option value="" disabled="" selected="">What are you looking for?</option>
+              <option>The Social Snapshot ($67)</option>
               <option>The Elevation Day ($997)</option>
               <option>Monthly Partnership Package</option>
               <option>Free Discovery Call</option>
@@ -1596,6 +1648,7 @@ body.mobile-menu-open .mobile-menu {
   </div>
   <nav class="footer-links" aria-label="Footer navigation" data-she-layer-id="layer-9zhx3zb">
     <a href="#proof" class="">Results</a>
+    <a href="#social-snapshot" class="">Snapshot</a>
     <a href="#elevation-day" class="">Elevation Day</a>
     <a href="#services" class="">Packages</a>
     <a href="#resources" class="">Resources</a>
@@ -1712,448 +1765,5 @@ document.querySelectorAll(
   io.observe(el);
 });
 </script>
-<script id="she-builder-engine" draggable="true" data-she-draggable="true">
-(function() {
-  // SHE Social Visual Editor Engine v2
-  // Only activate inside the standalone editor (which loads this page via a blob: URL).
-  // On the real published site (https://...), this must stay completely inactive.
-  if (window.location.protocol !== 'blob:') { return; }
-  var sel = null, selType = null, undoStack = [], redoStack = [];
-
-  // ── PER-DEVICE CROP RULES ────────────────────────────────────────────────
-  // Lets an element have a different background/object position & zoom on
-  // tablet/mobile than on desktop, via generated @media rules scoped to a
-  // unique data attribute. Desktop values still use plain inline styles
-  // (set directly on the element) and act as the fallback for all sizes.
-  var respRules = {}, posCounter = 0, respStyleEl = null;
-  function ensurePosId(el) {
-    if (!el.dataset.shePosId) el.dataset.shePosId = 'sp' + (++posCounter) + '-' + Date.now();
-    return el.dataset.shePosId;
-  }
-  function cssPropsToString(o) {
-    var s = '';
-    if (o.backgroundPosition) s += 'background-position:' + o.backgroundPosition + '!important;';
-    if (o.backgroundSize)     s += 'background-size:'     + o.backgroundSize     + '!important;';
-    if (o.objectPosition)     s += 'object-position:'      + o.objectPosition     + '!important;';
-    if (o.transform)          s += 'transform:'            + o.transform         + '!important;';
-    if (o.transformOrigin)    s += 'transform-origin:'     + o.transformOrigin   + '!important;';
-    return s;
-  }
-  function rebuildRespStyle() {
-    if (!respStyleEl) {
-      respStyleEl = document.createElement('style');
-      respStyleEl.id = 'she-responsive-style';
-      document.head.appendChild(respStyleEl);
-    }
-    var css = '';
-    Object.keys(respRules).forEach(function(id) {
-      var r = respRules[id];
-      if (r.tablet) css += '@media (max-width:900px){[data-she-pos-id="' + id + '"]{' + cssPropsToString(r.tablet) + '}}';
-      if (r.mobile) css += '@media (max-width:480px){[data-she-pos-id="' + id + '"]{' + cssPropsToString(r.mobile) + '}}';
-    });
-    respStyleEl.textContent = css;
-  }
-  function setDeviceProp(el, device, propObj) {
-    var id = ensurePosId(el);
-    respRules[id] = respRules[id] || {};
-    respRules[id][device] = respRules[id][device] || {};
-    for (var k in propObj) respRules[id][device][k] = propObj[k];
-    rebuildRespStyle();
-  }
-
-  // ── STYLES ──────────────────────────────────────────────────────────────
-  var sty = document.createElement('style');
-  sty.id = 'she-sty';
-  sty.textContent = [
-    '.she-ed{cursor:pointer!important;transition:outline 0.15s}',
-    '.she-ed:hover{outline:2px solid rgba(158,148,245,0.8)!important;outline-offset:3px}',
-    '.she-sel{outline:3px solid #EAF6A5!important;outline-offset:3px}',
-    '.she-bgz{cursor:pointer!important;position:relative!important}',
-    '.she-bgz::after{content:"🖼  Click to change background";position:absolute;inset:0;background:rgba(26,14,46,0);color:transparent;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;font-family:sans-serif;letter-spacing:0.05em;transition:all 0.2s;z-index:99;pointer-events:none}',
-    '.she-bgz:hover::after{background:rgba(26,14,46,0.72);color:#EAF6A5}',
-    '.she-bgz-sel{outline:3px solid #EAF6A5!important;outline-offset:0}'
-  ].join('');
-  document.head.appendChild(sty);
-
-  function notify(o) { try { window.parent.postMessage(o, '*'); } catch(e) {} }
-
-  // ── ELEMENT INFO ────────────────────────────────────────────────────────
-  function getInfo(el) {
-    var cs = window.getComputedStyle(el);
-    var tag = el.tagName.toLowerCase();
-    var id = el.id ? '#' + el.id : '';
-    var cls = '';
-    for (var i = 0; i < el.classList.length; i++) {
-      var c = el.classList[i];
-      if (['she-ed','she-sel','she-bgz','she-bgz-sel'].indexOf(c) === -1) { cls = c; break; }
-    }
-    // Get background-image from computed style or inline
-    var bgImg = cs.backgroundImage || '';
-    return {
-      type:'she-select', elType:selType, tag:tag, id:id, cls:cls,
-      text: el.innerText || '',
-      html: el.innerHTML || '',
-      src: el.src || '',
-      href: el.getAttribute('href') || '',
-      alt: el.alt || '',
-      color: cs.color,
-      backgroundColor: cs.backgroundColor,
-      backgroundImage: bgImg,
-      backgroundPosition: cs.backgroundPosition,
-      objectFit: cs.objectFit,
-      objectPosition: cs.objectPosition,
-      fontSize: cs.fontSize,
-      fontWeight: cs.fontWeight,
-      fontFamily: cs.fontFamily,
-      textAlign: cs.textAlign
-    };
-  }
-
-  // ── SELECT / DESELECT ───────────────────────────────────────────────────
-  function pick(el, type) {
-    desel();
-    sel = el; selType = type;
-    var isBg = ['bgdiv','sectionbg','nav','section'].indexOf(type) > -1;
-    el.classList.add(isBg ? 'she-bgz-sel' : 'she-sel');
-    notify(getInfo(el));
-  }
-
-  function desel() {
-    if (sel) {
-      sel.classList.remove('she-sel','she-bgz-sel');
-      sel = null; selType = null;
-    }
-    notify({type:'she-deselect'});
-  }
-
-  // ── UNDO ────────────────────────────────────────────────────────────────
-  function saveU() {
-    undoStack.push(document.documentElement.innerHTML);
-    if (undoStack.length > 40) undoStack.shift();
-    redoStack = [];
-    notify({type:'she-history', canUndo:true, canRedo:false});
-  }
-
-  // ── BIND ELEMENTS ───────────────────────────────────────────────────────
-  function bind() {
-    var seen = new WeakSet();
-
-    // 1. TEXT elements — click to select
-    var textSels = [
-      'h1','h2','h3','h4','h5','h6','p','a','span','li','button','strong','em','label',
-      '.nav-logo','.ticker-item','.hero-headline','.hero-subhead','.hero-eyebrow-text',
-      '.stat-num','.stat-label','.hero-trust-line',
-      '.pkg-name','.pkg-price','.pkg-price-note','.pkg-badge','.pkg-cta',
-      '.elev-tag','.elev-price-num','.elev-price-sub','.elev-step-title','.elev-step-body',
-      '.elev-card-label','.elev-scarcity-text','.elev-includes li',
-      '.proof-quote','.proof-name','.proof-role',
-      '.founder-text','.founder-pullquote','.sig-name','.sig-title',
-      '.founder-stat-num','.founder-stat-label',
-      '.pain-num','.pain-title','.pain-body',
-      '.truth-item-title','.truth-item-body','.truth-quote-big',
-      '.opp-card-title','.opp-card-body','.opp-body',
-      '.what-item-title','.what-item-body',
-      '.magnet-title','.magnet-body','.magnet-list li',
-      '.ideal-card-text','.ideal-list li','.ideal-body',
-      '.process-step-title','.process-step-body','.process-step-num',
-      '.faq-btn','.faq-answer',
-      '.contact-body','.contact-detail-item',
-      '.vis-break-text','.close-break-text',
-      '.footer-logo','.footer-tagline','.footer-copy','.footer-links a',
-      '.btn-lime','.btn-ghost','.btn-ghost-dark','.mobile-book-btn'
-    ];
-    textSels.forEach(function(s) {
-      try {
-        document.querySelectorAll(s).forEach(function(el) {
-          if (seen.has(el) || el._sbt) return;
-          seen.add(el); el._sbt = 1;
-          el.dataset.st = 'text';
-          el.classList.add('she-ed');
-          el.addEventListener('click', function(e) {
-            e.preventDefault(); e.stopPropagation();
-            pick(this, 'text');
-          });
-        });
-      } catch(e) {}
-    });
-
-    // 2. IMG tags — click to replace
-    document.querySelectorAll('img').forEach(function(img) {
-      if (seen.has(img) || img._sbi) return;
-      seen.add(img); img._sbi = 1;
-      img.dataset.st = 'image';
-      img.classList.add('she-ed');
-      img.addEventListener('click', function(e) {
-        e.preventDefault(); e.stopPropagation();
-        pick(this, 'image');
-      });
-    });
-
-    // 3. CSS BG DIVS — click to change background (hero-img, vis-break, etc.)
-    var bgDivSels = ['.hero-img','.truth-img','.vis-break','.close-break'];
-    bgDivSels.forEach(function(s) {
-      try {
-        document.querySelectorAll(s).forEach(function(el) {
-          if (seen.has(el) || el._sbd) return;
-          seen.add(el); el._sbd = 1;
-          el.dataset.st = 'bgdiv';
-          el.classList.add('she-bgz');
-          el.addEventListener('click', function(e) {
-            e.preventDefault(); e.stopPropagation();
-            pick(this, 'bgdiv');
-          });
-        });
-      } catch(e) {}
-    });
-
-    // 4. ALL SECTIONS — click empty area = select section for bg editing
-    //    Uses a delegated click: if you click a section but NOT a child element
-    var sectionSels = [
-      '#hero','#proof','#pain','#services','#resources','#founder',
-      '#contact','#elevation-day','#what-we-do',
-      '.truth-section','.opp-section','.ideal-section','.what-section',
-      '.faq-section','.process-section','.ticker-bar',
-      'section','footer'
-    ];
-    sectionSels.forEach(function(s) {
-      try {
-        document.querySelectorAll(s).forEach(function(el) {
-          if (el._sbs) return; el._sbs = 1;
-          // Right-click always selects section
-          el.addEventListener('contextmenu', function(e) {
-            e.preventDefault(); e.stopPropagation();
-            pick(this, 'sectionbg');
-          });
-        });
-      } catch(e) {}
-    });
-
-    // 5. NAV — right-click to select
-    var nav = document.querySelector('.site-header') || document.querySelector('nav') || document.getElementById('main-nav');
-    if (nav && !nav._sbn) {
-      nav._sbn = 1;
-      nav.addEventListener('contextmenu', function(e) {
-        e.preventDefault(); e.stopPropagation();
-        pick(this, 'nav');
-      });
-    }
-
-    // 6. Global click to deselect
-    if (!document._sbc) {
-      document._sbc = 1;
-      document.addEventListener('click', function(e) {
-        if (!e.target.closest('[data-st]')) desel();
-      });
-    }
-  }
-
-  // ── MESSAGE HANDLER ─────────────────────────────────────────────────────
-  window.addEventListener('message', function(e) {
-    var m = e.data; if (!m || !m.cmd) return;
-
-    // TEXT
-    if (m.cmd === 'set-text') {
-      if (!sel) return; saveU();
-      // Keep child elements (like <em>, <strong>) but replace text nodes
-      sel.innerHTML = m.value;
-    }
-    else if (m.cmd === 'set-color')       { if(!sel)return; saveU(); sel.style.color = m.value; }
-    else if (m.cmd === 'set-font-size')   { if(!sel)return; saveU(); sel.style.fontSize = m.value; }
-    else if (m.cmd === 'set-font-weight') { if(!sel)return; saveU(); sel.style.fontWeight = m.value; }
-    else if (m.cmd === 'set-font-family') { if(!sel)return; saveU(); sel.style.fontFamily = m.value; }
-    else if (m.cmd === 'set-font-style')  { if(!sel)return; saveU(); sel.style.fontStyle = sel.style.fontStyle === 'italic' ? '' : 'italic'; }
-    else if (m.cmd === 'set-text-align')  { if(!sel)return; saveU(); sel.style.textAlign = m.value; }
-    else if (m.cmd === 'set-href')        { if(!sel)return; saveU(); sel.setAttribute('href', m.value); }
-
-    // IMAGE SRC
-    else if (m.cmd === 'set-img-src') {
-      if (!sel) return; saveU();
-      if (m.isVideo && sel.tagName !== 'VIDEO') {
-        var vid = document.createElement('video');
-        vid.src = m.value;
-        vid.autoplay = true; vid.muted = true; vid.loop = true; vid.playsInline = true;
-        vid.className = sel.className;
-        if (sel.id) vid.id = sel.id;
-        vid.style.cssText = sel.style.cssText;
-        vid.style.objectFit = 'cover';
-        vid.dataset.st = 'image';
-        vid._sbi = 1;
-        vid.addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); pick(this, 'image'); });
-        sel.parentNode.replaceChild(vid, sel);
-        sel = vid;
-      } else if (!m.isVideo && sel.tagName === 'VIDEO') {
-        var img = document.createElement('img');
-        img.src = m.value;
-        img.className = sel.className;
-        if (sel.id) img.id = sel.id;
-        img.style.cssText = sel.style.cssText;
-        img.style.objectFit = 'cover';
-        img.dataset.st = 'image';
-        img._sbi = 1;
-        img.addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); pick(this, 'image'); });
-        sel.parentNode.replaceChild(img, sel);
-        sel = img;
-      } else {
-        sel.src = m.value;
-        sel.style.objectFit = 'cover';
-      }
-    }
-    else if (m.cmd === 'set-img-alt') { if(!sel)return; sel.alt = m.value; }
-    else if (m.cmd === 'set-img-position') {
-      if (!sel) return;
-      if (m.device && m.device !== 'desktop') {
-        setDeviceProp(sel, m.device, {objectPosition: m.value, transformOrigin: m.value});
-      } else {
-        sel.style.objectPosition = m.value; sel.style.transformOrigin = m.value;
-      }
-    }
-    else if (m.cmd === 'set-img-fit')      { if(!sel)return; saveU(); sel.style.objectFit = m.value; }
-    else if (m.cmd === 'set-img-zoom') {
-      if (!sel) return;
-      var z = parseFloat(m.value) / 100;
-      if (m.device && m.device !== 'desktop') {
-        setDeviceProp(sel, m.device, {transform: 'scale(' + z + ')'});
-      } else {
-        sel.style.transform = 'scale(' + z + ')';
-        if (!sel.style.transformOrigin) sel.style.transformOrigin = '50% 50%';
-      }
-      if (sel.parentElement) sel.parentElement.style.overflow = 'hidden';
-    }
-
-    // BACKGROUND COLOR — works on ANY element
-    else if (m.cmd === 'set-bg-color') {
-      if (!sel) return; saveU();
-      sel.style.backgroundColor = m.value;
-      // Also clear gradient if one is set
-      var curr = window.getComputedStyle(sel).backgroundImage;
-      if (curr && curr !== 'none' && curr.indexOf('gradient') > -1) {
-        // keep image overlays, just set the color underneath
-      }
-    }
-
-    // BACKGROUND IMAGE — CSS background-image on divs/sections
-    else if (m.cmd === 'set-bg-image-url') {
-      if (!sel) return; saveU();
-      sel.style.backgroundImage = "url('" + m.value + "')";
-      sel.style.backgroundSize = 'cover';
-      sel.style.backgroundPosition = 'center';
-    }
-    else if (m.cmd === 'set-bg-image-data') {
-      if (!sel) return; saveU();
-      if (m.isVideo) {
-        var ov = sel.querySelector('video.she-v'); if(ov) ov.remove();
-        var v = document.createElement('video');
-        v.src = m.value; v.autoplay = true; v.muted = true; v.loop = true; v.playsInline = true;
-        v.className = 'she-v';
-        v.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none';
-        sel.style.position = 'relative';
-        sel.prepend(v);
-      } else {
-        var ov2 = sel.querySelector('video.she-v'); if(ov2) ov2.remove();
-        sel.style.backgroundImage = "url('" + m.value + "')";
-        sel.style.backgroundSize = 'cover';
-        sel.style.backgroundPosition = 'center';
-      }
-    }
-    else if (m.cmd === 'remove-bg-image') {
-      if (!sel) return; saveU();
-      sel.style.backgroundImage = 'none';
-      var ov3 = sel.querySelector('video.she-v'); if(ov3) ov3.remove();
-    }
-    else if (m.cmd === 'set-bg-position') {
-      if (!sel) return;
-      if (m.device && m.device !== 'desktop') setDeviceProp(sel, m.device, {backgroundPosition: m.value});
-      else sel.style.backgroundPosition = m.value;
-    }
-    else if (m.cmd === 'set-bg-zoom') {
-      if (!sel) return;
-      if (m.device && m.device !== 'desktop') setDeviceProp(sel, m.device, {backgroundSize: m.value + '%'});
-      else sel.style.backgroundSize = m.value + '%';
-    }
-    else if (m.cmd === 'set-bg-overlay') {
-      // Set the ::before pseudo overlay opacity via a style tag
-      if (!sel) return; saveU();
-      var oid = 'she-ov-' + Date.now();
-      sel.dataset.ovid = oid;
-      var os = document.createElement('style');
-      os.textContent = '[data-ovid="'+oid+'"]::before{background:' + m.value + '!important}';
-      document.head.appendChild(os);
-    }
-
-    // SECTION BG — select a section by selector for editing
-    else if (m.cmd === 'select-section') {
-      var target = document.querySelector(m.sel);
-      if (target) pick(target, 'sectionbg');
-    }
-
-    // SCROLL
-    else if (m.cmd === 'scroll-to') {
-      var sc = document.querySelector(m.sel) || document.getElementById(m.id);
-      if (sc) sc.scrollIntoView({behavior:'smooth', block:'start'});
-    }
-
-    // MOVE SECTION
-    else if (m.cmd === 'move-section') {
-      var mv = document.querySelector(m.sel); if(!mv) return; saveU();
-      var par = mv.parentNode;
-      if (m.dir === -1) { var prev = mv.previousElementSibling; if(prev) par.insertBefore(mv, prev); }
-      else { var nxt = mv.nextElementSibling; if(nxt) par.insertBefore(nxt, mv); }
-      mv.scrollIntoView({behavior:'smooth', block:'center'});
-    }
-
-    // DELETE
-    else if (m.cmd === 'delete-element') {
-      if (!sel) return; saveU(); sel.remove(); desel();
-    }
-
-    // UNDO / REDO
-    else if (m.cmd === 'undo') {
-      if (!undoStack.length) return;
-      redoStack.push(document.documentElement.innerHTML);
-      document.documentElement.innerHTML = undoStack.pop();
-      document.head.appendChild(sty); setTimeout(bind, 100); desel();
-      notify({type:'she-history', canUndo:undoStack.length>0, canRedo:true});
-      notify({type:'she-toast', msg:'Undone ↩'});
-    }
-    else if (m.cmd === 'redo') {
-      if (!redoStack.length) return;
-      undoStack.push(document.documentElement.innerHTML);
-      document.documentElement.innerHTML = redoStack.pop();
-      document.head.appendChild(sty); setTimeout(bind, 100); desel();
-      notify({type:'she-history', canUndo:true, canRedo:redoStack.length>0});
-      notify({type:'she-toast', msg:'Redone ↪'});
-    }
-
-    // EXPORT
-    else if (m.cmd === 'get-html') {
-      var s2 = document.getElementById('she-sty'); if(s2) s2.remove();
-      document.querySelectorAll('.she-ed,.she-sel,.she-bgz,.she-bgz-sel').forEach(function(el) {
-        el.classList.remove('she-ed','she-sel','she-bgz','she-bgz-sel');
-        delete el.dataset.st;
-        delete el._sbt; delete el._sbi; delete el._sbd; delete el._sbs; delete el._sbn;
-      });
-      var fullHTML = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-      document.head.appendChild(sty);
-      setTimeout(bind, 100);
-      notify({type:'she-html', html:fullHTML});
-    }
-  });
-
-  // Keyboard shortcuts
-  document.addEventListener('keydown', function(e) {
-    if ((e.ctrlKey||e.metaKey) && !e.shiftKey && e.key==='z') { e.preventDefault(); window.dispatchEvent(new MessageEvent('message',{data:{cmd:'undo'}})); }
-    if ((e.ctrlKey||e.metaKey) && (e.key==='y'||(e.shiftKey&&e.key==='z'))) { e.preventDefault(); window.dispatchEvent(new MessageEvent('message',{data:{cmd:'redo'}})); }
-    if (e.key==='Escape') desel();
-  });
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() { bind(); notify({type:'she-ready'}); });
-  } else {
-    bind(); notify({type:'she-ready'});
-  }
-})();
-</script>
-
-
 
 </body></html>
