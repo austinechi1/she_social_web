@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Client Access | S.H.E. Social</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 20% 0%,#3c1460,#2A1550 55%,#190329);font-family:Jost,sans-serif;color:#4B3270}.card{width:min(100%,520px);padding:50px 42px;background:#fff;border-top:5px solid #EAF6A5;box-shadow:0 22px 70px rgba(0,0,0,.3);text-align:center}.logo{width:170px;margin:0 auto 28px}h1{margin:0 0 14px;color:#2A1550;font:500 clamp(2.5rem,8vw,3.8rem)/1 'Cormorant Garamond',serif}h1 em{color:#8E50BF}p{margin:0 auto 28px;max-width:390px;line-height:1.7;font-weight:300}.field{text-align:left}label{display:block;margin-bottom:8px;color:#7A63A0;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase}input{width:100%;padding:15px 16px;border:1px solid rgba(142,80,191,.25);background:#F9F5F1;color:#2A1550;font:400 1rem Jost,sans-serif;letter-spacing:.08em}input:focus{outline:2px solid #9E94F5;outline-offset:2px;background:#fff}button{width:100%;margin-top:16px;padding:16px;border:0;background:#EAF6A5;color:#2A1550;cursor:pointer;font:700 .76rem Jost,sans-serif;letter-spacing:.14em;text-transform:uppercase}button:hover{background:#d6ee70}.error{display:none;margin:0 0 18px;padding:11px 14px;background:#fff0f3;color:#9b2440;font-size:.88rem}.help{margin-top:22px;font-size:.8rem;color:#7A63A0}.help a{color:#8E50BF}@media(max-width:520px){.card{padding:42px 25px}}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <a href="/"><img class="logo" src="/assets/images/nav-logo.png" alt="S.H.E. Social"></a>
+    <h1>Welcome, <em>client.</em></h1>
+    <p>Enter the access code included in your welcome message to open your client portal.</p>
+    <div class="error" id="error" role="alert">That code was not recognized. Please try again.</div>
+    <form method="POST" action="/.netlify/functions/client-login">
+      <input type="hidden" name="next" id="next" value="/client-portal/">
+      <div class="field"><label for="access-code">Access code</label><input id="access-code" name="code" type="password" autocomplete="current-password" required autofocus></div>
+      <button type="submit">Open Client Portal</button>
+    </form>
+    <p class="help">Need help? <a href="mailto:she_social@outlook.com">Contact S.H.E. Social</a></p>
+  </main>
+  <script>
+    const params=new URLSearchParams(location.search);
+    const requested=params.get('next');
+    if(requested && requested.startsWith('/client-')) document.getElementById('next').value=requested;
+    if(params.get('error')==='1') document.getElementById('error').style.display='block';
+  </script>
+</body>
+</html>

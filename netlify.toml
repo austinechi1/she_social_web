@@ -13,7 +13,34 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
+[[headers]]
+  for = "/client-portal/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/client-onboarding/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/client-documents/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
 [[redirects]]
   from = "/admin"
   to = "/admin/"
   status = 301
+
+[[edge_functions]]
+  function = "client-protect"
+  path = "/client-portal/*"
+
+[[edge_functions]]
+  function = "client-protect"
+  path = "/client-onboarding/*"
+
+[[edge_functions]]
+  function = "client-protect"
+  path = "/client-documents/*"
