@@ -237,21 +237,6 @@ h1.hero-headline em { font-style:italic; color:var(--lime); }
 
 /*    BEHIND THE SCENES GALLERY    */
 .bts-section { background:var(--dark); position:relative; }
-.bts-sound-toggle {
-  position:absolute; top:28px; right:28px; z-index:5;
-  display:inline-flex; align-items:center; gap:8px;
-  background:rgba(255,255,255,0.08); border:1px solid rgba(234,246,165,0.3);
-  color:var(--lime); padding:9px 16px;
-  font-family:'Jost',sans-serif; font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
-  cursor:pointer; transition:all .3s;
-}
-.bts-sound-toggle:hover { background:rgba(234,246,165,0.14); }
-.bts-sound-toggle .bts-sound-icon { font-size:14px; line-height:1; }
-.bts-sound-toggle.muted { color:rgba(255,255,255,0.55); border-color:rgba(255,255,255,0.2); }
-@media(max-width:767px){
-  .bts-sound-toggle { top:16px; right:16px; padding:8px 12px; }
-  .bts-sound-toggle .bts-sound-label { display:none; }
-}
 .bts-intro { text-align:center; max-width:640px; margin:0 auto 52px; }
 .bts-intro .eyebrow { justify-content:center; }
 .bts-feature {
@@ -1371,10 +1356,6 @@ body.mobile-menu-open .mobile-menu {
   <audio id="bts-audio" loop preload="none">
     <source src="assets/audio/bts-background.mp3" type="audio/mpeg">
   </audio>
-  <button class="bts-sound-toggle" id="bts-sound-toggle" type="button" aria-pressed="false" aria-label="Toggle background sound">
-    <span class="bts-sound-icon" aria-hidden="true">&#128264;</span>
-    <span class="bts-sound-label">Sound On</span>
-  </button>
   <div class="container">
     <div class="bts-intro">
       <div class="eyebrow" style="justify-content:center;">
@@ -1932,46 +1913,22 @@ const btsIo = new IntersectionObserver((entries) => {
 }, { threshold: 0.25 });
 btsVideos.forEach(v => btsIo.observe(v));
 
-/*    BTS background sound: play while section is in view, pause outside it    */
+/*    BTS background sound: auto-loop while section is in view, pause outside it    */
 const btsSection = document.getElementById('behind-the-scenes');
 const btsAudio = document.getElementById('bts-audio');
-const btsSoundToggle = document.getElementById('bts-sound-toggle');
-const btsSoundLabel = btsSoundToggle ? btsSoundToggle.querySelector('.bts-sound-label') : null;
-let btsSoundUserMuted = false;
 
-function setBtsToggleState(playing) {
-  if (!btsSoundToggle) return;
-  btsSoundToggle.classList.toggle('muted', !playing);
-  btsSoundToggle.setAttribute('aria-pressed', String(playing));
-  if (btsSoundLabel) btsSoundLabel.textContent = playing ? 'Sound On' : 'Sound Off';
-}
-
-if (btsSection && btsAudio && btsSoundToggle) {
+if (btsSection && btsAudio) {
   const btsAudioIo = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (btsSoundUserMuted) return;
       if (entry.isIntersecting) {
         btsAudio.preload = 'auto';
-        btsAudio.play().then(() => setBtsToggleState(true)).catch(() => setBtsToggleState(false));
+        btsAudio.play().catch(() => {});
       } else {
         btsAudio.pause();
-        setBtsToggleState(false);
       }
     });
   }, { threshold: 0.4 });
   btsAudioIo.observe(btsSection);
-
-  btsSoundToggle.addEventListener('click', () => {
-    if (btsAudio.paused) {
-      btsSoundUserMuted = false;
-      btsAudio.preload = 'auto';
-      btsAudio.play().then(() => setBtsToggleState(true)).catch(() => setBtsToggleState(false));
-    } else {
-      btsSoundUserMuted = true;
-      btsAudio.pause();
-      setBtsToggleState(false);
-    }
-  });
 }
 
 /*    Scroll-triggered fade-in    */
