@@ -1918,6 +1918,30 @@ const btsSection = document.getElementById('behind-the-scenes');
 const btsAudio = document.getElementById('bts-audio');
 
 if (btsSection && btsAudio) {
+  // Browsers block audio-with-sound until the visitor has interacted with the
+  // page at least once. Silently "unlock" playback on the first click/tap/key
+  // anywhere on the page, so the scroll-triggered play below actually works.
+  let btsAudioUnlocked = false;
+  function unlockBtsAudio() {
+    if (btsAudioUnlocked) return;
+    btsAudioUnlocked = true;
+    btsAudio.preload = 'auto';
+    btsAudio.play().then(() => {
+      btsAudio.pause();
+      btsAudio.currentTime = 0;
+      // If the section is already in view when the unlock happens, start it now.
+      const rect = btsSection.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.4;
+      if (inView) btsAudio.play().catch(() => {});
+    }).catch(() => {});
+    ['click', 'touchstart', 'keydown'].forEach(evt =>
+      document.removeEventListener(evt, unlockBtsAudio)
+    );
+  }
+  ['click', 'touchstart', 'keydown'].forEach(evt =>
+    document.addEventListener(evt, unlockBtsAudio, { once: false, passive: true })
+  );
+
   const btsAudioIo = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
