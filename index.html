@@ -236,7 +236,22 @@ h1.hero-headline em { font-style:italic; color:var(--lime); }
 .ticker-dot { width:4px; height:4px; border-radius:50%; background:var(--lime); flex-shrink:0; }
 
 /*    BEHIND THE SCENES GALLERY    */
-.bts-section { background:var(--dark); }
+.bts-section { background:var(--dark); position:relative; }
+.bts-sound-toggle {
+  position:absolute; top:28px; right:28px; z-index:5;
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(255,255,255,0.08); border:1px solid rgba(234,246,165,0.3);
+  color:var(--lime); padding:9px 16px;
+  font-family:'Jost',sans-serif; font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  cursor:pointer; transition:all .3s;
+}
+.bts-sound-toggle:hover { background:rgba(234,246,165,0.14); }
+.bts-sound-toggle .bts-sound-icon { font-size:14px; line-height:1; }
+.bts-sound-toggle.muted { color:rgba(255,255,255,0.55); border-color:rgba(255,255,255,0.2); }
+@media(max-width:767px){
+  .bts-sound-toggle { top:16px; right:16px; padding:8px 12px; }
+  .bts-sound-toggle .bts-sound-label { display:none; }
+}
 .bts-intro { text-align:center; max-width:640px; margin:0 auto 52px; }
 .bts-intro .eyebrow { justify-content:center; }
 .bts-feature {
@@ -1351,79 +1366,15 @@ body.mobile-menu-open .mobile-menu {
   </div>
 </section>
 
-
-<!--                      VIDEO TESTIMONIALS                      -->
-<section class="video-proof-section" id="video-proof" aria-labelledby="video-proof-heading" draggable="true" data-she-draggable="true">
-  <div class="container">
-    <div class="video-proof-intro">
-      <div class="eyebrow" style="justify-content:center;">
-        <div class="eyebrow-line"></div>
-        <span class="eyebrow-text">Hear It From Them</span>
-        <div class="eyebrow-line"></div>
-      </div>
-      <h2 class="section-title" id="video-proof-heading" style="text-align:center;">Real clients, <em class="">in their own words.</em></h2>
-      <p class="section-body" style="text-align:center;margin:18px auto 0;">Three clients on what changed once their social media finally had a strategy behind it. Tap to play.</p>
-    </div>
-    <div class="video-proof-grid">
-
-      <!-- PREVIEW ONLY — placeholder stock clip, swap for Dr. Patterson's real testimonial -->
-      <article class="video-proof-card">
-        <div class="video-proof-frame" onclick="playVideoProof(this)">
-          <span class="video-proof-badge">Client Story</span>
-          <span class="video-proof-duration">0:42</span>
-          <video preload="auto" playsinline>
-            <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4">
-          </video>
-          <span class="video-proof-play" aria-label="Play video testimonial"></span>
-        </div>
-        <div class="video-proof-caption">
-          <p class="video-proof-name">Dr. J. Patterson</p>
-          <p class="video-proof-role">Physician — Central Florida</p>
-          <p class="video-proof-line">On going from an inactive profile to three new patient inquiries in 60 days.</p>
-        </div>
-      </article>
-
-      <!-- PREVIEW ONLY — placeholder stock clip, swap for M. DeCaul's real testimonial -->
-      <article class="video-proof-card">
-        <div class="video-proof-frame" onclick="playVideoProof(this)">
-          <span class="video-proof-badge">Client Story</span>
-          <span class="video-proof-duration">0:58</span>
-          <video preload="auto" playsinline>
-            <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" type="video/mp4">
-          </video>
-          <span class="video-proof-play" aria-label="Play video testimonial"></span>
-        </div>
-        <div class="video-proof-caption">
-          <p class="video-proof-name">M. DeCaul</p>
-          <p class="video-proof-role">Women's Empowerment Coach</p>
-          <p class="video-proof-line">On a real strategy replacing random posting — and four new clients from social.</p>
-        </div>
-      </article>
-
-      <!-- PREVIEW ONLY — placeholder stock clip, swap for Frenchie's real testimonial -->
-      <article class="video-proof-card">
-        <div class="video-proof-frame" onclick="playVideoProof(this)">
-          <span class="video-proof-badge">Client Story</span>
-          <span class="video-proof-duration">1:05</span>
-          <video preload="auto" playsinline>
-            <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-          </video>
-          <span class="video-proof-play" aria-label="Play video testimonial"></span>
-        </div>
-        <div class="video-proof-caption">
-          <p class="video-proof-name">G. "Frenchie" L.</p>
-          <p class="video-proof-role">Beauty &amp; Hair Studio Owner</p>
-          <p class="video-proof-line">On The Elevation Day turning one session into a month of ready-to-post content.</p>
-        </div>
-      </article>
-
-    </div>
-    <p class="video-proof-placeholder-note">Preview only — these are stock stand-in clips for layout review, not real client videos.</p>
-  </div>
-</section>
-
 <!--                      BEHIND THE SCENES GALLERY                      -->
 <section class="bts-section" id="behind-the-scenes" aria-labelledby="bts-heading" draggable="true" data-she-draggable="true">
+  <audio id="bts-audio" loop preload="none">
+    <source src="assets/audio/bts-background.mp3" type="audio/mpeg">
+  </audio>
+  <button class="bts-sound-toggle" id="bts-sound-toggle" type="button" aria-pressed="false" aria-label="Toggle background sound">
+    <span class="bts-sound-icon" aria-hidden="true">&#128264;</span>
+    <span class="bts-sound-label">Sound On</span>
+  </button>
   <div class="container">
     <div class="bts-intro">
       <div class="eyebrow" style="justify-content:center;">
@@ -1786,34 +1737,6 @@ body.mobile-menu-open .mobile-menu {
   </div>
 </section>
 
-<!--                      PORTFOLIO / BRANDS WE'VE WORKED WITH                      -->
-<section class="portfolio-section" id="portfolio" aria-labelledby="portfolio-heading" draggable="true" data-she-draggable="true">
-  <div class="container">
-    <div class="portfolio-intro">
-      <div class="eyebrow" style="justify-content:center;">
-        <div class="eyebrow-line"></div>
-        <span class="eyebrow-text">Brands We've Worked With</span>
-        <div class="eyebrow-line"></div>
-      </div>
-      <h2 class="section-title" id="portfolio-heading" style="text-align:center;font-size:clamp(24px,2.4vw,32px);margin-bottom:0;">A portfolio built on <em class="">trust.</em></h2>
-    </div>
-    <div class="portfolio-grid portfolio-grid-row">
-
-      <!-- PLACEHOLDER logo slots — swap the text mark for a real <img src="assets/images/logos/xxx.png"> whenever a client logo is ready -->
-      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">Glam Life<span class="portfolio-logo-sub">by Frenchie</span></span></div>
-      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">The Design Diva<span class="portfolio-logo-sub">Studios</span></span></div>
-      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">PURESKIN<span class="portfolio-logo-sub">Dermatology &amp; Aesthetics</span></span></div>
-      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">Michele DeCaul<span class="portfolio-logo-sub">Coaching Co.</span></span></div>
-      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">JBH Medical<span class="portfolio-logo-sub">Dr. Jeaudine Hill</span></span></div>
-      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">KB Law<span class="portfolio-logo-sub">&amp; Legal Services</span></span></div>
-      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">Premier Transactions<span class="portfolio-logo-sub">Real Estate Virtual Solutions</span></span></div>
-      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">Majestic Life<span class="portfolio-logo-sub">Ministries</span></span></div>
-
-    </div>
-    <p class="portfolio-note">Placeholder logo grid — swap each text mark for a client's real logo image whenever they're ready.</p>
-  </div>
-</section>
-
 <!--                      CLOSING VISUAL BREAK                      -->
 <div class="close-break" role="img" aria-label="Your work deserves to be seen" draggable="true" data-she-draggable="true">
   <p class="close-break-text">Your work<br><em class="">deserves to be seen.</em></p>
@@ -2008,6 +1931,48 @@ const btsIo = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.25 });
 btsVideos.forEach(v => btsIo.observe(v));
+
+/*    BTS background sound: play while section is in view, pause outside it    */
+const btsSection = document.getElementById('behind-the-scenes');
+const btsAudio = document.getElementById('bts-audio');
+const btsSoundToggle = document.getElementById('bts-sound-toggle');
+const btsSoundLabel = btsSoundToggle ? btsSoundToggle.querySelector('.bts-sound-label') : null;
+let btsSoundUserMuted = false;
+
+function setBtsToggleState(playing) {
+  if (!btsSoundToggle) return;
+  btsSoundToggle.classList.toggle('muted', !playing);
+  btsSoundToggle.setAttribute('aria-pressed', String(playing));
+  if (btsSoundLabel) btsSoundLabel.textContent = playing ? 'Sound On' : 'Sound Off';
+}
+
+if (btsSection && btsAudio && btsSoundToggle) {
+  const btsAudioIo = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (btsSoundUserMuted) return;
+      if (entry.isIntersecting) {
+        btsAudio.preload = 'auto';
+        btsAudio.play().then(() => setBtsToggleState(true)).catch(() => setBtsToggleState(false));
+      } else {
+        btsAudio.pause();
+        setBtsToggleState(false);
+      }
+    });
+  }, { threshold: 0.4 });
+  btsAudioIo.observe(btsSection);
+
+  btsSoundToggle.addEventListener('click', () => {
+    if (btsAudio.paused) {
+      btsSoundUserMuted = false;
+      btsAudio.preload = 'auto';
+      btsAudio.play().then(() => setBtsToggleState(true)).catch(() => setBtsToggleState(false));
+    } else {
+      btsSoundUserMuted = true;
+      btsAudio.pause();
+      setBtsToggleState(false);
+    }
+  });
+}
 
 /*    Scroll-triggered fade-in    */
 const io = new IntersectionObserver((entries) => {
