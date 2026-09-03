@@ -1946,6 +1946,7 @@ if (btsSection && btsAudio) {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         btsAudio.preload = 'auto';
+        btsAudio.currentTime = 0;
         btsAudio.play().catch(() => {});
       } else {
         btsAudio.pause();
