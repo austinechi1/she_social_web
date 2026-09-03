@@ -267,6 +267,7 @@ h1.hero-headline em { font-style:italic; color:var(--lime); }
 .portfolio-intro { text-align:center; max-width:600px; margin:0 auto 28px; }
 .portfolio-intro .eyebrow { justify-content:center; margin-bottom:8px; }
 .portfolio-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(142,80,191,0.1); }
+.portfolio-grid-row { grid-template-columns:repeat(8,1fr); }
 .portfolio-logo-card {
   background:var(--white); aspect-ratio:16/7;
   display:flex; align-items:center; justify-content:center;
@@ -802,7 +803,7 @@ footer::before {
   .hero{padding:100px 24px 60px;background-attachment:scroll;}
   .hero-grid,.truth-grid,.what-grid,.ideal-grid,.faq-grid,.services-header,.founder-grid,.elev-grid,.contact-inner,.snap-teaser-inner{grid-template-columns:1fr;gap:44px;}
   .pain-grid,.packages-grid,.magnets-grid,.opp-grid,.process-steps,.proof-grid,.founder-stats,.form-row,.video-proof-grid{grid-template-columns:1fr;}
-  .portfolio-grid{grid-template-columns:repeat(2,1fr);}
+  .portfolio-grid,.portfolio-grid-row{grid-template-columns:repeat(2,1fr);}
   .bts-grid{grid-template-columns:repeat(2,1fr);}
   .process-steps::before{display:none;}
   .founder-right{position:static;}
@@ -1351,6 +1352,76 @@ body.mobile-menu-open .mobile-menu {
 </section>
 
 
+<!--                      VIDEO TESTIMONIALS                      -->
+<section class="video-proof-section" id="video-proof" aria-labelledby="video-proof-heading" draggable="true" data-she-draggable="true">
+  <div class="container">
+    <div class="video-proof-intro">
+      <div class="eyebrow" style="justify-content:center;">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Hear It From Them</span>
+        <div class="eyebrow-line"></div>
+      </div>
+      <h2 class="section-title" id="video-proof-heading" style="text-align:center;">Real clients, <em class="">in their own words.</em></h2>
+      <p class="section-body" style="text-align:center;margin:18px auto 0;">Three clients on what changed once their social media finally had a strategy behind it. Tap to play.</p>
+    </div>
+    <div class="video-proof-grid">
+
+      <!-- PREVIEW ONLY — placeholder stock clip, swap for Dr. Patterson's real testimonial -->
+      <article class="video-proof-card">
+        <div class="video-proof-frame" onclick="playVideoProof(this)">
+          <span class="video-proof-badge">Client Story</span>
+          <span class="video-proof-duration">0:42</span>
+          <video preload="auto" playsinline>
+            <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4">
+          </video>
+          <span class="video-proof-play" aria-label="Play video testimonial"></span>
+        </div>
+        <div class="video-proof-caption">
+          <p class="video-proof-name">Dr. J. Patterson</p>
+          <p class="video-proof-role">Physician — Central Florida</p>
+          <p class="video-proof-line">On going from an inactive profile to three new patient inquiries in 60 days.</p>
+        </div>
+      </article>
+
+      <!-- PREVIEW ONLY — placeholder stock clip, swap for M. DeCaul's real testimonial -->
+      <article class="video-proof-card">
+        <div class="video-proof-frame" onclick="playVideoProof(this)">
+          <span class="video-proof-badge">Client Story</span>
+          <span class="video-proof-duration">0:58</span>
+          <video preload="auto" playsinline>
+            <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" type="video/mp4">
+          </video>
+          <span class="video-proof-play" aria-label="Play video testimonial"></span>
+        </div>
+        <div class="video-proof-caption">
+          <p class="video-proof-name">M. DeCaul</p>
+          <p class="video-proof-role">Women's Empowerment Coach</p>
+          <p class="video-proof-line">On a real strategy replacing random posting — and four new clients from social.</p>
+        </div>
+      </article>
+
+      <!-- PREVIEW ONLY — placeholder stock clip, swap for Frenchie's real testimonial -->
+      <article class="video-proof-card">
+        <div class="video-proof-frame" onclick="playVideoProof(this)">
+          <span class="video-proof-badge">Client Story</span>
+          <span class="video-proof-duration">1:05</span>
+          <video preload="auto" playsinline>
+            <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+          </video>
+          <span class="video-proof-play" aria-label="Play video testimonial"></span>
+        </div>
+        <div class="video-proof-caption">
+          <p class="video-proof-name">G. "Frenchie" L.</p>
+          <p class="video-proof-role">Beauty &amp; Hair Studio Owner</p>
+          <p class="video-proof-line">On The Elevation Day turning one session into a month of ready-to-post content.</p>
+        </div>
+      </article>
+
+    </div>
+    <p class="video-proof-placeholder-note">Preview only — these are stock stand-in clips for layout review, not real client videos.</p>
+  </div>
+</section>
+
 <!--                      BEHIND THE SCENES GALLERY                      -->
 <section class="bts-section" id="behind-the-scenes" aria-labelledby="bts-heading" draggable="true" data-she-draggable="true">
   <div class="container">
@@ -1712,6 +1783,34 @@ body.mobile-menu-open .mobile-menu {
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!--                      PORTFOLIO / BRANDS WE'VE WORKED WITH                      -->
+<section class="portfolio-section" id="portfolio" aria-labelledby="portfolio-heading" draggable="true" data-she-draggable="true">
+  <div class="container">
+    <div class="portfolio-intro">
+      <div class="eyebrow" style="justify-content:center;">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Brands We've Worked With</span>
+        <div class="eyebrow-line"></div>
+      </div>
+      <h2 class="section-title" id="portfolio-heading" style="text-align:center;font-size:clamp(24px,2.4vw,32px);margin-bottom:0;">A portfolio built on <em class="">trust.</em></h2>
+    </div>
+    <div class="portfolio-grid portfolio-grid-row">
+
+      <!-- PLACEHOLDER logo slots — swap the text mark for a real <img src="assets/images/logos/xxx.png"> whenever a client logo is ready -->
+      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">Glam Life<span class="portfolio-logo-sub">by Frenchie</span></span></div>
+      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">The Design Diva<span class="portfolio-logo-sub">Studios</span></span></div>
+      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">PURESKIN<span class="portfolio-logo-sub">Dermatology &amp; Aesthetics</span></span></div>
+      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">Michele DeCaul<span class="portfolio-logo-sub">Coaching Co.</span></span></div>
+      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">JBH Medical<span class="portfolio-logo-sub">Dr. Jeaudine Hill</span></span></div>
+      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">KB Law<span class="portfolio-logo-sub">&amp; Legal Services</span></span></div>
+      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">Premier Transactions<span class="portfolio-logo-sub">Real Estate Virtual Solutions</span></span></div>
+      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">Majestic Life<span class="portfolio-logo-sub">Ministries</span></span></div>
+
+    </div>
+    <p class="portfolio-note">Placeholder logo grid — swap each text mark for a client's real logo image whenever they're ready.</p>
   </div>
 </section>
 
