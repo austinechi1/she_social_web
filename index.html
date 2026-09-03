@@ -235,6 +235,58 @@ h1.hero-headline em { font-style:italic; color:var(--lime); }
 .ticker-item { display:inline-flex; align-items:center; gap:10px; font-size:12px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,0.55); flex-shrink:0; }
 .ticker-dot { width:4px; height:4px; border-radius:50%; background:var(--lime); flex-shrink:0; }
 
+/*    BEHIND THE SCENES GALLERY    */
+.bts-section { background:var(--dark); }
+.bts-intro { text-align:center; max-width:640px; margin:0 auto 52px; }
+.bts-intro .eyebrow { justify-content:center; }
+.bts-feature {
+  width:100%; aspect-ratio:16/9; max-height:520px;
+  overflow:hidden; margin-bottom:24px; position:relative;
+  border:1px solid rgba(234,246,165,0.14);
+}
+.bts-feature video { width:100%; height:100%; object-fit:cover; display:block; }
+.bts-feature-tag {
+  position:absolute; top:18px; left:18px; z-index:2;
+  background:rgba(42,21,80,0.55); color:var(--lime);
+  font-size:9px; font-weight:800; letter-spacing:.16em; text-transform:uppercase;
+  padding:6px 14px;
+}
+.bts-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.bts-tile {
+  width:100%; aspect-ratio:9/16; max-height:400px;
+  overflow:hidden; position:relative;
+  border:1px solid rgba(234,246,165,0.1); background:var(--purple-dk);
+  transition:transform .3s;
+}
+.bts-tile:hover { transform:translateY(-4px); }
+.bts-tile video { width:100%; height:100%; object-fit:cover; display:block; }
+.bts-note { text-align:center; margin-top:28px; font-size:12px; color:rgba(255,255,255,0.4); font-weight:300; font-style:italic; }
+
+/*    PORTFOLIO / BRANDS WORKED WITH    */
+.portfolio-section { background:var(--cream); padding-top:52px; padding-bottom:52px; }
+.portfolio-intro { text-align:center; max-width:600px; margin:0 auto 28px; }
+.portfolio-intro .eyebrow { justify-content:center; margin-bottom:8px; }
+.portfolio-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(142,80,191,0.1); }
+.portfolio-logo-card {
+  background:var(--white); aspect-ratio:16/7;
+  display:flex; align-items:center; justify-content:center;
+  padding:14px; transition:all .3s;
+}
+.portfolio-logo-card:hover { background:var(--dark); }
+.portfolio-logo-mark {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:600;
+  font-size:14.5px; letter-spacing:.01em; color:var(--text-pale);
+  text-align:center; line-height:1.25; transition:color .3s;
+}
+.portfolio-logo-card:hover .portfolio-logo-mark { color:var(--lime); }
+.portfolio-logo-sub {
+  display:block; font-family:'Jost',sans-serif; font-style:normal;
+  font-size:7.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--lav); margin-top:3px; transition:color .3s;
+}
+.portfolio-logo-card:hover .portfolio-logo-sub { color:rgba(234,246,165,0.7); }
+.portfolio-note { text-align:center; margin-top:16px; font-size:11px; color:var(--text-pale); font-weight:300; font-style:italic; }
+
 /*    TESTIMONIALS    */
 .proof-section { background:var(--white); }
 .proof-intro { text-align:center; max-width:680px; margin:0 auto 60px; }
@@ -254,6 +306,56 @@ h1.hero-headline em { font-style:italic; color:var(--lime); }
 .proof-avatar { width:42px; height:42px; border-radius:50%; background:var(--grad); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:var(--white); flex-shrink:0; letter-spacing:.05em; }
 .proof-name { font-size:13px; font-weight:600; color:var(--dark); }
 .proof-role { font-size:11px; color:var(--text-pale); letter-spacing:.06em; text-transform:uppercase; margin-top:2px; }
+
+/*    VIDEO TESTIMONIALS    */
+.video-proof-section { background:var(--cream); }
+.video-proof-intro { text-align:center; max-width:680px; margin:0 auto 60px; }
+.video-proof-intro .eyebrow { justify-content:center; }
+.video-proof-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.video-proof-card {
+  background:var(--white); position:relative; overflow:hidden;
+  box-shadow:var(--shadow-sm); transition:all .35s;
+}
+.video-proof-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+.video-proof-frame {
+  position:relative; width:100%; aspect-ratio:9/16; max-height:420px;
+  background:var(--grad-h); overflow:hidden; cursor:pointer;
+}
+.video-proof-frame video { width:100%; height:100%; object-fit:cover; display:block; }
+.video-proof-frame .video-proof-thumb-label {
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-family:'Cormorant Garamond',serif; font-size:16px; font-style:italic; color:rgba(255,255,255,0.75);
+  text-align:center; padding:30px; pointer-events:none;
+}
+.video-proof-play {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:58px; height:58px; border-radius:50%;
+  background:rgba(255,255,255,0.92); display:flex; align-items:center; justify-content:center;
+  box-shadow:0 6px 20px rgba(42,21,80,0.3); transition:all .3s; z-index:2;
+}
+.video-proof-frame:hover .video-proof-play { background:var(--lime); transform:translate(-50%,-50%) scale(1.08); }
+.video-proof-play::before {
+  content:''; width:0; height:0;
+  border-top:9px solid transparent; border-bottom:9px solid transparent;
+  border-left:15px solid var(--purple); margin-left:4px;
+}
+.video-proof-badge {
+  position:absolute; top:16px; left:16px; z-index:2;
+  background:rgba(42,21,80,0.55); color:var(--lime);
+  font-size:9px; font-weight:800; letter-spacing:.16em; text-transform:uppercase;
+  padding:5px 12px;
+}
+.video-proof-duration {
+  position:absolute; bottom:16px; right:16px; z-index:2;
+  background:rgba(42,21,80,0.6); color:var(--white);
+  font-size:10px; font-weight:600; letter-spacing:.04em;
+  padding:4px 9px;
+}
+.video-proof-caption { padding:22px 24px 26px; border-left:3px solid var(--lav); }
+.video-proof-name { font-size:13px; font-weight:600; color:var(--dark); }
+.video-proof-role { font-size:11px; color:var(--text-pale); letter-spacing:.06em; text-transform:uppercase; margin-top:2px; margin-bottom:10px; }
+.video-proof-line { font-size:12.5px; font-weight:300; color:var(--text-soft); line-height:1.7; }
+.video-proof-placeholder-note { text-align:center; margin-top:28px; font-size:12px; color:var(--text-pale); font-weight:300; font-style:italic; }
 
 /*    PAIN POINTS    */
 .pain-section { background:var(--cream); }
@@ -699,7 +801,9 @@ footer::before {
   section{padding:72px 24px;}
   .hero{padding:100px 24px 60px;background-attachment:scroll;}
   .hero-grid,.truth-grid,.what-grid,.ideal-grid,.faq-grid,.services-header,.founder-grid,.elev-grid,.contact-inner,.snap-teaser-inner{grid-template-columns:1fr;gap:44px;}
-  .pain-grid,.packages-grid,.magnets-grid,.opp-grid,.process-steps,.proof-grid,.founder-stats,.form-row{grid-template-columns:1fr;}
+  .pain-grid,.packages-grid,.magnets-grid,.opp-grid,.process-steps,.proof-grid,.founder-stats,.form-row,.video-proof-grid{grid-template-columns:1fr;}
+  .portfolio-grid{grid-template-columns:repeat(2,1fr);}
+  .bts-grid{grid-template-columns:repeat(2,1fr);}
   .process-steps::before{display:none;}
   .founder-right{position:static;}
   footer{
@@ -1196,6 +1300,34 @@ body.mobile-menu-open .mobile-menu {
   </div>
 </div>
 
+<!--                      PORTFOLIO / BRANDS WE'VE WORKED WITH                      -->
+<section class="portfolio-section" id="portfolio" aria-labelledby="portfolio-heading" draggable="true" data-she-draggable="true">
+  <div class="container">
+    <div class="portfolio-intro">
+      <div class="eyebrow" style="justify-content:center;">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Brands We've Worked With</span>
+        <div class="eyebrow-line"></div>
+      </div>
+      <h2 class="section-title" id="portfolio-heading" style="text-align:center;font-size:clamp(24px,2.4vw,32px);margin-bottom:0;">A portfolio built on <em class="">trust.</em></h2>
+    </div>
+    <div class="portfolio-grid">
+
+      <!-- PLACEHOLDER logo slots — swap the text mark for a real <img src="assets/images/logos/xxx.png"> whenever a client logo is ready -->
+      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">Glam Life<span class="portfolio-logo-sub">by Frenchie</span></span></div>
+      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">The Design Diva<span class="portfolio-logo-sub">Studios</span></span></div>
+      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">PURESKIN<span class="portfolio-logo-sub">Dermatology &amp; Aesthetics</span></span></div>
+      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">Michele DeCaul<span class="portfolio-logo-sub">Coaching Co.</span></span></div>
+      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">JBH Medical<span class="portfolio-logo-sub">Dr. Jeaudine Hill</span></span></div>
+      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">KB Law<span class="portfolio-logo-sub">&amp; Legal Services</span></span></div>
+      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">Premier Transactions<span class="portfolio-logo-sub">Real Estate Virtual Solutions</span></span></div>
+      <div class="portfolio-logo-card"><span class="portfolio-logo-mark">Majestic Life<span class="portfolio-logo-sub">Ministries</span></span></div>
+
+    </div>
+    <p class="portfolio-note">Placeholder logo grid — swap each text mark for a client's real logo image whenever they're ready.</p>
+  </div>
+</section>
+
 <!--                      SOCIAL PROOF                      -->
 <section class="proof-section" id="proof" aria-labelledby="proof-heading" draggable="true" data-she-draggable="true" data-she-layer-id="layer-kuruzi7">
   <div class="container">
@@ -1245,6 +1377,79 @@ body.mobile-menu-open .mobile-menu {
         </div>
       </article>
     </div>
+  </div>
+</section>
+
+<!--                      VIDEO TESTIMONIALS                      -->
+<section class="video-proof-section" id="video-proof" aria-labelledby="video-proof-heading" draggable="true" data-she-draggable="true">
+  <div class="container">
+    <div class="video-proof-intro">
+      <div class="eyebrow" style="justify-content:center;">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Hear It From Them</span>
+        <div class="eyebrow-line"></div>
+      </div>
+      <h2 class="section-title" id="video-proof-heading" style="text-align:center;">Real clients, <em class="">in their own words.</em></h2>
+      <p class="section-body" style="text-align:center;margin:18px auto 0;">Three clients on what changed once their social media finally had a strategy behind it. Tap to play.</p>
+    </div>
+    <div class="video-proof-grid">
+
+      <!-- Video testimonial 1 — PLACEHOLDER, swap src + poster + copy -->
+      <article class="video-proof-card" style="opacity: 0; transform: translateY(20px); transition: opacity 0.55s, transform 0.55s;">
+        <div class="video-proof-frame" onclick="playVideoProof(this)">
+          <span class="video-proof-badge">Client Story</span>
+          <span class="video-proof-duration">0:42</span>
+          <video preload="metadata" playsinline poster="assets/images/video-testimonial-1-poster.jpg">
+            <source src="assets/videos/testimonial-dr-patterson.mp4" type="video/mp4">
+          </video>
+          <span class="video-proof-thumb-label">Video placeholder — drop in Dr. Patterson's clip</span>
+          <span class="video-proof-play" aria-label="Play video testimonial"></span>
+        </div>
+        <div class="video-proof-caption">
+          <p class="video-proof-name">Dr. J. Patterson</p>
+          <p class="video-proof-role">Physician — Central Florida</p>
+          <p class="video-proof-line">On going from an inactive profile to three new patient inquiries in 60 days.</p>
+        </div>
+      </article>
+
+      <!-- Video testimonial 2 — PLACEHOLDER, swap src + poster + copy -->
+      <article class="video-proof-card" style="opacity: 0; transform: translateY(20px); transition: opacity 0.55s, transform 0.55s;">
+        <div class="video-proof-frame" onclick="playVideoProof(this)">
+          <span class="video-proof-badge">Client Story</span>
+          <span class="video-proof-duration">0:58</span>
+          <video preload="metadata" playsinline poster="assets/images/video-testimonial-2-poster.jpg">
+            <source src="assets/videos/testimonial-m-decaul.mp4" type="video/mp4">
+          </video>
+          <span class="video-proof-thumb-label">Video placeholder — drop in M. DeCaul's clip</span>
+          <span class="video-proof-play" aria-label="Play video testimonial"></span>
+        </div>
+        <div class="video-proof-caption">
+          <p class="video-proof-name">M. DeCaul</p>
+          <p class="video-proof-role">Women's Empowerment Coach</p>
+          <p class="video-proof-line">On a real strategy replacing random posting — and four new clients from social.</p>
+        </div>
+      </article>
+
+      <!-- Video testimonial 3 — PLACEHOLDER, swap src + poster + copy -->
+      <article class="video-proof-card" style="opacity: 0; transform: translateY(20px); transition: opacity 0.55s, transform 0.55s;">
+        <div class="video-proof-frame" onclick="playVideoProof(this)">
+          <span class="video-proof-badge">Client Story</span>
+          <span class="video-proof-duration">1:05</span>
+          <video preload="metadata" playsinline poster="assets/images/video-testimonial-3-poster.jpg">
+            <source src="assets/videos/testimonial-frenchie.mp4" type="video/mp4">
+          </video>
+          <span class="video-proof-thumb-label">Video placeholder — drop in Frenchie's clip</span>
+          <span class="video-proof-play" aria-label="Play video testimonial"></span>
+        </div>
+        <div class="video-proof-caption">
+          <p class="video-proof-name">G. "Frenchie" L.</p>
+          <p class="video-proof-role">Beauty &amp; Hair Studio Owner</p>
+          <p class="video-proof-line">On The Elevation Day turning one session into a month of ready-to-post content.</p>
+        </div>
+      </article>
+
+    </div>
+    <p class="video-proof-placeholder-note">These are placeholder slots — swap in real client video clips, posters, and copy whenever they're ready.</p>
   </div>
 </section>
 
@@ -1590,6 +1795,52 @@ body.mobile-menu-open .mobile-menu {
   <a href="#contact" class="btn-lime" style="font-size:13px;padding:17px 44px;position:relative;z-index:2;">Book Your Free Discovery Call</a>
 </div>
 
+<!--                      BEHIND THE SCENES GALLERY                      -->
+<section class="bts-section" id="behind-the-scenes" aria-labelledby="bts-heading" draggable="true" data-she-draggable="true">
+  <div class="container">
+    <div class="bts-intro">
+      <div class="eyebrow" style="justify-content:center;">
+        <div class="eyebrow-line light"></div>
+        <span class="eyebrow-text light">Behind The Scenes</span>
+        <div class="eyebrow-line light"></div>
+      </div>
+      <h2 class="section-title light" id="bts-heading" style="text-align:center;">A look inside <em class="">the work.</em></h2>
+      <p class="section-body light" style="text-align:center;margin:18px auto 0;">Raw moments from a real content day — strategy sessions, filming, and the making of a client's Elevation Day.</p>
+    </div>
+
+    <div class="bts-feature">
+      <span class="bts-feature-tag">Content Day</span>
+      <video autoplay muted loop playsinline preload="metadata">
+        <source src="assets/videos/bts-feature-content-day.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="bts-grid">
+      <div class="bts-tile">
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="assets/videos/bts-1.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="bts-tile">
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="assets/videos/bts-2.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="bts-tile">
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="assets/videos/bts-3.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="bts-tile">
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="assets/videos/bts-4.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <p class="bts-note">Clips play muted on loop — original audio removed. Swap in a background track whenever you have one ready.</p>
+  </div>
+</section>
+
 <!--                      CONTACT / FORM                      -->
 <section class="contact-section" id="contact" aria-labelledby="contact-heading" draggable="true" data-she-draggable="true" data-she-layer-id="layer-nit3zw1">
   <div class="contact-inner">
@@ -1750,6 +2001,19 @@ function submitForm() {
   }
   document.getElementById('form-fields').style.display = 'none';
   document.getElementById('form-success').style.display = 'block';
+}
+
+/*    Video testimonial play-in-place    */
+function playVideoProof(frame) {
+  const video = frame.querySelector('video');
+  if (!video) return;
+  video.setAttribute('controls', '');
+  video.play();
+  frame.classList.add('playing');
+  const playBtn = frame.querySelector('.video-proof-play');
+  if (playBtn) playBtn.style.display = 'none';
+  const badge = frame.querySelector('.video-proof-duration');
+  if (badge) badge.style.display = 'none';
 }
 
 /*    Scroll-triggered fade-in    */
