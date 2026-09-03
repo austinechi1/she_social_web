@@ -230,8 +230,8 @@ h1.hero-headline em { font-style:italic; color:var(--lime); }
   border-top:1px solid rgba(234,246,165,0.08);
   border-bottom:1px solid rgba(234,246,165,0.08);
 }
-.ticker-track { display:flex; gap:60px; animation:ticker 28s linear infinite; white-space:nowrap; }
-@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.ticker-track { display:flex; gap:60px; animation:ticker 16s linear infinite; white-space:nowrap; will-change:transform; transform:translate3d(0,0,0); backface-visibility:hidden; }
+@keyframes ticker { from{transform:translate3d(0,0,0)} to{transform:translate3d(-50%,0,0)} }
 .ticker-item { display:inline-flex; align-items:center; gap:10px; font-size:12px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,0.55); flex-shrink:0; }
 .ticker-dot { width:4px; height:4px; border-radius:50%; background:var(--lime); flex-shrink:0; }
 
@@ -1366,29 +1366,29 @@ body.mobile-menu-open .mobile-menu {
 
     <div class="bts-feature">
       <span class="bts-feature-tag">Content Day</span>
-      <video autoplay muted loop playsinline preload="metadata">
+      <video class="bts-video" muted loop playsinline preload="none">
         <source src="assets/videos/bts-feature-content-day.mp4" type="video/mp4">
       </video>
     </div>
 
     <div class="bts-grid">
       <div class="bts-tile">
-        <video autoplay muted loop playsinline preload="metadata">
+        <video class="bts-video" muted loop playsinline preload="none">
           <source src="assets/videos/bts-1.mp4" type="video/mp4">
         </video>
       </div>
       <div class="bts-tile">
-        <video autoplay muted loop playsinline preload="metadata">
+        <video class="bts-video" muted loop playsinline preload="none">
           <source src="assets/videos/bts-2.mp4" type="video/mp4">
         </video>
       </div>
       <div class="bts-tile">
-        <video autoplay muted loop playsinline preload="metadata">
+        <video class="bts-video" muted loop playsinline preload="none">
           <source src="assets/videos/bts-3.mp4" type="video/mp4">
         </video>
       </div>
       <div class="bts-tile">
-        <video autoplay muted loop playsinline preload="metadata">
+        <video class="bts-video" muted loop playsinline preload="none">
           <source src="assets/videos/bts-4.mp4" type="video/mp4">
         </video>
       </div>
@@ -1894,6 +1894,21 @@ function playVideoProof(frame) {
   const badge = frame.querySelector('.video-proof-duration');
   if (badge) badge.style.display = 'none';
 }
+
+/*    BTS videos: only play while actually in view    */
+const btsVideos = document.querySelectorAll('.bts-video');
+const btsIo = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    const video = entry.target;
+    if (entry.isIntersecting) {
+      if (video.preload === 'none') video.preload = 'metadata';
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  });
+}, { threshold: 0.25 });
+btsVideos.forEach(v => btsIo.observe(v));
 
 /*    Scroll-triggered fade-in    */
 const io = new IntersectionObserver((entries) => {
