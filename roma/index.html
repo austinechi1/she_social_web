@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Client Onboarding Questionnaire — S.H.E. Social</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   S.H.E. SOCIAL — CLIENT ONBOARDING QUESTIONNAIRE
+   Uses the same design tokens as she-social.com (v5).
+   Everything is prefixed .oq- so it will not collide with the
+   site's existing CSS. Drop the markup into a page and it will
+   inherit these tokens if they already exist on :root.
+   ============================================================ */
+:root{
+  --lime:#EAF6A5; --lime-hover:#d6ee70; --lime-dark:#8a9c1e;
+  --lav:#9E94F5; --lav-end:#BD9DF0; --lav-faint:#EEEAFF;
+  --purple:#8E50BF; --purple-dk:#6B38A0;
+  --cream:#F9F5F1; --white:#FFFFFF;
+  --dark:#2A1550; --text-body:#4B3270; --text-soft:#7A63A0; --text-pale:#B09FCA;
+  --grad:linear-gradient(180deg,#9E94F5 0%,#BD9DF0 100%);
+  --shadow-sm:0 2px 12px rgba(42,21,80,.08);
+  --shadow-md:0 8px 32px rgba(42,21,80,.12);
+}
+*,*::before,*::after{box-sizing:border-box}
+
+.oq{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text-body);-webkit-font-smoothing:antialiased}
+
+/* ---------- HERO BAND ---------- */
+.oq-hero{
+  background:radial-gradient(circle at 20% 0%, #3c1460 0%, #2A1550 55%, #190329 100%);
+  padding:88px 60px 76px;text-align:center;
+}
+.oq-hero img{height:104px;width:auto;display:block;margin:0 auto 26px;filter:brightness(0) invert(1)}
+.oq-eyebrow{display:inline-flex;align-items:center;gap:12px;margin-bottom:20px}
+.oq-eyebrow i{width:28px;height:1px;background:var(--lime);display:block}
+.oq-eyebrow span{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--lime)}
+.oq-hero h1{
+  font-family:'Cormorant Garamond',serif;font-weight:500;
+  font-size:clamp(38px,5vw,62px);line-height:1.08;color:var(--white);margin:0 0 20px;
+}
+.oq-hero h1 em{font-style:italic;color:var(--lime)}
+.oq-hero p{
+  font-size:15.5px;font-weight:300;line-height:1.88;color:rgba(255,255,255,.72);
+  max-width:520px;margin:0 auto;text-wrap:pretty;
+}
+
+/* ---------- FORM SHELL ---------- */
+.oq-body{padding:0 60px 100px;background:var(--cream)}
+.oq-card{
+  max-width:880px;margin:-38px auto 0;background:var(--white);
+  padding:64px 60px;box-shadow:var(--shadow-md);
+  border-top:4px solid var(--lime);
+}
+
+.oq-sec{margin-top:54px}
+.oq-sec:first-of-type{margin-top:0}
+.oq-sec-head{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.oq-sec-head i{width:28px;height:1px;background:var(--lime);flex-shrink:0;display:block}
+.oq-sec-head span{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--lav)}
+.oq-sec h2{
+  font-family:'Cormorant Garamond',serif;font-weight:600;font-size:29px;line-height:1.2;
+  color:var(--dark);margin:0 0 26px;
+}
+.oq-sec h2:has(+ .oq-sec-note){margin-bottom:6px}
+.oq-sec h2 em{font-style:italic;color:var(--lav)}
+.oq-sec-note{font-size:13.5px;font-weight:300;line-height:1.8;color:var(--text-soft);margin:0 0 26px;max-width:560px}
+
+.oq-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px 26px}
+.oq-full{grid-column:1 / -1}
+@media(max-width:760px){.oq-grid{grid-template-columns:1fr}}
+
+.oq-field{display:flex;flex-direction:column;gap:7px}
+.oq-field > label{
+  font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-soft);
+}
+.oq-field input[type=text],
+.oq-field input[type=email],
+.oq-field input[type=tel],
+.oq-field input[type=url],
+.oq-field input[type=date],
+.oq-field select,
+.oq-field textarea{
+  font-family:'Jost',sans-serif;font-size:14.5px;font-weight:300;color:var(--dark);
+  background:var(--cream);border:1px solid rgba(142,80,191,.16);
+  padding:13px 16px;width:100%;outline:none;-webkit-appearance:none;appearance:none;
+  transition:border-color .25s,background .25s;
+}
+.oq-field select{
+  background-image:linear-gradient(45deg,transparent 50%,var(--lav) 50%),linear-gradient(135deg,var(--lav) 50%,transparent 50%);
+  background-position:calc(100% - 20px) 21px,calc(100% - 14px) 21px;
+  background-size:6px 6px,6px 6px;background-repeat:no-repeat;padding-right:44px;
+}
+.oq-field textarea{resize:vertical;min-height:96px;line-height:1.72}
+.oq-field input:focus,.oq-field select:focus,.oq-field textarea:focus{border-color:var(--lav);background:var(--white)}
+.oq-field input::placeholder,.oq-field textarea::placeholder{color:var(--text-pale)}
+
+/* ---------- CHECK / RADIO ---------- */
+.oq-checks{display:grid;grid-template-columns:1fr 1fr;gap:12px 26px}
+@media(max-width:760px){.oq-checks{grid-template-columns:1fr}}
+.oq-check{
+  display:flex;align-items:center;gap:12px;cursor:pointer;
+  font-size:14px;font-weight:300;line-height:1.4;color:var(--text-body);
+  padding:11px 14px;background:var(--cream);border:1px solid transparent;transition:all .25s;
+}
+.oq-check:hover{border-color:rgba(158,148,245,.4)}
+.oq-check input{
+  appearance:none;-webkit-appearance:none;flex:none;width:17px;height:17px;
+  border:1.5px solid var(--lav);background:var(--white);cursor:pointer;position:relative;
+  transition:background .2s,border-color .2s;
+}
+.oq-check input[type=radio]{border-radius:50%}
+.oq-check input:checked{background:var(--lav);border-color:var(--lav)}
+.oq-check input[type=checkbox]:checked::after{
+  content:"";position:absolute;left:5px;top:1px;width:4px;height:9px;
+  border:solid var(--white);border-width:0 2px 2px 0;transform:rotate(45deg);
+}
+.oq-check input[type=radio]:checked::after{
+  content:"";position:absolute;left:4px;top:4px;width:7px;height:7px;border-radius:50%;background:var(--white);
+}
+.oq-check:has(input:checked){background:var(--lav-faint);border-color:var(--lav)}
+.oq-check input:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
+
+/* ---------- PULLQUOTE + SUBMIT ---------- */
+.oq-quote{
+  font-family:'Cormorant Garamond',serif;font-size:21px;font-style:italic;line-height:1.6;
+  color:var(--purple);margin:56px 0 0;padding:26px 34px;
+  background:rgba(234,246,165,.22);border-left:4px solid var(--lime);
+}
+.oq-submit{margin-top:34px;text-align:center}
+.oq-actions{display:flex;flex-direction:column;align-items:center;gap:14px}
+.oq-submit button,.oq-download{
+  width:100%;max-width:420px;padding:18px 40px;background:var(--lime);color:var(--dark);
+  border:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:12px;font-weight:800;
+  letter-spacing:.16em;text-transform:uppercase;transition:all .3s;text-align:center;
+}
+.oq-submit button:hover{background:var(--lime-hover);transform:translateY(-2px);box-shadow:0 8px 20px rgba(234,246,165,.4)}
+.oq-download{background:transparent;color:var(--purple);border:1.5px solid var(--purple);font-weight:600}
+.oq-download:hover{background:var(--purple);color:var(--lime)}
+.oq-submit p{font-size:11.5px;color:var(--text-pale);margin:12px 0 0;font-weight:300}
+
+/* ---------- FOOTER STRIP ---------- */
+.oq-foot{
+  background:linear-gradient(135deg,var(--dark) 0%,var(--purple-dk) 100%);
+  padding:38px 60px;display:flex;justify-content:center;gap:30px;flex-wrap:wrap;
+}
+.oq-foot a,.oq-foot span{
+  font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.62);text-decoration:none;transition:color .25s;
+}
+.oq-foot a:hover{color:var(--lime)}
+
+@media(max-width:760px){
+  .oq-hero{padding:64px 24px 60px}
+  .oq-body{padding:0 20px 72px}
+  .oq-card{padding:44px 26px;margin-top:-28px}
+  .oq-foot{padding:32px 24px;gap:18px}
+}
+</style>
+</head>
+<body style="margin:0;background:#F9F5F1">
+
+<div class="oq">
+
+  <header class="oq-hero">
+    <img src="/assets/images/nav-logo.png" alt="S.H.E. Social — Strategically Helping Elevate Social Presence" />
+    <div class="oq-eyebrow"><i></i><span>Welcome to the partnership</span><i></i></div>
+    <h1>Roma, let's build from what <em>you've already created.</em></h1>
+    <p>You've already done significant strategy work. This onboarding helps us confirm priorities, gather what you've built, establish your baseline, and take execution off your plate without making you repeat yourself.</p>
+  </header>
+
+  <div class="oq-body">
+    <div class="oq-card">
+
+      <!-- Netlify stores completed questionnaires under the client-onboarding form. -->
+      <form name="roma-onboarding" method="POST" action="/roma/thank-you.html" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="roma-onboarding" />
+        <p style="display:none"><label>Do not fill this out: <input name="bot-field" /></label></p>
+
+        <section class="oq-sec">
+<div class="oq-sec-head"><i></i><span>Section 01</span></div><h2>Brand <em>overview</em></h2>
+<p class="oq-sec-note">We already covered a lot together. This confirms the details that will guide your launch timeline and our work from day one.</p>
+<div class="oq-grid">
+<div class="oq-field oq-full"><label for="business">Business / brand name</label><input id="business" name="business_name" type="text" value="Roma Vakil" required></div>
+<div class="oq-field"><label for="start">Preferred start date</label><input id="start" name="start_date" type="date"></div>
+<div class="oq-field"><label for="launch-date">Current MVP / platform launch date</label><input id="launch-date" name="mvp_launch_date" type="date"></div>
+<div class="oq-field oq-full"><label for="website">Website / landing page</label><input id="website" name="website" type="url" placeholder="https://"></div>
+<div class="oq-field oq-full"><label for="industry">Industry / niche</label><input id="industry" name="industry" type="text"></div>
+</div></section>
+
+<section class="oq-sec"><div class="oq-sec-head"><i></i><span>Section 02</span></div><h2>Social media <em>handles</em></h2><div class="oq-grid">
+<div class="oq-field"><label for="ig">Instagram</label><input id="ig" name="instagram" type="text" placeholder="@yourhandle"></div><div class="oq-field"><label for="fb">Facebook</label><input id="fb" name="facebook" type="text"></div><div class="oq-field"><label for="li">LinkedIn</label><input id="li" name="linkedin" type="text"></div><div class="oq-field"><label for="tt">TikTok</label><input id="tt" name="tiktok" type="text"></div><div class="oq-field oq-full"><label for="other-social">Other active channels</label><input id="other-social" name="other_social" type="text"></div></div></section>
+
+<section class="oq-sec"><div class="oq-sec-head"><i></i><span>Section 03</span></div><h2>Brand <em>direction</em></h2><p class="oq-sec-note">These questions help us protect your voice and make sure the content consistently communicates who you are becoming as a founder and what you're building.</p><div class="oq-grid">
+<div class="oq-field oq-full"><label for="words">Describe your brand in 3–5 words</label><input id="words" name="brand_words" type="text"></div><div class="oq-field oq-full"><label for="mission">Mission / philosophy behind the work you're building</label><textarea id="mission" name="mission"></textarea></div><div class="oq-field oq-full"><label for="understand">After 3–5 pieces of content, what should someone understand about you?</label><textarea id="understand" name="audience_should_understand"></textarea></div><div class="oq-field"><label for="feel">What should they feel?</label><textarea id="feel" name="audience_should_feel"></textarea></div><div class="oq-field"><label for="do">What should they be motivated to do?</label><textarea id="do" name="audience_should_do"></textarea></div><div class="oq-field oq-full"><label for="known">What do you want Roma to be known for 12 months from now?</label><textarea id="known" name="known_for_12_months"></textarea></div></div></section>
+
+<section class="oq-sec"><div class="oq-sec-head"><i></i><span>Section 04</span></div><h2>Audience &amp; existing <em>research</em></h2><p class="oq-sec-note">You've already completed detailed customer persona work. We don't want you to recreate it here. Share the existing work and tell us only what has changed.</p><div class="oq-grid"><div class="oq-field oq-full"><label for="persona-link">Customer persona / research folder link</label><input id="persona-link" name="customer_persona_folder_url" type="url" placeholder="Google Drive, Dropbox, etc."></div><div class="oq-field oq-full"><label for="aud-change">Has your audience changed or become more specific since our initial call?</label><textarea id="aud-change" name="audience_changes" placeholder="If not, simply write: No change."></textarea></div><div class="oq-field oq-full"><label for="secondary">Secondary audiences we should intentionally consider</label><textarea id="secondary" name="secondary_audiences"></textarea></div></div></section>
+
+<section class="oq-sec"><div class="oq-sec-head"><i></i><span>Section 05</span></div><h2>Platform &amp; <em>launch</em></h2><div class="oq-grid"><div class="oq-field oq-full"><label for="mvp">What exactly will be available when the MVP launches?</label><textarea id="mvp" name="mvp_available_at_launch"></textarea></div><div class="oq-field oq-full"><label for="offers">Initial courses, offers or experiences</label><textarea id="offers" name="initial_offers"></textarea></div><div class="oq-field oq-full"><label for="teachers">Who will teach / deliver each offer, and what pricing is finalized?</label><textarea id="teachers" name="offer_instructors_pricing"></textarea></div><div class="oq-field oq-full"><label for="relationship">How should your personal brand relate to the larger platform as additional coaches and topics are introduced?</label><textarea id="relationship" name="personal_brand_platform_relationship"></textarea></div><div class="oq-field oq-full"><label for="journey">Planned customer journey for launch</label><textarea id="journey" name="launch_customer_journey" placeholder="Example: social → lead magnet → email nurture → waitlist → webinar → purchase"></textarea></div><div class="oq-field oq-full"><label for="milestones">Major launch dates / milestones</label><textarea id="milestones" name="launch_milestones"></textarea></div></div><p class="oq-sec-note" style="margin-top:24px">Other marketing active during launch — check all that apply.</p><div class="oq-checks"><label class="oq-check"><input type="checkbox" name="launch_channels[]" value="Paid advertising">Paid advertising</label><label class="oq-check"><input type="checkbox" name="launch_channels[]" value="Email marketing">Email marketing</label><label class="oq-check"><input type="checkbox" name="launch_channels[]" value="PR">PR</label><label class="oq-check"><input type="checkbox" name="launch_channels[]" value="Partnerships / collaborations">Partnerships / collaborations</label><label class="oq-check"><input type="checkbox" name="launch_channels[]" value="Events / speaking">Events / speaking</label><label class="oq-check"><input type="checkbox" name="launch_channels[]" value="Influencer / creator collaborations">Influencer / creator collaborations</label></div></section>
+
+<section class="oq-sec"><div class="oq-sec-head"><i></i><span>Section 06</span></div><h2>Goals &amp; <em>success</em></h2><p class="oq-sec-note">Select what matters, then rank your top three so our content and reporting stay focused.</p><div class="oq-checks"><label class="oq-check"><input type="checkbox" name="goals[]" value="Brand awareness">Brand awareness</label><label class="oq-check"><input type="checkbox" name="goals[]" value="Audience growth">Audience growth</label><label class="oq-check"><input type="checkbox" name="goals[]" value="Warm / engaged community">Warm / engaged community</label><label class="oq-check"><input type="checkbox" name="goals[]" value="Personal brand authority">Personal brand authority</label><label class="oq-check"><input type="checkbox" name="goals[]" value="Platform awareness / launch anticipation">Platform awareness / launch anticipation</label><label class="oq-check"><input id="lead-goal-check" type="checkbox" name="goals[]" value="Email lead generation">Email lead generation</label><label class="oq-check"><input type="checkbox" name="goals[]" value="Engagement">Engagement</label><label class="oq-check"><input type="checkbox" name="goals[]" value="Direct sales">Direct sales</label></div><div class="oq-grid" style="margin-top:24px"><div class="oq-field"><label for="p1">Priority #1</label><input id="p1" name="priority_1" type="text" required></div><div class="oq-field"><label for="p2">Priority #2</label><input id="p2" name="priority_2" type="text" required></div><div class="oq-field oq-full"><label for="p3">Priority #3</label><input id="p3" name="priority_3" type="text" required></div><div class="oq-field oq-full"><label for="targets">Specific numeric targets attached to these priorities</label><textarea id="targets" name="specific_numeric_targets"></textarea></div><div class="oq-field oq-full"><label for="success3">What would success look like three months from now?</label><textarea id="success3" name="success_3_months"></textarea></div><div class="oq-field oq-full"><label for="worth">What would make you say, “This partnership was absolutely worth it”?</label><textarea id="worth" name="partnership_worth_it"></textarea></div></div>
+<div id="lead-details" style="display:none;margin-top:30px;padding:28px;background:#F9F5F1;border-left:4px solid #EAF6A5"><div class="oq-sec-head"><i></i><span>Lead generation details</span></div><div class="oq-grid"><div class="oq-field oq-full"><label>How should we understand the 500-email-lead goal?</label><select name="lead_goal_status"><option value="">Select one</option><option>500 total qualified leads by launch</option><option>500 new qualified leads before launch</option><option>The target has changed</option><option>The target is still being finalized</option></select></div><div class="oq-field"><label>Current qualified email leads</label><input name="current_qualified_email_leads" type="number" min="0"></div><div class="oq-field"><label>Email platform</label><input name="email_platform" type="text"></div><div class="oq-field oq-full"><label>Lead magnet / free resource</label><input name="lead_magnet_name" type="text"></div><div class="oq-field oq-full"><label>Lead magnet signup page</label><input name="lead_magnet_signup_url" type="url" placeholder="https://"></div><div class="oq-field oq-full"><label>What happens immediately after someone signs up?</label><textarea name="post_signup_flow"></textarea></div><div class="oq-field oq-full"><label>Automated nurture sequence?</label><select name="automated_nurture_sequence"><option value="">Select one</option><option>Yes</option><option>No</option><option>In progress</option><option>Not sure</option></select></div></div></div></section>
+
+<section class="oq-sec"><div class="oq-sec-head"><i></i><span>Section 07</span></div><h2>Existing strategy &amp; <em>assets</em></h2><p class="oq-sec-note"><strong>You've already done the groundwork.</strong> Please share what already exists so our team can build from it instead of recreating it.</p><div class="oq-checks"><label class="oq-check"><input type="checkbox" name="existing_strategy[]" value="Customer personas">Customer personas</label><label class="oq-check"><input type="checkbox" name="existing_strategy[]" value="Competitive analysis">Competitive analysis</label><label class="oq-check"><input type="checkbox" name="existing_strategy[]" value="Brand guidelines">Brand guidelines</label><label class="oq-check"><input type="checkbox" name="existing_strategy[]" value="Content pillars">Content pillars</label><label class="oq-check"><input type="checkbox" name="existing_strategy[]" value="Content strategy">Content strategy</label><label class="oq-check"><input type="checkbox" name="existing_strategy[]" value="Performance analysis">Performance analysis</label><label class="oq-check"><input type="checkbox" name="existing_strategy[]" value="Content calendar">Content calendar</label><label class="oq-check"><input type="checkbox" name="existing_strategy[]" value="Scripts / carousel drafts">Scripts / carousel drafts</label><label class="oq-check"><input type="checkbox" name="existing_strategy[]" value="Lead magnet / PDF">Lead magnet / PDF</label><label class="oq-check"><input type="checkbox" name="existing_strategy[]" value="Claude / AI strategy documents">Claude / AI strategy documents</label><label class="oq-check"><input type="checkbox" name="existing_strategy[]" value="Launch strategy">Launch strategy</label><label class="oq-check"><input type="checkbox" name="existing_strategy[]" value="Photo / video library">Photo / video library</label></div><div class="oq-grid" style="margin-top:24px"><div class="oq-field oq-full"><label for="strategy-link">Strategy / asset folder link</label><input id="strategy-link" name="strategy_folder_url" type="url" placeholder="Google Drive, Dropbox, etc."></div><div class="oq-field oq-full"><label for="fixed">Which parts are finalized or non-negotiable?</label><textarea id="fixed" name="strategy_final_nonnegotiable"></textarea></div><div class="oq-field oq-full"><label for="test">Which areas may S.H.E. Social challenge, test or refine based on performance?</label><textarea id="test" name="strategy_open_to_testing"></textarea></div></div></section>
+
+<section class="oq-sec"><div class="oq-sec-head"><i></i><span>Section 08</span></div><h2>Content &amp; <em>voice</em></h2><p class="oq-sec-note">Help us define the balance between authentic, human content and the authority your brand still needs to carry.</p><div class="oq-checks"><label class="oq-check"><input type="checkbox" name="tone[]" value="Warm / friendly">Warm / friendly</label><label class="oq-check"><input type="checkbox" name="tone[]" value="Educational">Educational</label><label class="oq-check"><input type="checkbox" name="tone[]" value="Inspirational">Inspirational</label><label class="oq-check"><input type="checkbox" name="tone[]" value="Bold">Bold</label><label class="oq-check"><input type="checkbox" name="tone[]" value="Conversational">Conversational</label><label class="oq-check"><input type="checkbox" name="tone[]" value="Professional">Professional</label><label class="oq-check"><input type="checkbox" name="tone[]" value="Luxe / premium">Luxe / premium</label><label class="oq-check"><input type="checkbox" name="tone[]" value="Direct">Direct</label></div><div class="oq-grid" style="margin-top:24px"><div class="oq-field oq-full"><label for="real">When you say “real,” authentic and less overly produced, what does that look like to you?</label><textarea id="real" name="authentic_content_definition"></textarea></div><div class="oq-field oq-full"><label for="most">Link 3–5 pieces of your current content that feel most like you</label><textarea id="most" name="content_examples_most_like_client"></textarea></div><div class="oq-field oq-full"><label for="least">Link 1–3 pieces that feel least like you</label><textarea id="least" name="content_examples_least_like_client"></textarea></div><div class="oq-field oq-full"><label for="admire">Creators / brands you admire, and what you like about them</label><textarea id="admire" name="admired_creators_and_why"></textarea></div><div class="oq-field oq-full"><label for="avoid">Topics, claims, words or styles to avoid</label><textarea id="avoid" name="content_avoid"></textarea></div></div></section>
+
+<section class="oq-sec"><div class="oq-sec-head"><i></i><span>Section 09</span></div><h2>Your <em>story bank</em></h2><p class="oq-sec-note">Your lived experiences are an important part of your content. Bullets are perfect. You do not need to write the full story here.</p><div class="oq-grid"><div class="oq-field oq-full"><label for="stories">List 5–10 major moments that helped shape the woman and founder you are today</label><textarea id="stories" name="major_story_moments"></textarea></div><div class="oq-field oq-full"><label for="offlimits">Parts of your story that are completely off-limits</label><textarea id="offlimits" name="story_off_limits"></textarea></div><div class="oq-field oq-full"><label for="careful">Experiences you're comfortable discussing but want handled carefully</label><textarea id="careful" name="story_handle_carefully"></textarea></div></div></section>
+
+<section class="oq-sec"><div class="oq-sec-head"><i></i><span>Section 10</span></div><h2>On camera &amp; <em>timely content</em></h2><div class="oq-checks"><label class="oq-check"><input type="radio" name="camera" value="Very comfortable">Very comfortable</label><label class="oq-check"><input type="radio" name="camera" value="Somewhat comfortable">Somewhat comfortable</label><label class="oq-check"><input type="radio" name="camera" value="Prefer not to be on camera">Prefer not to be on camera</label><label class="oq-check"><input type="radio" name="camera" value="Will consider with guidance">Will consider with guidance</label></div><p class="oq-sec-note" style="margin-top:24px">Are you willing to record occasional timely content between professional content sessions when we identify something worth responding to?</p><div class="oq-checks"><label class="oq-check"><input type="radio" name="timely_self_recording" value="Absolutely">Absolutely</label><label class="oq-check"><input type="radio" name="timely_self_recording" value="Yes, with clear direction">Yes, with clear direction</label><label class="oq-check"><input type="radio" name="timely_self_recording" value="Occasionally">Occasionally</label><label class="oq-check"><input type="radio" name="timely_self_recording" value="Prefer not to">Prefer not to</label></div></section>
+
+<section class="oq-sec"><div class="oq-sec-head"><i></i><span>Section 11</span></div><h2>Analytics &amp; <em>baseline</em></h2><p class="oq-sec-note">Before we begin creating, we want to understand where the account is today so we can measure what changes over time.</p><div class="oq-checks"><label class="oq-check"><input type="checkbox" name="analytics_tools[]" value="Instagram Insights">Instagram Insights</label><label class="oq-check"><input type="checkbox" name="analytics_tools[]" value="Meta Business Suite">Meta Business Suite</label><label class="oq-check"><input type="checkbox" name="analytics_tools[]" value="GA4">Google Analytics / GA4</label><label class="oq-check"><input type="checkbox" name="analytics_tools[]" value="Email analytics">Email marketing analytics</label><label class="oq-check"><input type="checkbox" name="analytics_tools[]" value="ManyChat">ManyChat</label><label class="oq-check"><input type="checkbox" name="analytics_tools[]" value="Not sure">I'm not sure</label></div><p class="oq-sec-note" style="margin-top:24px">Historical factors that may have affected performance.</p><div class="oq-checks"><label class="oq-check"><input type="checkbox" name="historical_factors[]" value="Paid advertising">Paid advertising</label><label class="oq-check"><input type="checkbox" name="historical_factors[]" value="Follower-growth services">Follower-growth services</label><label class="oq-check"><input type="checkbox" name="historical_factors[]" value="Giveaways">Giveaways</label><label class="oq-check"><input type="checkbox" name="historical_factors[]" value="Influencer campaigns">Influencer campaigns</label><label class="oq-check"><input type="checkbox" name="historical_factors[]" value="PR">PR</label><label class="oq-check"><input type="checkbox" name="historical_factors[]" value="Viral content / collaborations">Viral content / collaborations</label></div><div class="oq-grid" style="margin-top:24px"><div class="oq-field oq-full"><label for="hist">Anything else we should know about historical audience or performance?</label><textarea id="hist" name="historical_performance_notes"></textarea></div><div class="oq-field oq-full"><label for="analytics-link">Last 90 days analytics / reporting folder link</label><input id="analytics-link" name="baseline_analytics_url" type="url" placeholder="If you're unsure where to find this, we can help during setup."></div></div></section>
+
+<section class="oq-sec"><div class="oq-sec-head"><i></i><span>Section 12</span></div><h2>Workflow, approvals &amp; <em>community</em></h2><div class="oq-grid"><div class="oq-field oq-full"><label for="contact">Primary contact / final content approver</label><input id="contact" name="primary_contact" type="text" required></div><div class="oq-field"><label for="email">Email</label><input id="email" name="email" type="email" value="roma.vakil@gmail.com" required></div><div class="oq-field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel"></div><div class="oq-field"><label for="turnaround">Typical approval turnaround</label><select id="turnaround" name="approval_turnaround"><option value="">Select one</option><option>Same day</option><option>Within 24 hours</option><option>Within 48 hours</option><option>Other</option></select></div><div class="oq-field"><label for="comm">Preferred communication</label><select id="comm" name="preferred_communication"><option value="">Select one</option><option>Email</option><option>Text</option><option>Client portal</option><option>Slack</option><option>Other</option></select></div><div class="oq-field oq-full"><label for="dm">What types of comments or DMs may S.H.E. Social respond to without approval?</label><textarea id="dm" name="dm_comment_permission"></textarea></div><div class="oq-field oq-full"><label for="escalate">What should always be escalated directly to you?</label><textarea id="escalate" name="dm_comment_escalation"></textarea></div><div class="oq-field oq-full"><label for="engage">How much time can you realistically spend personally engaging with your audience each week?</label><input id="engage" name="personal_engagement_commitment" type="text"></div><div class="oq-field oq-full"><label for="anything">Anything else our team should know before we begin?</label><textarea id="anything" name="anything_else"></textarea></div></div></section>
+<p class="oq-quote">Thank you for completing this. We'll review your existing strategy, brand materials, goals, analytics and launch priorities, then identify what we keep, what we refine and what we test.</p>
+
+        <div class="oq-submit">
+          <div class="oq-actions">
+            <button type="submit">Submit My Questionnaire</button>
+            <button type="button" class="oq-download" id="oq-download">Download a copy for my records</button>
+          </div>
+          <p>Your responses will guide your initial 90-day direction, first content cycle and measurement baseline. Your copy downloads automatically when you submit.</p>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <div class="oq-foot">
+    <a href="tel:4078931728">407.893.1728</a>
+    <a href="mailto:she_social@outlook.com">she_social@outlook.com</a>
+    <a href="https://she-social.com">she-social.com</a>
+    <span>Saint Cloud, Florida</span>
+  </div>
+
+</div>
+
+
+<script>
+(function(){
+  var lead = document.getElementById('lead-goal-check');
+  var details = document.getElementById('lead-details');
+  if(lead && details){
+    function syncLead(){ details.style.display = lead.checked ? 'block' : 'none'; }
+    lead.addEventListener('change', syncLead); syncLead();
+  }
+})();
+</script>
+
+<script>
+(function(){
+  var form = document.querySelector('.oq-card form');
+  if(!form) return;
+
+  function labelFor(el){
+    var f = el.closest('.oq-field');
+    if(f && f.querySelector('label')) return f.querySelector('label').textContent.trim();
+    var c = el.closest('.oq-check');
+    if(c) return c.textContent.trim();
+    return el.name;
+  }
+
+  function collect(){
+    var out = [];
+    form.querySelectorAll('section.oq-sec').forEach(function(sec){
+      var title = sec.querySelector('h2') ? sec.querySelector('h2').textContent.trim() : '';
+      var rows = [];
+      sec.querySelectorAll('.oq-field input,.oq-field select,.oq-field textarea').forEach(function(el){
+        if(el.value && el.value.trim()) rows.push([labelFor(el), el.value.trim()]);
+      });
+      var groups = {};
+      sec.querySelectorAll('.oq-check input:checked').forEach(function(el){
+        var key = el.name.replace('[]','');
+        (groups[key] = groups[key] || []).push(labelFor(el));
+      });
+      Object.keys(groups).forEach(function(k){
+        rows.push([k.replace(/_/g,' '), groups[k].join(', ')]);
+      });
+      if(rows.length) out.push({title:title, rows:rows});
+    });
+    return out;
+  }
+
+  function esc(t){ return String(t).replace(/[&<>]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; }); }
+
+  function buildDoc(){
+    var data = collect();
+    var name = (form.querySelector('[name=business_name]') || {}).value || '';
+    var date = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+    var body = data.map(function(s){
+      return '<section><h2>' + esc(s.title) + '</h2>' + s.rows.map(function(r){
+        return '<div class="r"><div class="l">' + esc(r[0]) + '</div><div class="v">' + esc(r[1]).replace(/\n/g,'<br>') + '</div></div>';
+      }).join('') + '</section>';
+    }).join('');
+
+    return '<!DOCTYPE html><html><head><meta charset="utf-8"><title>S.H.E. Social — Onboarding Questionnaire</title>' +
+      '<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;600;700&display=swap" rel="stylesheet">' +
+      '<style>' +
+      'body{font-family:Jost,sans-serif;color:#4B3270;background:#F9F5F1;margin:0;padding:48px 40px;-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
+      '.w{max-width:760px;margin:0 auto;background:#fff;padding:56px 52px;border-top:4px solid #EAF6A5;box-shadow:0 8px 32px rgba(42,21,80,.12)}' +
+      'header{border-bottom:1px solid rgba(142,80,191,.15);padding-bottom:26px;margin-bottom:34px}' +
+      '.eb{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#9E94F5;margin-bottom:10px}' +
+      'h1{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:38px;line-height:1.1;color:#2A1550;margin:0 0 10px}' +
+      '.meta{font-size:12px;color:#7A63A0;font-weight:300}' +
+      'section{margin-bottom:30px;break-inside:avoid}' +
+      'h2{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:22px;color:#2A1550;margin:0 0 14px;padding-bottom:8px;border-bottom:1px solid #EAF6A5}' +
+      '.r{display:grid;grid-template-columns:200px 1fr;gap:16px;padding:8px 0;border-bottom:1px solid rgba(142,80,191,.07)}' +
+      '.l{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7A63A0;padding-top:2px}' +
+      '.v{font-size:14px;font-weight:300;line-height:1.7;color:#2A1550}' +
+      'footer{margin-top:36px;padding-top:20px;border-top:1px solid rgba(142,80,191,.15);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#B09FCA;text-align:center}' +
+      '@media print{body{background:#fff;padding:0}.w{box-shadow:none;padding:0}}' +
+      '</style></head><body><div class="w"><header><div class="eb">Client Onboarding Questionnaire</div>' +
+      '<h1>' + (name ? esc(name) : 'Your responses') + '</h1>' +
+      '<div class="meta">S.H.E. Social LLC &nbsp;·&nbsp; Submitted ' + date + '</div></header>' +
+      (body || '<p>No answers were filled in.</p>') +
+      '<footer>she_social@outlook.com &nbsp;·&nbsp; 407.893.1728 &nbsp;·&nbsp; she-social.com</footer>' +
+      '</div></body></html>';
+  }
+
+  function download(){
+    var name = ((form.querySelector('[name=business_name]') || {}).value || 'copy').replace(/[^a-z0-9]+/gi,'-');
+    var blob = new Blob([buildDoc()], {type:'text/html'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'SHE-Social-Questionnaire-' + name + '.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 4000);
+  }
+
+  document.getElementById('oq-download').addEventListener('click', download);
+  form.addEventListener('submit', function(){ try{ download(); }catch(e){} });
+})();
+</script>
+
+<!--
+  ===== NOTES ==========================================================
+
+  LOGO — src is assets/logo-outline.png (white-knockout via CSS filter). On your site
+  swap it for  assets/images/nav-logo.png  (the same file your nav uses).
+
+  TOKENS — the :root block duplicates your site's v5 tokens. If you paste
+  this into an existing page that already defines them, you can delete
+  the :root block entirely and it will inherit yours.
+
+  WHERE THE ANSWERS GO — connected to Netlify Forms as "client-onboarding".
+
+  DOWNLOAD A COPY — the outline button (and submitting) saves a branded
+  HTML summary of the answers to the client's device; they can open it
+  and print to PDF. Runs entirely in the browser, nothing is uploaded.
+
+  Mobile responsive, no dependencies. All class names are
+  prefixed .oq- so nothing collides with the site's existing CSS.
+  =====================================================================
+-->
+</body>
+</html>
